@@ -3,12 +3,12 @@
     x:Class="NEA_system.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:NEA_system"
-    Shell.FlyoutBehavior="Disabled">
+    xmlns:views="clr-namespace:NEA_system.Views"
+    Shell.FlyoutBehavior="Flyout">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Exercise"
+        ContentTemplate="{DataTemplate views:Page_Exercise}"
+        Route="Page_Exercise" />
 
 </Shell>

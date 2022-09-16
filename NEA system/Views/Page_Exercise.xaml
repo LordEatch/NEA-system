@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NEA_system.Views.Page_Exercise"
+             Title="Page_Exercise">
+    <VerticalStackLayout>
+        <CollectionView Header="Item list.">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Label>
+                        This is an item.
+                    </Label>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
