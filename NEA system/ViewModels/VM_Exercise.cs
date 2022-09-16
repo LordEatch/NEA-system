@@ -1,30 +1,40 @@
 ﻿using NEA_system.Models;
 using System.Collections.ObjectModel;
 
-namespace NEA_system.ViewModels
+namespace NEA_system.ViewModels;
+
+[QueryProperty(nameof(ExerciseID), "ExerciseID")]
+internal class VM_Exercise : VM_Base
 {
-    [QueryProperty(nameof(ExerciseID), "ExerciseID")]
-    internal class VM_Exercise
+    public int ExerciseID { get; set; }
+
+
+
+    #region sets
+    private ObservableCollection<Set> sets;
+    public ObservableCollection<Set> Sets
     {
-        public int ExerciseID { get; set; }
-
-        private readonly Set[] sets;
-        public ObservableCollection<Set> Sets { get; set; }
-
-
-
-        //Constructor
-
-        public VM_Exercise()
+        get { return sets; }
+        set
         {
-            //test.
-            sets = new Set[] { new Set(), new Set()};
-            UpdateSets();
+            sets = value;
+            OnPropertyChanged(nameof(Sets));
         }
+    }
+    #endregion
 
-        private void UpdateSets()
-        {
-            Sets = new ObservableCollection<Set>(sets);
-        }
+
+
+    //Constructor
+
+    public VM_Exercise()
+    {
+        //test.
+        sets = new ObservableCollection<Set> { new Set(), new Set() };
+    }
+
+    public void UpdateSets()
+    {
+        Sets = new ObservableCollection<Set>(sets);
     }
 }

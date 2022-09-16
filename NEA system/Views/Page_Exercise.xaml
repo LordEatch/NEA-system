@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NEA_system.Views.Page_Exercise"
-             Title="Page_Exercise">
+             Title="Page_Exercise"
+             BackgroundColor="{StaticResource Secondary}">
     <VerticalStackLayout>
-        <CollectionView Header="Item list.">
+        <CollectionView Header="Item list." ItemsSource="{Binding Sets}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Label>
