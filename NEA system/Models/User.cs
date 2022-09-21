@@ -82,9 +82,4 @@ public class User
     {
         db.Insert(this);
     }
-
-    public static User[] PullUsers(SQLiteConnection db)
-    {
-        return db.Table<User>().ToArray();
-    }
 }

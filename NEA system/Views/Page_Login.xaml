@@ -3,10 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:NEA_system.ViewModels"
              x:Class="NEA_system.Views.Page_Login"
-
              x:Name="page_Login"
-             
              Title="Login">
+    
     <ContentPage.BindingContext>
         <viewmodels:VM_Login/>
     </ContentPage.BindingContext>
@@ -22,10 +21,15 @@
                     <Button
                         Text="{Binding Username}"
                         Command="{Binding Path=BindingContext.UserSelectedCommand, Source={x:Reference page_Login}}"
-                        CommandParameter="{Binding .}"/>
+                        CommandParameter="{Binding .}"
+                        
+                        WidthRequest="200"
+                        HeightRequest="200"/>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
- 
+
+        <Button Text="Create a user" Command="{Binding GoToPage_CreateUser}"/>
+        
     </VerticalStackLayout>
 </ContentPage>

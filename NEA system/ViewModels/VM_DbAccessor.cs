@@ -1,10 +1,9 @@
-﻿using NEA_system.Models;
-using SQLite;
+﻿using SQLite;
 using System.Diagnostics;
 
 namespace NEA_system.ViewModels;
 
-internal class VM_DbAccessor
+internal abstract class VM_DbAccessor : VM_Base
 {
     //Not static in case I want to manipulate multiple databases in the future.
     protected SQLiteConnection db;
