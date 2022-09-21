@@ -7,8 +7,12 @@
     Shell.FlyoutBehavior="Flyout">
 
     <ShellContent
-        Title="Exercise"
-        ContentTemplate="{DataTemplate views:Page_Exercise}"
-        Route="Page_Exercise" />
+        Title="Login"
+        ContentTemplate="{DataTemplate views:Page_Login}"
+        Route="Page_Login" />
 
+    <ShellContent
+        Title="Workouts"
+        ContentTemplate="{DataTemplate views:Page_Workouts}"
+        Route="Page_Workouts" />
 </Shell>

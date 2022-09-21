@@ -8,33 +8,18 @@ internal class VM_Exercise : VM_Base
 {
     public int ExerciseID { get; set; }
 
-
-
     #region sets
-    private ObservableCollection<Set> sets;
-    public ObservableCollection<Set> Sets
-    {
-        get { return sets; }
-        set
-        {
-            sets = value;
-            OnPropertyChanged(nameof(Sets));
-        }
-    }
+    private ResistanceSet[] sets;
+    public ObservableCollection<ResistanceSet> Sets { get; set; }
     #endregion
 
 
 
-    //Constructor
+    // Constructor
 
     public VM_Exercise()
     {
         //test.
-        sets = new ObservableCollection<Set> { new Set(), new Set() };
-    }
-
-    public void UpdateSets()
-    {
-        Sets = new ObservableCollection<Set>(sets);
+        Sets = new ObservableCollection<ResistanceSet>(new ResistanceSet[] { new ResistanceSet() });
     }
 }
