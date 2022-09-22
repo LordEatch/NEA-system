@@ -11,5 +11,7 @@ public partial class AppShell : Shell
 		// Routes
 
 		Routing.RegisterRoute(nameof(Page_CreateUser), typeof(Page_CreateUser));
-	}
+        Routing.RegisterRoute(nameof(Page_EnterPassword), typeof(Page_EnterPassword));
+
+    }
 }

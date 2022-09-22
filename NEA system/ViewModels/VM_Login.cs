@@ -29,8 +29,10 @@ internal class VM_Login : VM_DbAccessor
     {
         UserSelectedCommand = new Command<User>(UserSelected);
         GoToPage_CreateUser = new Command(() => Shell.Current.GoToAsync($"{nameof(Page_CreateUser)}"));
-        //RefreshUsers();
+
+        //FINISH
         //This method calls in the constrcutor but not in OnAppearing() on the page. Newly created users will therefore not show after returning from Page_CreateUser. Needs fixing!
+        RefreshUsers();
     }
 
 
@@ -49,12 +51,13 @@ internal class VM_Login : VM_DbAccessor
         if (user.PasswordHash == null)
         {
             //Proceed.
+            //FINISH change this so that it passes the User object instead of just the ID. Then change the diagram on Lucidchart to follow the code.
             Shell.Current.GoToAsync($"//{nameof(Page_Workouts)}?UserID={user.UserID}");
             Debug.WriteLine("LoginViewModel: Logged into user with UserID: " + user.UserID);
         }
         else
         {
-            //Open a popup and pass this view model to it.
+            Shell.Current.GoToAsync($"{nameof(Page_EnterPassword)}?UserPasswordHash={user.PasswordHash}");
         }
     }
 }

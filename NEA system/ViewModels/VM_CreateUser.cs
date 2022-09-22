@@ -28,8 +28,8 @@ internal class VM_CreateUser : VM_DbAccessor
     private void InsertUser()
     {
         //FINISH
-        //if (ValidateUsername)
-        //if (ValidatePassword)
+        //if (ValidateUsernameFormat)
+        //if (ValidatePasswordFormat)
 
         var user = new User()
         {
@@ -41,12 +41,12 @@ internal class VM_CreateUser : VM_DbAccessor
         Debug.WriteLine($"User.CreateUser(): User created with id: '{user.UserID}', username: '{user.Username}' and password hash: '{user.PasswordHash}'.");
     }
 
-    protected bool ValidateUsername()
+    protected bool ValidateUsernameFormat()
     {
         return true;
     }
 
-    protected bool ValidatePassword()
+    protected bool ValidatePasswordFormat()
     {
         return true;
     }
