@@ -9,7 +9,8 @@
     <ShellContent
         Title="Login"
         ContentTemplate="{DataTemplate views:Page_Login}"
-        Route="Page_Login"/>
+        Route="Page_Login"
+        FlyoutItemIsVisible="False"/>
 
     <ShellContent
         Title="Workouts"

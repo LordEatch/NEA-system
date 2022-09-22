@@ -4,17 +4,18 @@
              xmlns:viewmodels="clr-namespace:NEA_system.ViewModels"
              x:Class="NEA_system.Views.Page_Login"
              x:Name="page_Login"
-             Title="Login">
+             Title="Login"
+             Shell.FlyoutBehavior="Disabled">
     
     <ContentPage.BindingContext>
         <viewmodels:VM_Login/>
     </ContentPage.BindingContext>
-    
-    <VerticalStackLayout>
 
+    <StackLayout>
         <CollectionView
             ItemsSource="{Binding Users}"
-            SelectionMode="Single">
+            SelectionMode="Single"
+            ItemsLayout="HorizontalList">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -24,12 +25,12 @@
                         CommandParameter="{Binding .}"
                         
                         WidthRequest="200"
-                        HeightRequest="200"/>
+                        HeightRequest="200"
+                        />
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
         <Button Text="Create a user" Command="{Binding GoToPage_CreateUser}"/>
-        
-    </VerticalStackLayout>
+    </StackLayout>
 </ContentPage>

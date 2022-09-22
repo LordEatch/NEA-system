@@ -3,15 +3,17 @@
              xmlns:viewmodels="clr-namespace:NEA_system.ViewModels"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NEA_system.Views.Page_CreateUser"
-             Title="Page_CreateUser">
-    
+             Title="Create user"
+             Shell.FlyoutBehavior="Disabled">
+
     <ContentPage.BindingContext>
         <viewmodels:VM_CreateUser/>
     </ContentPage.BindingContext>
-    
+
     <VerticalStackLayout>
         <Entry Text="{Binding Username}" Placeholder="Username"/>
         <Entry Text="{Binding Password}" Placeholder="Password" IsPassword="True"/>
         <Button Text="Create user" Command="{Binding InsertUserCommand}"/>
     </VerticalStackLayout>
+
 </ContentPage>
