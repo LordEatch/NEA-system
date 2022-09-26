@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace NEA_system.ViewModels;
+﻿namespace NEA_system.ViewModels;
 
 internal class VM_CreateUser : VM_DbAccessor
 {
@@ -30,6 +28,7 @@ internal class VM_CreateUser : VM_DbAccessor
         //FINISH
         //if (ValidateUsernameFormat)
         //if (ValidatePasswordFormat)
+        //if (CheckForCollisions)
 
         var user = new User()
         {
@@ -38,7 +37,7 @@ internal class VM_CreateUser : VM_DbAccessor
         };
         db.Insert(user);
 
-        Debug.WriteLine($"User.CreateUser(): User created with id: '{user.UserID}', username: '{user.Username}' and password hash: '{user.PasswordHash}'.");
+        System.Diagnostics.Debug.WriteLine($"User.CreateUser(): User created with id: '{user.UserID}', username: '{user.Username}' and password hash: '{user.PasswordHash}'.");
 
         Shell.Current.GoToAsync("..");
     }
@@ -49,6 +48,11 @@ internal class VM_CreateUser : VM_DbAccessor
     }
 
     protected bool ValidatePasswordFormat()
+    {
+        return true;
+    }
+
+    protected bool CheckForCollisions()
     {
         return true;
     }
