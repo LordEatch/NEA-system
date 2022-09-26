@@ -3,7 +3,6 @@
 namespace NEA_system.ViewModels;
 
 [QueryProperty(nameof(UserID), "UserID")]
-//Partial because community toolkit generates another partial class with auto code elsewhere.
 internal class VM_Workouts : VM_DbAccessor
 {
     // Properties
