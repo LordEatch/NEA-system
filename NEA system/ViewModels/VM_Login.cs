@@ -7,16 +7,8 @@ internal class VM_Login : VM_DbAccessor
 {
     // Properties
 
-    private ObservableCollection<User> users;
-    public ObservableCollection<User> Users
-    {
-        get { return users; }
-        set
-        {
-            users = value;
-            OnPropertyChanged(nameof(Users));
-        }
-    }
+    public ObservableCollection<User> Users { get; set; }
+
 
     public Command UserSelectedCommand { get; }
     public Command GoToPage_CreateUser { get; }
@@ -30,9 +22,7 @@ internal class VM_Login : VM_DbAccessor
         UserSelectedCommand = new Command<User>(UserSelected);
         GoToPage_CreateUser = new Command(() => Shell.Current.GoToAsync($"{nameof(Page_CreateUser)}"));
 
-        //FINISH
-        //This method calls in the constrcutor but not in OnAppearing() on the page. Newly created users will therefore not show after returning from Page_CreateUser. Needs fixing!
-        RefreshUsers();
+        Users = new ObservableCollection<User>();
     }
 
 
@@ -41,7 +31,11 @@ internal class VM_Login : VM_DbAccessor
 
     public void RefreshUsers()
     {
-        Users = new ObservableCollection<User>(db.Table<User>());
+        Users.Clear();
+        foreach (var user in db.Table<User>().ToArray())
+        {
+            Users.Add(user);
+        }
     }
 
     //Logs in instantly if the account has no associated password.
@@ -53,7 +47,7 @@ internal class VM_Login : VM_DbAccessor
             //Proceed.
             //FINISH change this so that it passes the User object instead of just the ID. Then change the diagram on Lucidchart to follow the code.
             Shell.Current.GoToAsync($"//{nameof(Page_Workouts)}?UserID={user.UserID}");
-            Debug.WriteLine("LoginViewModel: Logged into user with UserID: " + user.UserID);
+            Debug.WriteLine("VM_Login: Logged into user with UserID: " + user.UserID);
         }
         else
         {

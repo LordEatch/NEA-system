@@ -39,6 +39,8 @@ internal class VM_CreateUser : VM_DbAccessor
         db.Insert(user);
 
         Debug.WriteLine($"User.CreateUser(): User created with id: '{user.UserID}', username: '{user.Username}' and password hash: '{user.PasswordHash}'.");
+
+        Shell.Current.GoToAsync("..");
     }
 
     protected bool ValidateUsernameFormat()

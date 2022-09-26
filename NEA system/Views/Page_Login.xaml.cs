@@ -13,6 +13,6 @@ public partial class Page_Login : ContentPage
 	protected override void OnAppearing()
 	{
 		base.OnAppearing();
-		//VM.RefreshUsers();
+		VM.RefreshUsers();
     }
 }

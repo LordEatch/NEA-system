@@ -7,10 +7,6 @@
              Title="Login"
              Shell.FlyoutBehavior="Disabled">
     
-    <ContentPage.BindingContext>
-        <viewmodels:VM_Login/>
-    </ContentPage.BindingContext>
-
     <StackLayout>
         <CollectionView
             ItemsSource="{Binding Users}"
