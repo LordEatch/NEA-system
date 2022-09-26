@@ -15,6 +15,6 @@ public partial class Page_Workouts : ContentPage
 	{
         base.OnAppearing();
         await Task.Yield();
-        vm.RefreshWorkouts();
+		vm.InitialiseVM();
     }
 }

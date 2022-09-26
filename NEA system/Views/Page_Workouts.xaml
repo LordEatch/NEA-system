@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:NEA_system.ViewModels"
              x:Name="page_Workouts"
              x:Class="NEA_system.Views.Page_Workouts"
              Title="Workouts">
 
     <StackLayout>
+        <Label Text="{Binding NumberOfWorkouts}"/>
+
         <Button Text="Add workout" Command="{Binding TestCommand}"/>
 
         <CollectionView
