@@ -6,6 +6,18 @@ internal class VM_CreateUser : VM_DbAccessor
 
     public string Username { get; set; }
     public string Password { get; set; }
+    #region ErrorMessage
+    private string errorMessage;
+    public string ErrorMessage
+    {
+        get { return errorMessage; }
+        protected set
+        {
+            errorMessage = value;
+            OnPropertyChanged(nameof(ErrorMessage));
+        }
+    }
+    #endregion
 
     public Command InsertUserCommand { get; }
 
@@ -28,7 +40,15 @@ internal class VM_CreateUser : VM_DbAccessor
         //FINISH
         //if (ValidateUsernameFormat)
         //if (ValidatePasswordFormat)
-        //if (CheckForCollisions)
+
+
+
+        //Check if this username already exists.
+        if (CheckExistingUsernames())
+        {
+            ErrorMessage = "That username already exists.";
+            return;
+        }
 
         var user = new User()
         {
@@ -52,8 +72,11 @@ internal class VM_CreateUser : VM_DbAccessor
         return true;
     }
 
-    protected bool CheckForCollisions()
+    protected bool CheckExistingUsernames()
     {
-        return true;
+        if (db.Table<User>().Where(u => u.Username == Username).Count() == 0)
+            return false;
+        else
+            return true;
     }
 }

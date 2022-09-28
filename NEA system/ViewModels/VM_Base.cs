@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace NEA_system.ViewModels;
 
-internal abstract class VM_Base
+internal abstract class VM_Base : INotifyPropertyChanged
 {
     #region INotifyPropertyChanged
     public event PropertyChangedEventHandler PropertyChanged;

@@ -10,7 +10,7 @@ internal class VM_Workouts : VM_DbAccessor
     public int UserID { get; set; }
 
 
-    //  filters and sort by here
+    //  filters and sort_by here
 
     public string NumberOfWorkouts { get; set; }
     public ObservableCollection<Workout> Workouts { get; set; }
@@ -38,20 +38,17 @@ internal class VM_Workouts : VM_DbAccessor
 
     // Methods
 
-    //FINISH
     public void InitialiseVM()
     {
         RefreshWorkouts();
-        //FINISH /// PLEASE FIX THIS SHIT. updates the property and calls on property changed but property does not change on page and string remains empty.
         //I would have this as a getter under the property but MAUI bug means that query props
         //do not pass until some time after the page appears (need UserID to get number of workouts).
         //This method is delayed later to fix.
-        System.Diagnostics.Debug.WriteLine("uid: " + UserID);
-        int x = db.Table<Workout>().Where(w => w.UserID == UserID).Count();
-        NumberOfWorkouts = x.ToString();
+
+        NumberOfWorkouts = db.Table<Workout>().Where(w => w.UserID == UserID).Count().ToString();
         OnPropertyChanged(nameof(NumberOfWorkouts));
-        System.Diagnostics.Debug.WriteLine("noW: " + NumberOfWorkouts);
     }
+
     private void RefreshWorkouts()
     {
         Workouts.Clear();

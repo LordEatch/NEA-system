@@ -13,6 +13,7 @@
     <VerticalStackLayout>
         <Entry Text="{Binding Username}" Placeholder="Username"/>
         <Entry Text="{Binding Password}" Placeholder="Password" IsPassword="True"/>
+        <Label Text="{Binding ErrorMessage}" TextColor="Red"/>
         <Button Text="Create user" Command="{Binding InsertUserCommand}"/>
     </VerticalStackLayout>
 

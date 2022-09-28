@@ -38,6 +38,8 @@ internal class VM_Login : VM_DbAccessor
         }
     }
 
+
+    //FINISH
     //Logs in instantly if the account has no associated password.
     private void UserSelected(User user)
     {
