@@ -48,6 +48,9 @@ internal class VM_Login : VM_DbAccessor
         {
             //Proceed.
             //FINISH change this so that it passes the User object instead of just the ID. Then change the diagram on Lucidchart to follow the code.
+            
+            //Pass user to shell instead for session type login?
+            
             Shell.Current.GoToAsync($"//{nameof(Page_Workouts)}?UserID={user.UserID}");
             Debug.WriteLine("VM_Login: Logged into user with UserID: " + user.UserID);
         }

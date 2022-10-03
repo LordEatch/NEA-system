@@ -5,7 +5,7 @@ namespace NEA_system.ViewModels;
 
 internal abstract class VM_DbAccessor : VM_Base
 {
-    //Not static in case I want to manipulate multiple databases in the future.
+    //FINISH android app not working because this isnt async?
     protected SQLiteConnection db;
 
     protected VM_DbAccessor(string dbName = "GymDatabase.db")

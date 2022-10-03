@@ -6,24 +6,58 @@
              Title="Workouts">
 
     <StackLayout>
-        <Label Text="{Binding NumberOfWorkouts}"/>
+        <StackLayout
+            HorizontalOptions="Start"
+            Margin="20">
+            <Label
+                Text="{Binding NumberOfWorkouts}"
+                HorizontalOptions="Center"
+                FontSize="Large"/>
+            <Label
+                Text="Workouts"/>
+        </StackLayout>
 
         <Button Text="Add workout" Command="{Binding TestCommand}"/>
 
         <CollectionView
             ItemsSource="{Binding Workouts}"
-            SelectionMode="Single">
+            SelectionMode="Single"
+            VerticalOptions="EndAndExpand">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Button
-                        Text="{Binding WorkoutMuscleGroup}"
-                        Command="{Binding Path=BindingContext.WorkoutSelectedCommand, Source={x:Reference page_Workouts}}"
-                        CommandParameter="{Binding .}"
-                        
-                        WidthRequest="200"
-                        HeightRequest="200"
-                        />
+                    <Frame
+                        Margin="2"
+                        BackgroundColor="{StaticResource Tertiary}">
+                        <Grid Padding="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="20"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="400" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                                Grid.Row="0" 
+                                Grid.Column="0"
+                                Text="{Binding WorkoutMuscleGroup}"
+                                FontSize="25"
+                                FontAttributes="Bold"
+                                HorizontalOptions="CenterAndExpand"/>
+                            <Label
+                                Grid.Row="1" 
+                                Grid.Column="0"
+                                Text="{Binding Date}"
+                                FontSize="15"
+                                HorizontalOptions="CenterAndExpand"/>
+                            <Label
+                                Grid.Column="1" 
+                                Grid.RowSpan="2"
+                                Text="{Binding WorkoutComment}"/>
+                        </Grid>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

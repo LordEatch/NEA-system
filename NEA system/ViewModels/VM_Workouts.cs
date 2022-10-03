@@ -64,7 +64,8 @@ internal class VM_Workouts : VM_DbAccessor
         var workout = new Workout()
         {
             UserID = UserID,
-            Date = "no-date"
+            Date = "no-date",
+            WorkoutMuscleGroup = "Pushh"
         };
         db.Insert(workout);
 
