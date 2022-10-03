@@ -16,4 +16,8 @@
         Title="Workouts"
         ContentTemplate="{DataTemplate views:Page_Workouts}"
         Route="Page_Workouts"/>
+
+    <MenuItem
+        Text="Logout"
+        Clicked="LogoutClicked"/>
 </Shell>
