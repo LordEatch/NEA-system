@@ -2,12 +2,12 @@
 
 namespace NEA_system.ViewModels;
 
-[QueryProperty(nameof(UserID), "UserID")]
+[QueryProperty(nameof(MyUser), "User")]
 internal class VM_Workouts : VM_DbAccessor
 {
     // Properties
 
-    public int UserID { get; set; }
+    public User MyUser { get; set; }
 
 
     //  filters and sort_by here
@@ -45,14 +45,14 @@ internal class VM_Workouts : VM_DbAccessor
         //do not pass until some time after the page appears (need UserID to get number of workouts).
         //This method is delayed later to fix.
 
-        NumberOfWorkouts = db.Table<Workout>().Where(w => w.UserID == UserID).Count().ToString();
+        NumberOfWorkouts = db.Table<Workout>().Where(w => w.UserID == MyUser.UserID).Count().ToString();
         OnPropertyChanged(nameof(NumberOfWorkouts));
     }
 
     private void RefreshWorkouts()
     {
         Workouts.Clear();
-        foreach (var workout in db.Table<Workout>().Where(w => w.UserID == UserID).ToArray())
+        foreach (var workout in db.Table<Workout>().Where(w => w.UserID == MyUser.UserID).ToArray())
         {
             Workouts.Add(workout);
         }
@@ -63,7 +63,7 @@ internal class VM_Workouts : VM_DbAccessor
     {
         var workout = new Workout()
         {
-            UserID = UserID,
+            UserID = MyUser.UserID,
             Date = "no-date",
             WorkoutMuscleGroup = "Pushh"
         };

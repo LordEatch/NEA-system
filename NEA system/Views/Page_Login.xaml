@@ -14,16 +14,24 @@
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Button
-                        Text="{Binding Username}"
-                        Command="{Binding Path=BindingContext.UserSelectedCommand, Source={x:Reference page_Login}}"
-                        CommandParameter="{Binding .}"
-                        
-                        WidthRequest="200"
-                        HeightRequest="200"
-                        />
+                    <Frame>
+                        <Label
+                            Text="{Binding Username}"
+
+                            WidthRequest="200"
+                            HeightRequest="200">
+                        </Label>
+
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Path=BindingContext.UserSelectedCommand, Source={x:Reference page_Login}}"
+                                CommandParameter="{Binding .}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+
+
         </CollectionView>
 
         <Button Text="Create a user" Command="{Binding GoToPage_CreateUser}"/>

@@ -1,12 +1,12 @@
 ﻿namespace NEA_system.ViewModels;
 
-[QueryProperty(nameof(UserPasswordHash), "UserPasswordHash")]
+[QueryProperty(nameof(MyUser), "User")]
 internal class VM_EnterPassword
 {
     // Properties
 
     public string Password { get; set; }
-    public string UserPasswordHash { get; set; }
+    public User MyUser { get; set; }
 
     public Command LoginCommand { get; }
 
@@ -24,21 +24,13 @@ internal class VM_EnterPassword
 
     private void Login()
     {
-        if (ValidatePassword())
+        if (User.CalculatePasswordHash(Password) == MyUser.PasswordHash)
         {
-            Shell.Current.GoToAsync($"//{nameof(Page_Workouts)}");
-        }
-    }
-
-    private bool ValidatePassword()
-    {
-        if (User.CalculatePasswordHash(Password) == UserPasswordHash)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
+            Shell.Current.GoToAsync($"//{nameof(Page_Workouts)}",
+                new Dictionary<string, object>
+                {
+                    ["User"] = MyUser
+                });
         }
     }
 }
