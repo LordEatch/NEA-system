@@ -19,6 +19,8 @@
 
         <Button Text="Add workout" Command="{Binding TestCommand}"/>
 
+        <Entry Text="{Binding Search}" Placeholder="Filter"/>
+
         <CollectionView
             ItemsSource="{Binding Workouts}"
             SelectionMode="Single"

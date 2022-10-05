@@ -8,22 +8,18 @@ internal class VM_Workouts : VM_DbAccessor
     // Properties
 
     public User MyUser { get; set; }
-    
+    //FINISH
     public string Search
     {
-        get;
         set
         {
-            //Search = value;
-		    //if (Seach not changed in 1 second)
-		    //{
-		    //	RefreshWorkouts(Search);
-		    //}
+            //FINISH make this only go off if Search has not been updated in a second.
+            RefreshWorkouts(value);
         }
     }
-    
     public ObservableCollection<Workout> Workouts { get; set; }
     public string NumberOfWorkouts { get; set; }
+
 
 
     public Command WorkoutSelectedCommand { get; }
@@ -69,7 +65,7 @@ internal class VM_Workouts : VM_DbAccessor
         var workout = new Workout()
         {
             UserID = MyUser.UserID,
-            Date = "no-date",
+            Date = "21/10/2004",
             WorkoutMuscleGroup = "Pushh"
         };
         db.Insert(workout);
@@ -81,37 +77,33 @@ internal class VM_Workouts : VM_DbAccessor
     
     
 
-    private void RefreshWorkouts(string filter)
+    private void RefreshWorkouts(string filter = null)
     {
         Workouts.Clear();
-        //foreach (workout in FilterWorkouts(filter))
-		//{
-		//  Workouts.Add(workout);
-		//}
-
-
-        
-        //OLD CODE
-        //foreach (var workout in db.Table<Workout>().Where(w => w.UserID == MyUser.UserID).ToArray())
-        //{
-        //    Workouts.Add(workout);
-        //}
+        foreach (Workout w in FilterWorkouts(filter))
+        {
+            Workouts.Add(w);
+        }
     }
 
+    //FINISH
     private Workout[] FilterWorkouts(string filter)
     {
-        //if (filter != NullOrWhiteSpace)
-	    //{
-		//    Return anything relevant in the database that is equal to the filter:
+        if (!string.IsNullOrWhiteSpace(filter))
+        {
+            //FINISH Return anything relevant in the database that is equal to the filter:
 
-		//    Workout properties,
-		//    Exercise properties (return the workout associated with those sets)
-		//    Set properties (return the workout associated with those sets)
-	    //}
-        //else
-        //{
-        //  return all workouts;
-        //}
+            //Workout properties,
+            //Exercise properties(return the workout associated with those sets)
+            //Set properties(return the workout associated with those sets)
+
+            //FIX ordering by date but as an integer so its not really ordered properly.
+            return db.Table<Workout>().Where(w => w.UserID == MyUser.UserID).OrderBy(w => w.Date).ToArray();
+        }
+        else
+        {
+            return db.Table<Workout>().Where(w => w.UserID == MyUser.UserID).OrderBy(w => w.Date).ToArray();
+        }
     }
 
     private void WorkoutSelected(Workout workout)
