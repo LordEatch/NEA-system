@@ -5,12 +5,14 @@ namespace NEA_system.ViewModels;
 
 internal abstract class VM_DbAccessor : VM_Base
 {
-    //FINISH android app not working because this isnt async?
     protected SQLiteConnection db;
 
     protected VM_DbAccessor(string dbName = "GymDatabase.db")
     {
         var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), dbName);
+
+        //For when a new db is needed.
+        //File.Delete(dbPath);
 
         //If the database file does not already exist...
         if (!File.Exists(dbPath))

@@ -15,7 +15,7 @@ public partial class Page_Workouts : ContentPage
 	{
         base.OnAppearing();
         await Task.Yield();
-		vm.InitialiseVM();
+		vm.RefreshWorkouts();
 		//test
         System.Diagnostics.Debug.WriteLine("VM_Login: Logged into user with UserID: " + vm.MyUser.UserID);
     }

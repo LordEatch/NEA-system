@@ -13,5 +13,6 @@ public class ResistanceSet
     public double Mass { get; set; }
     public int StrictReps { get; set; }
     public int TotalReps { get; set; }
+    [NotNull]
     public string SetComment { get; set; }
 }

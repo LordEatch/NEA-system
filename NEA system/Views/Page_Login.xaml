@@ -4,7 +4,8 @@
              x:Name="page_Login"
              x:Class="NEA_system.Views.Page_Login"
              Title="Login"
-             Shell.FlyoutBehavior="Disabled">
+             Shell.FlyoutBehavior="Disabled"
+             BackgroundImageSource="oskar.png">
     
     <StackLayout>
         <CollectionView

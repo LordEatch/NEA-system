@@ -46,19 +46,21 @@ internal class VM_Workouts : VM_DbAccessor
 
     // Methods
 
-    public void InitialiseVM()
+    public void RefreshWorkouts(string filter = null)
     {
-        RefreshWorkouts();
-        
-        //I would have this as a getter under the property but MAUI bug means that query props
-        //do not pass until some time after the page appears (need UserID to get number of workouts).
-        //This method is delayed in Page.OnAppearing() to fix.
-        NumberOfWorkouts = db.Table<Workout>().Where(w => w.UserID == MyUser.UserID).Count().ToString();
+        Workouts.Clear();
+        foreach (Workout w in FilterWorkouts(filter))
+        {
+            Workouts.Add(w);
+        }
+
+        NumberOfWorkouts = Workouts.Count().ToString();
         OnPropertyChanged(nameof(NumberOfWorkouts));
     }
-    
-    
-    
+
+
+
+
     //test
     private void Test()
     {
@@ -66,43 +68,49 @@ internal class VM_Workouts : VM_DbAccessor
         {
             UserID = MyUser.UserID,
             Date = "21/10/2004",
-            WorkoutMuscleGroup = "Pushh"
+            WorkoutMuscleGroup = "Pushh",
+            WorkoutComment = ""
         };
         db.Insert(workout);
 
         RefreshWorkouts();
     }
-    
-    
-    
-    
 
-    private void RefreshWorkouts(string filter = null)
-    {
-        Workouts.Clear();
-        foreach (Workout w in FilterWorkouts(filter))
-        {
-            Workouts.Add(w);
-        }
-    }
 
-    //FINISH
+
+    //Returns every workout that directly contains a field containing the filter, and everyworkout that contains an exercise that contains a field containing the filter.
     private Workout[] FilterWorkouts(string filter)
     {
         if (!string.IsNullOrWhiteSpace(filter))
         {
-            //FINISH Return anything relevant in the database that is equal to the filter:
+            List<Workout> filteredWorkouts = new();
+            
+            //For each workout associated with this user...
+            foreach (Workout w in db.Table<Workout>().Where(w => w.UserID == MyUser.UserID).ToArray())
+            {
+                //If any workout attributes contain the filter...
+                if (w.Date.ToLower().Contains(filter.ToLower()) || w.WorkoutMuscleGroup.ToLower().Contains(filter.ToLower()) || w.WorkoutComment.ToLower().Contains(filter.ToLower()))
+                    //Add the workout.
+                    filteredWorkouts.Add(w);
 
-            //Workout properties,
-            //Exercise properties(return the workout associated with those sets)
-            //Set properties(return the workout associated with those sets)
+                //For each exercise within this workout...
+                foreach (Exercise e in db.Table<Exercise>().Where(e => e.WorkoutID == w.WorkoutID).ToArray())
+                {
+                    //Get the exercise type.
+                    ExerciseType eT = db.Find<ExerciseType>(e.ExerciseTypeID);
 
-            //FIX ordering by date but as an integer so its not really ordered properly.
-            return db.Table<Workout>().Where(w => w.UserID == MyUser.UserID).OrderBy(w => w.Date).ToArray();
+                    //If the exercise type attributes contain the filter...
+                    if (eT.ExerciseName.ToLower().Contains(filter.ToLower()) || eT.ExerciseDescription.ToLower().Contains(filter.ToLower()))
+                        //Add the workout associated with this exercise.
+                        filteredWorkouts.Add(w);
+                }
+            }
+
+            return filteredWorkouts.ToArray();
         }
         else
         {
-            return db.Table<Workout>().Where(w => w.UserID == MyUser.UserID).OrderBy(w => w.Date).ToArray();
+            return db.Table<Workout>().Where(w => w.UserID == MyUser.UserID).ToArray();
         }
     }
 
