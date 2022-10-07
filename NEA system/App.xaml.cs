@@ -2,7 +2,9 @@
 
 public partial class App : Application
 {
-	public App()
+    public User SessionUser;
+
+    public App()
 	{
 		InitializeComponent();
 

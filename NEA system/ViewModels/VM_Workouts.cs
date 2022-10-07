@@ -2,12 +2,10 @@
 
 namespace NEA_system.ViewModels;
 
-[QueryProperty(nameof(MyUser), "User")]
 internal class VM_Workouts : VM_DbAccessor
 {
     // Properties
 
-    public User MyUser { get; set; }
     //FINISH
     public string Search
     {
@@ -18,7 +16,7 @@ internal class VM_Workouts : VM_DbAccessor
         }
     }
     public ObservableCollection<Workout> Workouts { get; set; }
-    public string NumberOfWorkouts { get; set; }
+    public string WorkoutsHeader { get; set; }
 
 
 
@@ -54,8 +52,8 @@ internal class VM_Workouts : VM_DbAccessor
             Workouts.Add(w);
         }
 
-        NumberOfWorkouts = Workouts.Count().ToString();
-        OnPropertyChanged(nameof(NumberOfWorkouts));
+        WorkoutsHeader = $"Showing {Workouts.Count()} workouts";
+        OnPropertyChanged(nameof(WorkoutsHeader));
     }
 
 
@@ -66,7 +64,7 @@ internal class VM_Workouts : VM_DbAccessor
     {
         var workout = new Workout()
         {
-            UserID = MyUser.UserID,
+            UserID = Session.CurrentUser.UserID,
             Date = "21/10/2004",
             WorkoutMuscleGroup = "Pushh",
             WorkoutComment = ""
@@ -86,31 +84,38 @@ internal class VM_Workouts : VM_DbAccessor
             List<Workout> filteredWorkouts = new();
             
             //For each workout associated with this user...
-            foreach (Workout w in db.Table<Workout>().Where(w => w.UserID == MyUser.UserID).ToArray())
+            foreach (Workout w in db.Table<Workout>().Where(w => w.UserID == Session.CurrentUser.UserID).ToArray())
             {
                 //If any workout attributes contain the filter...
                 if (w.Date.ToLower().Contains(filter.ToLower()) || w.WorkoutMuscleGroup.ToLower().Contains(filter.ToLower()) || w.WorkoutComment.ToLower().Contains(filter.ToLower()))
                     //Add the workout.
                     filteredWorkouts.Add(w);
-
-                //For each exercise within this workout...
-                foreach (Exercise e in db.Table<Exercise>().Where(e => e.WorkoutID == w.WorkoutID).ToArray())
+                //If the workout itself had no relevant data that contained the filter...
+                else
                 {
-                    //Get the exercise type.
-                    ExerciseType eT = db.Find<ExerciseType>(e.ExerciseTypeID);
+                    //...check its exercises.
 
-                    //If the exercise type attributes contain the filter...
-                    if (eT.ExerciseName.ToLower().Contains(filter.ToLower()) || eT.ExerciseDescription.ToLower().Contains(filter.ToLower()))
-                        //Add the workout associated with this exercise.
-                        filteredWorkouts.Add(w);
+                    //For each exercise within this workout...
+                    foreach (Exercise e in db.Table<Exercise>().Where(e => e.WorkoutID == w.WorkoutID).ToArray())
+                    {
+                        //Get the exercise type.
+                        ExerciseType eT = db.Find<ExerciseType>(e.ExerciseTypeID);
+
+                        //If the exercise type attributes contain the filter...
+                        if (eT.ExerciseName.ToLower().Contains(filter.ToLower()) || eT.ExerciseDescription.ToLower().Contains(filter.ToLower()))
+                            //Add the workout associated with this exercise.
+                            filteredWorkouts.Add(w);
+                    }
                 }
+
+
             }
 
             return filteredWorkouts.ToArray();
         }
         else
         {
-            return db.Table<Workout>().Where(w => w.UserID == MyUser.UserID).ToArray();
+            return db.Table<Workout>().Where(w => w.UserID == Session.CurrentUser.UserID).ToArray();
         }
     }
 

@@ -4,37 +4,52 @@
              x:Name="page_Login"
              x:Class="NEA_system.Views.Page_Login"
              Title="Login"
-             Shell.FlyoutBehavior="Disabled"
-             BackgroundImageSource="oskar.png">
-    
-    <StackLayout>
+             Shell.FlyoutBehavior="Disabled">
+
+    <Grid
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="336" />
+            <RowDefinition Height="128" />
+        </Grid.RowDefinitions>
+
         <CollectionView
             ItemsSource="{Binding Users}"
             SelectionMode="Single"
-            ItemsLayout="HorizontalList">
+            ItemsLayout="HorizontalList"
+            Grid.Row="0">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame>
+                    <Border
+                        WidthRequest="256"
+                        HeightRequest="256"
+                        StrokeShape="RoundRectangle 128"
+                        Margin="40"
+                        BackgroundColor="Red">
+                        
                         <Label
                             Text="{Binding Username}"
-
-                            WidthRequest="200"
-                            HeightRequest="200">
-                        </Label>
-
-                        <Frame.GestureRecognizers>
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"/>
+                        
+                        <Border.GestureRecognizers>
                             <TapGestureRecognizer
                                 Command="{Binding Path=BindingContext.UserSelectedCommand, Source={x:Reference page_Login}}"
                                 CommandParameter="{Binding .}"/>
-                        </Frame.GestureRecognizers>
-                    </Frame>
+                        </Border.GestureRecognizers>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-
-
         </CollectionView>
 
-        <Button Text="Create a user" Command="{Binding GoToPage_CreateUser}"/>
-    </StackLayout>
+        <Button
+            Text="Create a user"
+            Command="{Binding GoToPage_CreateUser}"
+            VerticalOptions="Center"
+            WidthRequest="200"
+            Grid.Row="1"/>
+    </Grid>
+
 </ContentPage>

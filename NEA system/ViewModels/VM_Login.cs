@@ -1,6 +1,4 @@
-﻿using NEA_system.Models;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
 
 namespace NEA_system.ViewModels;
 
@@ -39,24 +37,17 @@ internal class VM_Login : VM_DbAccessor
         }
     }
 
-
-    //FINISH
     //Logs in instantly if the account has no associated password.
     private void UserSelected(User user)
     {
-        //Example of use of dictionary. Passes object to next page.
-        Dictionary<string, object> userDict = new() { ["User"] = user };
-
         //If this user does not have a password...
         if (user.PasswordHash == null)
         {
-            //FINISH Pass user to shell instead for session type login?
-
-            Shell.Current.GoToAsync($"//{nameof(Page_Workouts)}", userDict);
+            Session.Login(user);
         }
         else
         {
-            Shell.Current.GoToAsync($"{nameof(Page_EnterPassword)}", userDict);
+            Shell.Current.GoToAsync($"{nameof(Page_EnterPassword)}", new Dictionary<string, object>() { ["User"] = user });
         }
     }
 }

@@ -26,11 +26,7 @@ internal class VM_EnterPassword
     {
         if (User.CalculatePasswordHash(Password) == MyUser.PasswordHash)
         {
-            Shell.Current.GoToAsync($"//{nameof(Page_Workouts)}",
-                new Dictionary<string, object>
-                {
-                    ["User"] = MyUser
-                });
+            Session.Login(MyUser);
         }
     }
 }

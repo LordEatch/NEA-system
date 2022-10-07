@@ -6,21 +6,39 @@
              Title="Workouts">
 
     <StackLayout>
-        <StackLayout
-            HorizontalOptions="Start"
-            Margin="20">
-            <Label
-                Text="{Binding NumberOfWorkouts}"
-                HorizontalOptions="Center"
-                FontSize="Large"/>
-            <Label
-                Text="Workouts"/>
-        </StackLayout>
+        <!-- Change so that all is within one grid -->
 
-        <Button Text="Add workout" Command="{Binding TestCommand}"/>
+        <Grid
+            Padding="10"
+            BackgroundColor="{StaticResource Tertiary}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25" />
+                <RowDefinition Height="35" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <Entry Text="{Binding Search}" Placeholder="Filter"/>
+            <Label Text="Filter" Grid.Row="0"/>
+            <Entry
+                Text="{Binding Search}"
+                Grid.Row="1"
+                Placeholder="Filter by workout or exercise property"/>
 
+            <Button
+                Text="Create new workout"
+                Command="{Binding TestCommand}"
+                HorizontalOptions="End"
+                Grid.Column="1"
+                Grid.RowSpan="2"/>
+        </Grid>
+        
+        <Label
+            Text="{Binding WorkoutsHeader}"
+            Margin="10"/>
+
+        <!-- Must be end and expand for scrolling to work? -->
         <CollectionView
             ItemsSource="{Binding Workouts}"
             SelectionMode="Single"
@@ -29,16 +47,16 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame
-                        Margin="2"
-                        BackgroundColor="{StaticResource Tertiary}">
-                        <Grid Padding="5">
+                        HorizontalOptions="Fill">
+                        <Grid
+                            Padding="5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40"/>
                                 <RowDefinition Height="20"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="200" />
-                                <ColumnDefinition Width="400" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="9*" />
                             </Grid.ColumnDefinitions>
 
                             <Label
