@@ -2,7 +2,7 @@
 
 namespace NEA_system.ViewModels;
 
-internal class VM_Workouts : VM_DbAccessor
+internal class VM_Workouts : VM_Base
 {
     // Properties
 
@@ -69,7 +69,7 @@ internal class VM_Workouts : VM_DbAccessor
             WorkoutMuscleGroup = "Pushh",
             WorkoutComment = ""
         };
-        db.Insert(workout);
+        Session.DB.Insert(workout);
 
         RefreshWorkouts();
     }
@@ -84,7 +84,7 @@ internal class VM_Workouts : VM_DbAccessor
             List<Workout> filteredWorkouts = new();
             
             //For each workout associated with this user...
-            foreach (Workout w in db.Table<Workout>().Where(w => w.UserID == Session.CurrentUser.UserID).ToArray())
+            foreach (Workout w in Session.DB.Table<Workout>().Where(w => w.UserID == Session.CurrentUser.UserID).ToArray())
             {
                 //If any workout attributes contain the filter...
                 if (w.Date.ToLower().Contains(filter.ToLower()) || w.WorkoutMuscleGroup.ToLower().Contains(filter.ToLower()) || w.WorkoutComment.ToLower().Contains(filter.ToLower()))
@@ -96,10 +96,10 @@ internal class VM_Workouts : VM_DbAccessor
                     //...check its exercises.
 
                     //For each exercise within this workout...
-                    foreach (Exercise e in db.Table<Exercise>().Where(e => e.WorkoutID == w.WorkoutID).ToArray())
+                    foreach (Exercise e in Session.DB.Table<Exercise>().Where(e => e.WorkoutID == w.WorkoutID).ToArray())
                     {
                         //Get the exercise type.
-                        ExerciseType eT = db.Find<ExerciseType>(e.ExerciseTypeID);
+                        ExerciseType eT = Session.DB.Find<ExerciseType>(e.ExerciseTypeID);
 
                         //If the exercise type attributes contain the filter...
                         if (eT.ExerciseName.ToLower().Contains(filter.ToLower()) || eT.ExerciseDescription.ToLower().Contains(filter.ToLower()))
@@ -115,7 +115,7 @@ internal class VM_Workouts : VM_DbAccessor
         }
         else
         {
-            return db.Table<Workout>().Where(w => w.UserID == Session.CurrentUser.UserID).ToArray();
+            return Session.DB.Table<Workout>().Where(w => w.UserID == Session.CurrentUser.UserID).ToArray();
         }
     }
 

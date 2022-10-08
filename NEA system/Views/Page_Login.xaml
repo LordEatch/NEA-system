@@ -10,36 +10,28 @@
         HorizontalOptions="Center"
         VerticalOptions="Center">
         <Grid.RowDefinitions>
-            <RowDefinition Height="336" />
-            <RowDefinition Height="128" />
+            <RowDefinition Height="500" />
+            <RowDefinition Height="100" />
         </Grid.RowDefinitions>
 
         <CollectionView
             ItemsSource="{Binding Users}"
             SelectionMode="Single"
-            ItemsLayout="HorizontalList"
             Grid.Row="0">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Border
-                        WidthRequest="256"
-                        HeightRequest="256"
-                        StrokeShape="RoundRectangle 128"
-                        Margin="40"
-                        BackgroundColor="Red">
-                        
+                    <Frame>
                         <Label
                             Text="{Binding Username}"
                             HorizontalOptions="Center"
                             VerticalOptions="Center"/>
-                        
-                        <Border.GestureRecognizers>
+                        <Frame.GestureRecognizers>
                             <TapGestureRecognizer
                                 Command="{Binding Path=BindingContext.UserSelectedCommand, Source={x:Reference page_Login}}"
                                 CommandParameter="{Binding .}"/>
-                        </Border.GestureRecognizers>
-                    </Border>
+                        </Frame.GestureRecognizers>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
@@ -47,8 +39,6 @@
         <Button
             Text="Create a user"
             Command="{Binding GoToPage_CreateUser}"
-            VerticalOptions="Center"
-            WidthRequest="200"
             Grid.Row="1"/>
     </Grid>
 

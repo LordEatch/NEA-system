@@ -1,6 +1,6 @@
 ﻿namespace NEA_system.ViewModels;
 
-internal class VM_CreateUser : VM_DbAccessor
+internal class VM_CreateUser : VM_Base
 {
     // Fields
 
@@ -45,17 +45,14 @@ internal class VM_CreateUser : VM_DbAccessor
 
         //Check if this username already exists.
         if (CheckExistingUsernames())
-        {
-            ErrorMessage = "That username already exists.";
             return;
-        }
 
         var user = new User()
         {
             Username = Username,
             PasswordHash = User.CalculatePasswordHash(Password)
         };
-        db.Insert(user);
+        Session.DB.Insert(user);
 
         System.Diagnostics.Debug.WriteLine($"User.CreateUser(): User created with id: '{user.UserID}', username: '{user.Username}' and password hash: '{user.PasswordHash}'.");
 
@@ -74,9 +71,14 @@ internal class VM_CreateUser : VM_DbAccessor
 
     protected bool CheckExistingUsernames()
     {
-        if (db.Table<User>().Where(u => u.Username == Username).Count() == 0)
+        if (Session.DB.Table<User>().Where(u => u.Username == Username).Count() == 0)
+        {
             return false;
+        }
         else
+        {
+            ErrorMessage = "That username already exists.";
             return true;
+        }
     }
 }

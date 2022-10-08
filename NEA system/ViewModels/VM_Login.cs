@@ -2,7 +2,7 @@
 
 namespace NEA_system.ViewModels;
 
-internal class VM_Login : VM_DbAccessor
+internal class VM_Login : VM_Base
 {
     // Properties
 
@@ -31,7 +31,7 @@ internal class VM_Login : VM_DbAccessor
     public void RefreshUsers()
     {
         Users.Clear();
-        foreach (var user in db.Table<User>().ToArray())
+        foreach (var user in Session.DB.Table<User>().ToArray())
         {
             Users.Add(user);
         }

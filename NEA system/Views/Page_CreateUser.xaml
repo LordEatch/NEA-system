@@ -10,11 +10,35 @@
         <viewmodels:VM_CreateUser/>
     </ContentPage.BindingContext>
 
-    <VerticalStackLayout>
-        <Entry Text="{Binding Username}" Placeholder="Username"/>
-        <Entry Text="{Binding Password}" Placeholder="Password" IsPassword="True"/>
-        <Label Text="{Binding ErrorMessage}" TextColor="Red"/>
-        <Button Text="Create user" Command="{Binding InsertUserCommand}"/>
-    </VerticalStackLayout>
+    <Grid
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Entry
+            Text="{Binding Username}"
+            Placeholder="Username"
+            MinimumWidthRequest="200"
+            Grid.Row="0"/>
+        <Entry
+            Text="{Binding Password}"
+            Placeholder="Password"
+            IsPassword="True"
+            MinimumWidthRequest="200"
+            Grid.Row="1"/>
+        <Label
+            Style="{StaticResource ErrorMessage}"
+            Text="{Binding ErrorMessage}"
+            Grid.Row="2"/>
+        <Button
+            Text="Create user"
+            Command="{Binding InsertUserCommand}"
+            Grid.Row="3"/>
+    </Grid>
 </ContentPage>

@@ -8,79 +8,93 @@
     <StackLayout>
         <!-- Change so that all is within one grid -->
 
-        <Grid
-            Padding="10"
-            BackgroundColor="{StaticResource Tertiary}">
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="25" />
-                <RowDefinition Height="35" />
+                <RowDefinition Height="80" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="550" />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
 
-            <Label Text="Filter" Grid.Row="0"/>
-            <Entry
-                Text="{Binding Search}"
-                Grid.Row="1"
-                Placeholder="Filter by workout or exercise property"/>
+            <Grid
+                Padding="10"
+                BackgroundColor="{StaticResource Tertiary}"
+                Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="35" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-            <Button
-                Text="Create new workout"
-                Command="{Binding TestCommand}"
-                HorizontalOptions="End"
-                Grid.Column="1"
-                Grid.RowSpan="2"/>
-        </Grid>
-        
-        <Label
-            Text="{Binding WorkoutsHeader}"
-            Margin="10"/>
+                <Label
+                    Text="Filter"
+                    Grid.Row="0"/>
+                <Entry
+                    Text="{Binding Search}"
+                    Grid.Row="1"
+                    Placeholder="Filter by workout or exercise property"/>
 
-        <!-- Must be end and expand for scrolling to work? -->
-        <CollectionView
-            ItemsSource="{Binding Workouts}"
-            SelectionMode="Single"
-            VerticalOptions="EndAndExpand">
+                <Button
+                    Text="Create new workout"
+                    Command="{Binding TestCommand}"
+                    HorizontalOptions="End"
+                    Grid.Column="1"
+                    Grid.RowSpan="2"/>
+            </Grid>
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame
-                        HorizontalOptions="Fill">
-                        <Grid
-                            Padding="5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="40"/>
-                                <RowDefinition Height="20"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="9*" />
-                            </Grid.ColumnDefinitions>
+            <Label
+                Text="{Binding WorkoutsHeader}"
+                Margin="10"
+                Grid.Row="1"/>
+            
+            <CollectionView
+                ItemsSource="{Binding Workouts}"
+                SelectionMode="Single"
+                Grid.Row="2">
+                
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame
+                            HorizontalOptions="Fill">
+                            <Grid
+                                Padding="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="20"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="3*" />
+                                </Grid.ColumnDefinitions>
 
-                            <Label
+                                <Label
                                 Grid.Row="0" 
                                 Grid.Column="0"
                                 Text="{Binding WorkoutMuscleGroup}"
                                 FontSize="25"
                                 FontAttributes="Bold"
                                 HorizontalOptions="CenterAndExpand"/>
-                            <Label
+                                <Label
                                 Grid.Row="1" 
                                 Grid.Column="0"
                                 Text="{Binding Date}"
                                 FontSize="15"
                                 HorizontalOptions="CenterAndExpand"/>
-                            <Label
+                                <Label
                                 Grid.Column="1" 
                                 Grid.RowSpan="2"
                                 Text="{Binding WorkoutComment}"/>
-                        </Grid>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
+
+
 
     </StackLayout>
 </ContentPage>
