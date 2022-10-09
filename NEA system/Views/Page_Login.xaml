@@ -14,10 +14,10 @@
             <RowDefinition Height="100" />
         </Grid.RowDefinitions>
 
+        <!-- EmptyView property breaks android :/ -->
         <CollectionView
             ItemsSource="{Binding Users}"
             SelectionMode="Single"
-            EmptyView="No profiles yet."
             Grid.Row="0">
 
             <CollectionView.ItemTemplate>

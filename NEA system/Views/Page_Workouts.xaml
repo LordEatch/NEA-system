@@ -49,10 +49,10 @@
                 Margin="10"
                 Grid.Row="1"/>
             
+            <!-- EmptyView property breaks android :/ -->
             <CollectionView
                 ItemsSource="{Binding Workouts}"
                 SelectionMode="Single"
-                EmptyView="No workouts yet."
                 Grid.Row="2">
                 
                 <CollectionView.ItemTemplate>
