@@ -35,7 +35,7 @@ internal class VM_CreateUser : VM_Base
     // Methods
 
     //FINISH
-    private void InsertUser()
+    protected void InsertUser()
     {
         //FINISH
         //if (ValidateUsernameFormat)

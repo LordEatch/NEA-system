@@ -52,6 +52,7 @@
             <CollectionView
                 ItemsSource="{Binding Workouts}"
                 SelectionMode="Single"
+                EmptyView="No workouts yet."
                 Grid.Row="2">
                 
                 <CollectionView.ItemTemplate>

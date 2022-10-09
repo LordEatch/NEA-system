@@ -76,7 +76,9 @@ internal class VM_Workouts : VM_Base
 
 
 
-    //Returns every workout that directly contains a field containing the filter, and everyworkout that contains an exercise that contains a field containing the filter.
+    //FINISH    only make this load the most recent 50 into memory until the user scrolls to the bottom to see more. This is to boost performance since I need to eventaully calculate
+    //          exercise and set count per loaded workout and then display it.
+    //Returns every workout that directly contains a field containing the filter, and every workout that contains an exercise that contains a field containing the filter.
     private Workout[] FilterWorkouts(string filter)
     {
         if (!string.IsNullOrWhiteSpace(filter))

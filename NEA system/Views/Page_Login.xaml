@@ -17,15 +17,14 @@
         <CollectionView
             ItemsSource="{Binding Users}"
             SelectionMode="Single"
+            EmptyView="No profiles yet."
             Grid.Row="0">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame>
                         <Label
-                            Text="{Binding Username}"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"/>
+                            Text="{Binding Username}"/>
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer
                                 Command="{Binding Path=BindingContext.UserSelectedCommand, Source={x:Reference page_Login}}"
