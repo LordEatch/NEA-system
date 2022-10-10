@@ -23,27 +23,38 @@ public class User
 
     //Methods
 
+    //FINISH This needs to return a 128 bit (32 hexa letter) string regardless of the input length. Each letter is 16 bit so will return 4 hex characters currently per letter.
     public static string CalculatePasswordHash(string plaintextPassword)
     {
         if (!string.IsNullOrEmpty(plaintextPassword))
         {
-            string cyphertextPassword;
+            byte[] plaintextPasswordBytes = Encoding.Unicode.GetBytes(plaintextPassword);
+            //test
+            //produces 'number of 8-bit bytes: 2';
+            System.Diagnostics.Debug.WriteLine("number of 8-bit bytes: " + plaintextPasswordBytes.Length);
 
-            byte[] plaintextPasswordBytes = Encoding.UTF8.GetBytes(plaintextPassword);
-
-            //Auto disposes sHA after use.
-            using (SHA256 sHA = SHA256.Create())
+            byte[] cyphertextBytes = new byte[plaintextPasswordBytes.Length];
+            // foreach 8-bit byte in the byte array (which should be 2 for unicode)...
+            for (int i = 0; i < plaintextPasswordBytes.Length; i++)
             {
-                //Calculate hash and covert to hex string.
-                byte[] hash = sHA.ComputeHash(plaintextPasswordBytes);
-                cyphertextPassword = BaseConversion.ByteArrayToHexString(hash);
+                cyphertextBytes[i] = Hash(plaintextPasswordBytes[i]);
             }
 
-            return cyphertextPassword;
+            return BaseConversion.ByteArrayToHexString(cyphertextBytes);
         }
         else
         {
             return null;
         }
+    }
+
+    private static byte Hash(byte b)
+    {
+        int decimalNumber = (int)b;
+
+        //Hashing bit...
+        decimalNumber = (decimalNumber * (decimalNumber + 3)) % 11;
+
+        return (byte)decimalNumber;
     }
 }

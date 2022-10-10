@@ -21,6 +21,11 @@
         ContentTemplate="{DataTemplate views:Page_Workouts}"
         Route="Page_Workouts"/>
 
+    <ShellContent
+        Title="Settings"
+        ContentTemplate="{DataTemplate views:Page_ProfileSettings}"
+        Route="Page_ProfileSettings"/>
+
     <MenuItem
         Text="Logout"
         Clicked="LogoutClicked"/>

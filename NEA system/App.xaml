@@ -2,7 +2,11 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:NEA_system"
-             x:Class="NEA_system.App">
+             x:Class="NEA_system.App"
+             UserAppTheme="Dark">
+    
+    <!-- Added dark mode bit. -->
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

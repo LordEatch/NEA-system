@@ -54,21 +54,24 @@ namespace NEA_system.Models
         public static void Login(User user)
         {
             CurrentUser = user;
-            Debug.WriteLine("Logged in with UserID: " + CurrentUser.UserID);
-            Shell.Current.GoToAsync($"//{nameof(Page_Workouts)}");
 
             //FINISH make this work!
             //Shell.Current.FlyoutHeader = CurrentUser.Username;
+
+            Shell.Current.GoToAsync($"//{nameof(Page_Workouts)}");
+            Debug.WriteLine("Logged in with UserID: " + CurrentUser.UserID);
         }
 
         //FINISH
         public static void Logout()
         {
             CurrentUser = null;
-            Debug.WriteLine("Logged out.");
-            Shell.Current.GoToAsync($"//{nameof(Page_Login)}");
+
             //FINISH make this work!
             //Shell.Current.FlyoutHeader = null;
+
+            Shell.Current.GoToAsync($"//{nameof(Page_Login)}");
+            Debug.WriteLine("Logged out.");
         }
     }
 }
