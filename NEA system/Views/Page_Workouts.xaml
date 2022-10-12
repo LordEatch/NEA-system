@@ -62,31 +62,50 @@
                             <Grid
                                 Padding="5">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="20"/>
                                     <RowDefinition Height="20"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="2*" />
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="3*" />
                                 </Grid.ColumnDefinitions>
 
+                                <!-- Headers -->
                                 <Label
-                                Grid.Row="0" 
-                                Grid.Column="0"
-                                Text="{Binding WorkoutMuscleGroup}"
-                                FontSize="25"
-                                FontAttributes="Bold"
-                                HorizontalOptions="CenterAndExpand"/>
+                                    Text="Workout muscle group"
+                                    Grid.Column="0"/>
                                 <Label
-                                Grid.Row="1" 
-                                Grid.Column="0"
-                                Text="{Binding Date}"
-                                FontSize="15"
-                                HorizontalOptions="CenterAndExpand"/>
+                                    Text="Exercises"
+                                    Grid.Column="1"/>
                                 <Label
-                                Grid.Column="1" 
-                                Grid.RowSpan="2"
-                                Text="{Binding WorkoutComment}"/>
+                                    Text="Workout comment"
+                                    Grid.Column="2"/>
+                                <Label
+                                    Text="Date"
+                                    Grid.Column="3"/>
+
+                                <Label
+                                    Text="{Binding WorkoutMuscleGroup}"
+                                    FontAttributes="Bold"
+                                    Grid.Row="1"/>
+                                <!-- Still need to test this! -->
+                                <Label
+                                    Text="{Binding ExerciseTypesList}"
+                                    FontAttributes="Bold"
+                                    Grid.Column="2"
+                                    Grid.Row="1"/>
+                                <Label
+                                    Text="{Binding WorkoutComment}"
+                                    FontAttributes="Bold"
+                                    Grid.Column="2"
+                                    Grid.Row="1"/>
+                                <Label
+                                    Text="{Binding Date}"
+                                    FontAttributes="Bold"
+                                    Grid.Column="3"
+                                    Grid.Row="1"/>
                             </Grid>
                         </Frame>
                     </DataTemplate>

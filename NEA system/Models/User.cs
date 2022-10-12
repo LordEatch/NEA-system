@@ -1,6 +1,4 @@
 ﻿using SQLite;
-using System.Text;
-//Example of overloading with CreateUser() methods.
 
 namespace NEA_system.Models;
 
@@ -23,8 +21,8 @@ public class User
     will return FFFFFFFF. If the hash is greater than this the program crashes. I could not get it to crash. */
     public static string CalculatePasswordHash(string plaintextPassword)
     {
-        //Should be prime (to reduce collisions?). Determines the size of hashes. 
-        int k = 7919;
+        //Should be prime (to reduce collisions?). Determines the size of hashes.
+        int k = 104729;
 
         int hash = 0;
         for (int i = 0; i < plaintextPassword.Length; i++)

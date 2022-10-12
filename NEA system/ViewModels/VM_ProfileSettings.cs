@@ -9,7 +9,7 @@ internal class VM_ProfileSettings
         DeleteUserCommand = new Command(DeleteUser);
     }
 
-    //Note that this does not delete all of the workouts, exercise types, exercises or sets created by this user.
+    //NOTE This does not delete all of the workouts, exercise types, exercises or sets created by this user.
     private void DeleteUser()
     {
         Session.DB.Delete<User>(Session.CurrentUser.UserID);
