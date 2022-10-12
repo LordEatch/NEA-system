@@ -47,10 +47,14 @@ internal class VM_CreateUser : VM_Base
         if (CheckExistingUsernames())
             return;
 
+        string passwordHash = null;
+        if (!string.IsNullOrEmpty(Password))
+            passwordHash = User.CalculatePasswordHash(Password);
+
         var user = new User()
         {
             Username = Username,
-            PasswordHash = User.CalculatePasswordHash(Password)
+            PasswordHash = passwordHash
         };
         Session.DB.Insert(user);
 

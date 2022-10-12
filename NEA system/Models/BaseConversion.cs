@@ -2,10 +2,18 @@
 
 public static class BaseConversion
 {
+    public static string IntToHexString(int n)
+    {
+        return ByteArrayToHexString(IntToByteArray(n));
+    }
+
     //Converts an array of bytes to a string of hexadecimal characters.
     public static string ByteArrayToHexString(byte[] bA)
     {
         string hexString = null;
+        //test
+        //if (BitConverter.IsLittleEndian)
+        //    Array.Reverse(bA);
         foreach (byte b in bA)
         {
             hexString += ByteToHexPair(b);
@@ -13,17 +21,31 @@ public static class BaseConversion
         return hexString;
     }
 
+    private static byte[] IntToByteArray(int n)
+    {
+        //An unsigned integer has 32 bits (4 bytes).
+        byte[] bytes = new byte[4];
+        /*Shifts the uint down by 8 bits each time, then compares with 255 (00000000000000000000000011111111 in binary), to get an array of bytes.
+        This is little endian since the smallest side of the uint is the first element of the bytes array?*/
+        bytes[3] = (byte)(n & 255);
+        bytes[2] = (byte)((n >> 8) & 255);
+        bytes[1] = (byte)((n >> 16) & 255);
+        bytes[0] = (byte)((n >> 24) & 255);
+
+        return bytes;
+    }
+
     //Converts a single byte to a pair of hexadecimal characters.
-    public static string ByteToHexPair(byte b)
+    private static string ByteToHexPair(byte b)
     {
         string hexPair = null;
 
         //Bitwise AND comparison with 11110000 leaves the first half of the byte.
-        int byteH1 = b & 240;
-        byteH1 = byteH1 >> 4;
+        byte byteH1 = (byte)(b & 240);
+        byteH1 = (byte)(byteH1 >> 4);
 
         //AND 00001111 leaves the second half.
-        int byteH2 = b & 15;
+        byte byteH2 = (byte)(b & 15);
 
         hexPair += FourBitToHex(byteH1);
         hexPair += FourBitToHex(byteH2);
@@ -31,19 +53,19 @@ public static class BaseConversion
         return hexPair;
     }
 
-    public static string FourBitToHex(int n)
+    private static string FourBitToHex(byte b)
     {
         string hex = null;
 
         //Choose which character to use.
-        switch (n)
+        switch (b)
         {
             #region
             case 0:
                 hex = "0";
                 break;
             case 1:
-                hex = "2";
+                hex = "1";
                 break;
             case 2:
                 hex = "2";

@@ -1,5 +1,4 @@
 ﻿using SQLite;
-using System.Security.Cryptography;
 using System.Text;
 //Example of overloading with CreateUser() methods.
 
@@ -15,46 +14,26 @@ public class User
     public string Username { get; set; }
     public string PasswordHash { get; set; }
 
-    //SQLite.net will handle construction.
-
-    //SQLite.net will create tables with automatically assigned names and column names.
 
 
 
     //Methods
 
-    //FINISH This needs to return a 128 bit (32 hexa letter) string regardless of the input length. Each letter is 16 bit so will return 4 hex characters currently per letter.
+    /*NOTE the highest hash that this method will produce is within the limits of the 32-bit int in C#. 2^32 - 1 is the max value and 
+    will return FFFFFFFF. If the hash is greater than this the program crashes. I could not get it to crash. */
     public static string CalculatePasswordHash(string plaintextPassword)
     {
-        if (!string.IsNullOrEmpty(plaintextPassword))
+        //Should be prime (to reduce collisions?). Determines the size of hashes. 
+        int k = 7919;
+
+        int hash = 0;
+        for (int i = 0; i < plaintextPassword.Length; i++)
         {
-            byte[] plaintextPasswordBytes = Encoding.Unicode.GetBytes(plaintextPassword);
-            //test
-            //produces 'number of 8-bit bytes: 2';
-            System.Diagnostics.Debug.WriteLine("number of 8-bit bytes: " + plaintextPasswordBytes.Length);
-
-            byte[] cyphertextBytes = new byte[plaintextPasswordBytes.Length];
-            // foreach 8-bit byte in the byte array (which should be 2 for unicode)...
-            for (int i = 0; i < plaintextPasswordBytes.Length; i++)
-            {
-                cyphertextBytes[i] = Hash(plaintextPasswordBytes[i]);
-            }
-
-            return BaseConversion.ByteArrayToHexString(cyphertextBytes);
+            hash = hash + (plaintextPassword[i] * (k ^ i));
         }
-        else
-        {
-            return null;
-        }
-    }
 
-    private static byte Hash(byte b)
-    {
-        int decimalNumber = (int)b;
+        System.Diagnostics.Debug.WriteLine("hash: " + hash);
 
-        //Hashing bit...
-        decimalNumber = (decimalNumber * (decimalNumber + 3)) % 11;
-
-        return (byte)decimalNumber;
+        return BaseConversion.IntToHexString(hash);
     }
 }
