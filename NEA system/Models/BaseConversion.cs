@@ -7,23 +7,9 @@ public static class BaseConversion
         return ByteArrayToHexString(IntToByteArray(n));
     }
 
-    //Converts an array of bytes to a string of hexadecimal characters.
-    public static string ByteArrayToHexString(byte[] bA)
-    {
-        string hexString = null;
-        //test
-        //if (BitConverter.IsLittleEndian)
-        //    Array.Reverse(bA);
-        foreach (byte b in bA)
-        {
-            hexString += ByteToHexPair(b);
-        }
-        return hexString;
-    }
-
     private static byte[] IntToByteArray(int n)
     {
-        //An unsigned integer has 32 bits (4 bytes).
+        //An integer has 32 bits (4 bytes).
         byte[] bytes = new byte[4];
         /*Shifts the uint down by 8 bits each time, then compares with 255 (00000000000000000000000011111111 in binary), to get an array of bytes.
         This is little endian since the smallest side of the uint is the first element of the bytes array?*/
@@ -33,6 +19,17 @@ public static class BaseConversion
         bytes[0] = (byte)((n >> 24) & 255);
 
         return bytes;
+    }
+
+    //Converts an array of bytes to a string of hexadecimal characters.
+    private static string ByteArrayToHexString(byte[] bA)
+    {
+        string hexString = null;
+        foreach (byte b in bA)
+        {
+            hexString += ByteToHexPair(b);
+        }
+        return hexString;
     }
 
     //Converts a single byte to a pair of hexadecimal characters.
