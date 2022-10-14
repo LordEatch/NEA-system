@@ -5,121 +5,114 @@
              x:Class="NEA_system.Views.Page_Workouts"
              Title="Workouts">
 
-    <StackLayout>
-        <!-- Change so that all is within one grid -->
+    <!-- Change so that all is within one grid -->
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="80" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="550" />
-            </Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-            <Grid
+        <Grid
                 Padding="10"
                 BackgroundColor="{StaticResource Tertiary}"
                 Grid.Row="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="35" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25" />
+                <RowDefinition Height="35" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-                <Label
+            <Label
                     Text="Filter"
                     Grid.Row="0"/>
-                <Entry
+            <Entry
                     Text="{Binding Search}"
                     Grid.Row="1"
                     Placeholder="Filter by workout or exercise property"/>
 
-                <Button
+            <Button
                     Text="Create new workout"
                     Command="{Binding TestCommand}"
                     HorizontalOptions="End"
                     Grid.Column="1"
                     Grid.RowSpan="2"/>
-            </Grid>
+        </Grid>
 
-            <Label
+        <Label
                 Text="{Binding WorkoutsHeader}"
                 Margin="10"
                 Grid.Row="1"/>
-            
-            <!-- EmptyView property breaks android :/ -->
-            <CollectionView
+
+        <!-- EmptyView property breaks android :/ -->
+        <CollectionView
                 ItemsSource="{Binding Workouts}"
                 SelectionMode="Single"
+                VerticalOptions="Fill"
                 Grid.Row="2">
-                
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame
-                            HorizontalOptions="Fill">
-                            <Grid
-                                Padding="0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="20"/>
-                                    <RowDefinition Height="20"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
 
-                                <!-- Headers -->
-                                <Label
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Headers -->
+                            <Label
                                     Text="Workout muscle group"
                                     Grid.Column="0"/>
-                                <Label
+                            <Label
                                     Text="Exercises"
                                     Grid.Column="1"/>
-                                <Label
+                            <Label
                                     Text="Workout comment"
                                     Grid.Column="2"/>
-                                <Label
+                            <Label
                                     Text="Date"
                                     Grid.Column="3"/>
 
-                                <Label
+                            <Label
                                     Text="{Binding WorkoutMuscleGroup}"
                                     FontAttributes="Bold"
                                     Grid.Row="1"/>
-                                <!-- FINISH -->
-                                <Label
+                            <!-- FINISH -->
+                            <Label
                                     Text="Will be list of exercise types!"
                                     FontAttributes="Bold"
                                     Grid.Column="1"
                                     Grid.Row="1"/>
-                                <Label
+                            <Label
                                     Text="{Binding WorkoutComment}"
                                     FontAttributes="Bold"
                                     Grid.Column="2"
                                     Grid.Row="1"/>
-                                <Label
+                            <Label
                                     Text="{Binding Date}"
                                     FontAttributes="Bold"
                                     Grid.Column="3"
                                     Grid.Row="1"/>
-                            </Grid>
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer
+                        </Grid>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer
                                     Command="{Binding Path=BindingContext.WorkoutSelectedCommand, Source={x:Reference page_Workouts}}"
                                     CommandParameter="{Binding .}"/>
-                            </Frame.GestureRecognizers>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </Grid>
-
-
-
-
-    </StackLayout>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>
