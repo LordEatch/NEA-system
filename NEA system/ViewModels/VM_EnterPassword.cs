@@ -48,7 +48,7 @@ internal class VM_EnterPassword : VM_Base
         //Wait for 1/4 of a second to prevent brute forcing.
         Thread.Sleep(250);
 
-        if (User.CalculatePasswordHash(Password) == MyUser.PasswordHash)
+        if (MyHash.CalculatePasswordHash(Password) == MyUser.PasswordHash)
         {
             return true;
         }

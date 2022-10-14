@@ -49,7 +49,7 @@ internal class VM_CreateUser : VM_Base
 
         string passwordHash = null;
         if (!string.IsNullOrEmpty(Password))
-            passwordHash = User.CalculatePasswordHash(Password);
+            passwordHash = MyHash.CalculatePasswordHash(Password);
 
         var user = new User()
         {

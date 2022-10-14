@@ -2,7 +2,7 @@
 
 namespace NEA_system.ViewModels;
 
-internal class VM_Login : VM_Base
+internal class VM_Login : VM_Base, IDataShower
 {
     // Properties
 
@@ -28,7 +28,12 @@ internal class VM_Login : VM_Base
 
     // Methods
 
-    public void RefreshUsers()
+    public void RefreshPage()
+    {
+        RefreshUsers();
+    }
+
+    private void RefreshUsers()
     {
         Users.Clear();
         foreach (var user in Session.DB.Table<User>().ToArray())

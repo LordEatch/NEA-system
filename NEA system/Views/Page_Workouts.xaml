@@ -60,7 +60,7 @@
                         <Frame
                             HorizontalOptions="Fill">
                             <Grid
-                                Padding="5">
+                                Padding="0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="20"/>
                                     <RowDefinition Height="20"/>
@@ -90,11 +90,11 @@
                                     Text="{Binding WorkoutMuscleGroup}"
                                     FontAttributes="Bold"
                                     Grid.Row="1"/>
-                                <!-- Still need to test this! -->
+                                <!-- FINISH -->
                                 <Label
-                                    Text="{Binding ExerciseTypesList}"
+                                    Text="Will be list of exercise types!"
                                     FontAttributes="Bold"
-                                    Grid.Column="2"
+                                    Grid.Column="1"
                                     Grid.Row="1"/>
                                 <Label
                                     Text="{Binding WorkoutComment}"
@@ -107,6 +107,11 @@
                                     Grid.Column="3"
                                     Grid.Row="1"/>
                             </Grid>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Path=BindingContext.WorkoutSelectedCommand, Source={x:Reference page_Workouts}}"
+                                    CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

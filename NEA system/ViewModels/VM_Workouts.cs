@@ -2,7 +2,7 @@
 
 namespace NEA_system.ViewModels;
 
-internal class VM_Workouts : VM_Base
+internal class VM_Workouts : VM_Base, IDataShower
 {
     // Properties
 
@@ -17,8 +17,6 @@ internal class VM_Workouts : VM_Base
     }
     public ObservableCollection<Workout> Workouts { get; set; }
     public string WorkoutsHeader { get; set; }
-
-
 
     public Command WorkoutSelectedCommand { get; }
     public Command GoToPage_CreateWorkout { get; }
@@ -44,18 +42,10 @@ internal class VM_Workouts : VM_Base
 
     // Methods
 
-    public void RefreshWorkouts(string filter = null)
+    public void RefreshPage()
     {
-        Workouts.Clear();
-        foreach (Workout w in FilterWorkouts(filter))
-        {
-            Workouts.Add(w);
-        }
-
-        WorkoutsHeader = $"Showing {Workouts.Count()} workouts";
-        OnPropertyChanged(nameof(WorkoutsHeader));
+        RefreshWorkouts();
     }
-
 
 
 
@@ -67,7 +57,7 @@ internal class VM_Workouts : VM_Base
             UserID = Session.CurrentUser.UserID,
             Date = "21/10/2004",
             WorkoutMuscleGroup = "Pushh",
-            WorkoutComment = ""
+            WorkoutComment = "no-comment"
         };
         Session.DB.Insert(workout);
 
@@ -75,6 +65,18 @@ internal class VM_Workouts : VM_Base
     }
 
 
+
+    private void RefreshWorkouts(string filter = null)
+    {
+        Workouts.Clear();
+        foreach (Workout w in FilterWorkouts(filter))
+        {
+            Workouts.Add(w);
+        }
+
+        WorkoutsHeader = $"Showing {Workouts.Count()} workouts";
+        OnPropertyChanged(nameof(WorkoutsHeader));
+    }
 
     //FINISH    only make this load the most recent 50 into memory until the user scrolls to the bottom to see more. This is to boost performance since I need to eventaully calculate
     //          exercise and set count per loaded workout and then display it.
@@ -123,6 +125,8 @@ internal class VM_Workouts : VM_Base
 
     private void WorkoutSelected(Workout workout)
     {
-
+        //test
+        System.Diagnostics.Debug.WriteLine("www");
+        Shell.Current.GoToAsync($"{nameof(Page_FocusedWorkout)}", new Dictionary<string, object>() { ["Workout"] = workout });
     }
 }
