@@ -9,6 +9,10 @@ public class ExerciseType
     [PrimaryKey, AutoIncrement]
     public int ExerciseTypeID { get; set; }
     public int UserID { get; set; }
-    public string ExerciseName { get; set; }
-    public string ExerciseDescription { get; set; }
+    [NotNull]
+    public string ExerciseTypeName { get; set; }
+    [NotNull]
+    public string ExerciseTypeDescription { get; set; }
+    [NotNull]
+    public string ExerciseTypeMuscleGroup { get; set; }
 }

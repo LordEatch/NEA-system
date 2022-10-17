@@ -12,7 +12,7 @@ public class ResistanceSet
     public int ExerciseID { get; set; }
     public double Mass { get; set; }
     public int StrictReps { get; set; }
-    public int TotalReps { get; set; }
+    public int CheatedReps { get; set; }
     [NotNull]
     public string SetComment { get; set; }
 }

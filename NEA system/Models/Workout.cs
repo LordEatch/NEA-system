@@ -11,8 +11,11 @@ public class Workout
     public int WorkoutID { get; set; }
     [NotNull]
     public int UserID { get; set; }
+    [NotNull]
     public string Date { get; set; }
+    [NotNull]
     public string WorkoutMuscleGroup { get; set; }
+    [NotNull]
     public string WorkoutComment { get; set; }
 
     //FINISH

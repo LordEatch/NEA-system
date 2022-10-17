@@ -11,4 +11,6 @@ public class User
     [NotNull]
     public string Username { get; set; }
     public string PasswordHash { get; set; }
+    [NotNull]
+    public bool LightMode { get; set; }
 }
