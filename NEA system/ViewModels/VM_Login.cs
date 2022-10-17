@@ -2,7 +2,7 @@
 
 namespace NEA_system.ViewModels;
 
-internal class VM_Login : VM_Base, IDataShower
+internal class VM_Login : VM_Base, IDataDisplay
 {
     // Properties
 
@@ -28,7 +28,7 @@ internal class VM_Login : VM_Base, IDataShower
 
     // Methods
 
-    public void RefreshPage()
+    public void LoadViewData()
     {
         RefreshUsers();
     }

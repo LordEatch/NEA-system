@@ -2,7 +2,7 @@
 
 namespace NEA_system.ViewModels;
 
-internal class VM_Workouts : VM_Base, IDataShower
+internal class VM_Workouts : VM_Base, IDataDisplay
 {
     // Properties
 
@@ -42,7 +42,7 @@ internal class VM_Workouts : VM_Base, IDataShower
 
     // Methods
 
-    public void RefreshPage()
+    public void LoadViewData()
     {
         RefreshWorkouts();
     }
@@ -106,7 +106,7 @@ internal class VM_Workouts : VM_Base, IDataShower
                         ExerciseType eT = Session.DB.Find<ExerciseType>(e.ExerciseTypeID);
 
                         //If the exercise type attributes contain the filter...
-                        if (eT.ExerciseName.ToLower().Contains(filter.ToLower()) || eT.ExerciseDescription.ToLower().Contains(filter.ToLower()))
+                        if (eT.ExerciseTypeName.ToLower().Contains(filter.ToLower()) || eT.ExerciseTypeDescription.ToLower().Contains(filter.ToLower()))
                             //Add the workout associated with this exercise.
                             filteredWorkouts.Add(w);
                     }

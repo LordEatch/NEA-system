@@ -13,6 +13,6 @@ public partial class Page_FocusedWorkout : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        VM.RefreshPage();
+        VM.LoadViewData();
     }
 }
