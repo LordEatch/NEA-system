@@ -9,12 +9,12 @@ internal static class MyHash
         int hash = 0;
         for (int i = 0; i < plaintextPassword.Length; i++)
         {
-            hash += ((plaintextPassword[i]) * (k ^ i));
+            hash += plaintextPassword[i] * (k ^ i);
         }
 
         System.Diagnostics.Debug.WriteLine("hash: " + hash);
 
-        return BaseConversion.IntToHexString(hash);
+        return IntToHexString(hash);
     }
 
     private static string IntToHexString(int n)
