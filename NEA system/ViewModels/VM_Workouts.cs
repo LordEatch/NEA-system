@@ -55,7 +55,7 @@ internal class VM_Workouts : VM_Base, IDataDisplay
         var workout = new Workout()
         {
             UserID = Session.CurrentUser.UserID,
-            Date = "21/10/2004",
+            Date = DateTime.Now,
             WorkoutMuscleGroup = "Pushh",
             WorkoutComment = "no-comment"
         };
@@ -91,7 +91,7 @@ internal class VM_Workouts : VM_Base, IDataDisplay
             foreach (Workout w in Session.DB.Table<Workout>().Where(w => w.UserID == Session.CurrentUser.UserID).ToArray())
             {
                 //If any workout attributes contain the filter...
-                if (w.Date.ToLower().Contains(filter.ToLower()) || w.WorkoutMuscleGroup.ToLower().Contains(filter.ToLower()) || w.WorkoutComment.ToLower().Contains(filter.ToLower()))
+                if (w.Date.ToString().Contains(filter.ToLower()) || w.WorkoutMuscleGroup.ToLower().Contains(filter.ToLower()) || w.WorkoutComment.ToLower().Contains(filter.ToLower()))
                     //Add the workout.
                     filteredWorkouts.Add(w);
                 //If the workout itself had no relevant data that contained the filter...

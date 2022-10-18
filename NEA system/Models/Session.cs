@@ -23,30 +23,18 @@ namespace NEA_system.Models
             {
                 Debug.WriteLine($"Creating new database at {dbPath}...");
                 DB = new SQLiteConnection(dbPath);
-                if (DB == null) Debug.WriteLine("Database could not connect.");
-                Debug.WriteLine("Database created.");
 
                 Debug.WriteLine("Creating tables...");
-                DB.CreateTable<ExerciseType>();
                 DB.CreateTable<User>();
+                DB.CreateTable<ExerciseType>();
                 DB.CreateTable<Workout>();
                 DB.CreateTable<Exercise>();
                 DB.CreateTable<ResistanceSet>();
-                Debug.WriteLine("Tables created.");
-
-                Debug.WriteLine("Connected to database.");
+                Debug.WriteLine("Tables created successfully.");
             }
             else
             {
                 DB = new SQLiteConnection(dbPath);
-                if (DB != null)
-                {
-                    Debug.WriteLine("Connected to database.");
-                }
-                else
-                {
-                    Debug.WriteLine("Could not connect to database.");
-                }
             }
         }
 

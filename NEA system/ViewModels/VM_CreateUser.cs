@@ -54,10 +54,12 @@ internal class VM_CreateUser : VM_Base
         var user = new User()
         {
             Username = Username,
-            PasswordHash = passwordHash
+            PasswordHash = passwordHash,
+            LightMode = false
         };
         Session.DB.Insert(user);
 
+        //test
         System.Diagnostics.Debug.WriteLine($"User.CreateUser(): User created with id: '{user.UserID}', username: '{user.Username}' and password hash: '{user.PasswordHash}'.");
 
         Shell.Current.GoToAsync("..");
