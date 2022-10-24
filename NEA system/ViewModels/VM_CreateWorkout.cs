@@ -30,8 +30,6 @@ internal class VM_CreateWorkout : VM_Base
 
     private void InsertWorkout()
     {
-
-
         var workout = new Workout()
         {
             UserID = Session.CurrentUser.UserID,
