@@ -8,10 +8,17 @@ public partial class AppShell : Shell
 
 		// Routes
 
+		//User
 		Routing.RegisterRoute(nameof(Page_CreateUser), typeof(Page_CreateUser));
         Routing.RegisterRoute(nameof(Page_EnterPassword), typeof(Page_EnterPassword));
 
-		Routing.RegisterRoute(nameof(Page_FocusedWorkout), typeof(Page_FocusedWorkout));
+		//Workout
+        Routing.RegisterRoute(nameof(Page_CreateWorkout), typeof(Page_CreateWorkout));
+        Routing.RegisterRoute(nameof(Page_FocusedWorkout), typeof(Page_FocusedWorkout));
+
+		//Exercise
+
+		//ExerciseType
     }
 
 	private void LogoutClicked(object sender, EventArgs e)

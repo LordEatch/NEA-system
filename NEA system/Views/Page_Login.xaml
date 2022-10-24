@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Name="page_Login"
              x:Class="NEA_system.Views.Page_Login"
-             Title="Login"
-             Shell.FlyoutBehavior="Disabled">
+             Title="Login">
 
     <Grid
         HorizontalOptions="Center"

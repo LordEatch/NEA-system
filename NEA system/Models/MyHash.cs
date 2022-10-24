@@ -1,9 +1,14 @@
 ﻿namespace NEA_system.Models;
 internal static class MyHash
 {
+    //FINISH Make recursive!
     public static string CalculatePasswordHash(string plaintextPassword)
     {
-        //Should be prime (to reduce collisions?).
+        //Return a null password hash if the plaintext password is empty or null.
+        if (string.IsNullOrEmpty(plaintextPassword))
+            return null;
+
+        //Should be prime to reduce collisions after being modulo'd.
         int k = 31;
 
         int hash = 0;
@@ -12,6 +17,12 @@ internal static class MyHash
             hash += plaintextPassword[i] * (k ^ i);
         }
 
+        //Modulo with the prime directly before 268435455 (highest possible value of a signed integer, 0FFFFFFF)
+        //to keep within the limits of an int32 while also having less multiples and therefore less collisions for 
+        //numbers that are larger than 268435399.
+        hash %= 268435399;
+
+        //test
         System.Diagnostics.Debug.WriteLine("hash: " + hash);
 
         return IntToHexString(hash);

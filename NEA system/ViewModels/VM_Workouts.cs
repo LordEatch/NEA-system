@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using NEA_system.Models;
+using System.Collections.ObjectModel;
 
 namespace NEA_system.ViewModels;
 
@@ -20,8 +21,6 @@ internal class VM_Workouts : VM_Base, IDataDisplay
 
     public Command WorkoutSelectedCommand { get; }
     public Command GoToPage_CreateWorkout { get; }
-    //test
-    public Command TestCommand { get; }
 
 
 
@@ -30,12 +29,9 @@ internal class VM_Workouts : VM_Base, IDataDisplay
     public VM_Workouts()
     {
         WorkoutSelectedCommand = new Command<Workout>(WorkoutSelected);
-        //GoToPage_CreateWorkout = new Command(()=> Shell.Current.GoToAsync(nameof(Page_CreateWorkout)));
+        GoToPage_CreateWorkout = new Command(() => Shell.Current.GoToAsync(nameof(Page_CreateWorkout)));
 
-        Workouts = new ObservableCollection<Workout>();
-
-        //test
-        TestCommand = new Command(Test);
+        Workouts = new();
     }
 
 
@@ -46,25 +42,6 @@ internal class VM_Workouts : VM_Base, IDataDisplay
     {
         RefreshWorkouts();
     }
-
-
-
-    //test
-    private void Test()
-    {
-        var workout = new Workout()
-        {
-            UserID = Session.CurrentUser.UserID,
-            Date = DateTime.Now,
-            WorkoutMuscleGroup = "Pushh",
-            WorkoutComment = "no-comment"
-        };
-        Session.DB.Insert(workout);
-
-        RefreshWorkouts();
-    }
-
-
 
     private void RefreshWorkouts(string filter = null)
     {
@@ -125,8 +102,6 @@ internal class VM_Workouts : VM_Base, IDataDisplay
 
     private void WorkoutSelected(Workout workout)
     {
-        //test
-        System.Diagnostics.Debug.WriteLine("www");
         Shell.Current.GoToAsync($"{nameof(Page_FocusedWorkout)}", new Dictionary<string, object>() { ["Workout"] = workout });
     }
 }

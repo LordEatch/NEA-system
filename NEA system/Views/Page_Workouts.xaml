@@ -36,8 +36,8 @@
                     Placeholder="Filter by workout or exercise property"/>
 
             <Button
-                    Text="Create new workout"
-                    Command="{Binding TestCommand}"
+                    Text="+"
+                    Command="{Binding GoToPage_CreateWorkout}"
                     HorizontalOptions="End"
                     Grid.Column="1"
                     Grid.RowSpan="2"/>
@@ -64,25 +64,21 @@
                                 <RowDefinition Height="20"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*" />
-                                <ColumnDefinition Width="2*" />
-                                <ColumnDefinition Width="2*" />
                                 <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
                             </Grid.ColumnDefinitions>
 
                             <!-- Headers -->
                             <Label
-                                    Text="Workout muscle group"
+                                    Text="Workout"
                                     Grid.Column="0"/>
                             <Label
                                     Text="Exercises"
                                     Grid.Column="1"/>
                             <Label
-                                    Text="Workout comment"
-                                    Grid.Column="2"/>
-                            <Label
                                     Text="Date"
-                                    Grid.Column="3"/>
+                                    Grid.Column="2"/>
 
                             <Label
                                     Text="{Binding WorkoutMuscleGroup}"
@@ -95,14 +91,9 @@
                                     Grid.Column="1"
                                     Grid.Row="1"/>
                             <Label
-                                    Text="{Binding WorkoutComment}"
-                                    FontAttributes="Bold"
-                                    Grid.Column="2"
-                                    Grid.Row="1"/>
-                            <Label
                                     Text="{Binding Date}"
                                     FontAttributes="Bold"
-                                    Grid.Column="3"
+                                    Grid.Column="2"
                                     Grid.Row="1"/>
                         </Grid>
                         <Frame.GestureRecognizers>

@@ -34,48 +34,35 @@ internal class VM_CreateUser : VM_Base
 
     // Methods
 
-    //FINISH
-    protected void InsertUser()
+    private void InsertUser()
     {
-        //FINISH
-        //if (ValidateUsernameFormat)
-        //if (ValidatePasswordFormat)
-
-
-
         //Check if this username already exists.
-        if (CheckExistingUsernames())
+        if (UsernameExists())
             return;
-
-        string passwordHash = null;
-        if (!string.IsNullOrEmpty(Password))
-            passwordHash = MyHash.CalculatePasswordHash(Password);
+        if (!ValidatePasswordFormat())
+            return;
 
         var user = new User()
         {
             Username = Username,
-            PasswordHash = passwordHash,
+            PasswordHash = MyHash.CalculatePasswordHash(Password),
             LightMode = false
         };
         Session.DB.Insert(user);
 
         //test
-        System.Diagnostics.Debug.WriteLine($"User.CreateUser(): User created with id: '{user.UserID}', username: '{user.Username}' and password hash: '{user.PasswordHash}'.");
+        System.Diagnostics.Debug.WriteLine($"User created with id: '{user.UserID}', username: '{user.Username}' and password hash: '{user.PasswordHash}'.");
 
         Shell.Current.GoToAsync("..");
     }
 
-    protected bool ValidateUsernameFormat()
+    //FINISH
+    private bool ValidatePasswordFormat()
     {
         return true;
     }
 
-    protected bool ValidatePasswordFormat()
-    {
-        return true;
-    }
-
-    protected bool CheckExistingUsernames()
+    private bool UsernameExists()
     {
         if (Session.DB.Table<User>().Where(u => u.Username == Username).Count() == 0)
         {

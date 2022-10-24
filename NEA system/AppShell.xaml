@@ -4,7 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:NEA_system.Views"
-    Shell.FlyoutBehavior="Flyout">
+    Shell.FlyoutBehavior="Disabled">
 
     <Shell.FlyoutHeader>
         <Image Source="oskar.png"/>
@@ -19,12 +19,19 @@
     <ShellContent
         Title="Workouts"
         ContentTemplate="{DataTemplate views:Page_Workouts}"
-        Route="Page_Workouts"/>
+        Route="Page_Workouts"
+        Shell.FlyoutBehavior="Flyout"/>
+
+    <!-- FINISH -->
+    <ShellContent
+        Title="Exercises"
+        Shell.FlyoutBehavior="Flyout"/>
 
     <ShellContent
         Title="Settings"
         ContentTemplate="{DataTemplate views:Page_ProfileSettings}"
-        Route="Page_ProfileSettings"/>
+        Route="Page_ProfileSettings"
+        Shell.FlyoutBehavior="Flyout"/>
 
     <MenuItem
         Text="Logout"
