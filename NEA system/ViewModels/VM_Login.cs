@@ -30,13 +30,9 @@ internal class VM_Login : VM_Base, IDataDisplay
 
     public void LoadViewData()
     {
-        RefreshUsers();
-    }
-
-    private void RefreshUsers()
-    {
+        //Update user list.
         Users.Clear();
-        foreach (var user in Session.DB.Table<User>().ToArray())
+        foreach (var user in Session.DB.Table<User>())
         {
             Users.Add(user);
         }

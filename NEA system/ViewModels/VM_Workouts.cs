@@ -65,7 +65,7 @@ internal class VM_Workouts : VM_Base, IDataDisplay
             List<Workout> filteredWorkouts = new();
             
             //For each workout associated with this user...
-            foreach (Workout w in Session.DB.Table<Workout>().Where(w => w.UserID == Session.CurrentUser.UserID).ToArray())
+            foreach (Workout w in Session.DB.Table<Workout>().Where(w => w.UserID == Session.CurrentUser.UserID))
             {
                 //If any workout attributes contain the filter...
                 if (w.Date.ToString().Contains(filter.ToLower()) || w.WorkoutMuscleGroup.ToLower().Contains(filter.ToLower()) || w.WorkoutComment.ToLower().Contains(filter.ToLower()))
@@ -77,7 +77,7 @@ internal class VM_Workouts : VM_Base, IDataDisplay
                     //...check its exercises.
 
                     //For each exercise within this workout...
-                    foreach (Exercise e in Session.DB.Table<Exercise>().Where(e => e.WorkoutID == w.WorkoutID).ToArray())
+                    foreach (Exercise e in Session.DB.Table<Exercise>().Where(e => e.WorkoutID == w.WorkoutID))
                     {
                         //Get the exercise type.
                         ExerciseType eT = Session.DB.Find<ExerciseType>(e.ExerciseTypeID);

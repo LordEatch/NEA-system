@@ -40,8 +40,11 @@ internal class VM_CreateWorkout : VM_Base
         Session.DB.Insert(workout);
 
         //test
-        System.Diagnostics.Debug.WriteLine($"Workout created with user id: {workout.UserID}, workout id: '{workout.WorkoutID}', date: '{workout.Date}'");
+        System.Diagnostics.Debug.WriteLine($"Workout created with user id: {workout.UserID}, workout id: '{workout.WorkoutID}', date: '{workout.Date}, muscle group: '{workout.WorkoutMuscleGroup} and comment: '{workout.WorkoutComment}'");
 
-        Shell.Current.GoToAsync("..");
+        //Pop the create workout page from the stack and push the focused workout page instead.
+        Shell.Current.GoToAsync($"../{nameof(Page_FocusedWorkout)}", new Dictionary<string, object>() { ["Workout"] = workout });
+        //Proceed to the edit workout page.
+        Shell.Current.GoToAsync($"{nameof(Page_EditWorkout)}", new Dictionary<string, object>() { ["Workout"] = workout });
     }
 }
