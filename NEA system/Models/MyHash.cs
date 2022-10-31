@@ -1,7 +1,9 @@
-﻿namespace NEA_system.Models;
+﻿using System.Diagnostics;
+
+namespace NEA_system.Models;
 internal static class MyHash
 {
-    //FINISH Make recursive!
+    //FINISH Make recursive to increase time taken!
     public static string CalculatePasswordHash(string plaintextPassword)
     {
         //Return a null password hash if the plaintext password is empty or null.
@@ -14,23 +16,26 @@ internal static class MyHash
         int hash = 0;
         for (int i = 0; i < plaintextPassword.Length; i++)
         {
-            hash += plaintextPassword[i] * (k ^ i);
+            //test
+            Debug.WriteLine("character: " + plaintextPassword[i]);
+            Debug.WriteLine("31 ^ i: " + (long)Math.Pow(k, i));
+
+            long x = (long)Math.Pow(k, i);
+            Debug.WriteLine("x beforem mod: " + x);
+
+            x %= 268435399;
+
+            Debug.WriteLine("x after mod: " + x);
+
+            hash += plaintextPassword[i] * (int)x;
         }
 
         //Modulo with the prime directly before 268435455 (highest possible value of a signed integer, 0FFFFFFF)
         //to keep within the limits of an int32 while also having less multiples and therefore less collisions for 
-        //numbers that are larger than 268435399.
+        //hashes produced by numbers that are larger than 268435399.
         hash %= 268435399;
 
-        //test
-        System.Diagnostics.Debug.WriteLine("hash: " + hash);
-
-        return IntToHexString(hash);
-    }
-
-    private static string IntToHexString(int n)
-    {
-        return ByteArrayToHexString(IntToByteArray(n));
+        return ByteArrayToHexString(IntToByteArray(hash));
     }
 
     private static byte[] IntToByteArray(int n)

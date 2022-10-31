@@ -7,7 +7,7 @@ public partial class Page_EditWorkout : ContentPage
 	public Page_EditWorkout()
 	{
 		InitializeComponent();
-		VM = new VM_EditWorkout();
+		BindingContext = VM = new VM_EditWorkout();
 	}
 
     protected override void OnAppearing()

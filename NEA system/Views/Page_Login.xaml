@@ -4,13 +4,12 @@
              x:Name="page_Login"
              x:Class="NEA_system.Views.Page_Login"
              Title="Login">
-
     <Grid
         HorizontalOptions="Center"
         VerticalOptions="Center">
         <Grid.RowDefinitions>
-            <RowDefinition Height="500" />
-            <RowDefinition Height="100" />
+            <RowDefinition Height="400" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <!-- EmptyView property breaks android :/ -->
@@ -39,5 +38,4 @@
             Command="{Binding GoToPage_CreateUser}"
             Grid.Row="1"/>
     </Grid>
-
 </ContentPage>
