@@ -19,9 +19,8 @@ internal class VM_FocusedWorkout : VM_Base, IDataDisplay
 
     public void LoadViewData()
     {
-        //Populate exercises.
         Exercises.Clear();
-        foreach (Exercise e in Session.DB.Table<Exercise>().Where(e => e.WorkoutID == MyWorkout.WorkoutID).ToArray())
+        foreach (Exercise e in Session.DB.Table<Exercise>().Where(e => e.WorkoutID == MyWorkout.WorkoutID))
         {
             Exercises.Add(e);
         }

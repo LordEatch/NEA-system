@@ -1,5 +1,4 @@
-﻿using NEA_system.Models;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace NEA_system.ViewModels;
 

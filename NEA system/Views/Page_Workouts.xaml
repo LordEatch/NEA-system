@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cells="clr-namespace:NEA_system.Cells"
              x:Name="page_Workouts"
              x:Class="NEA_system.Views.Page_Workouts"
              Title="Workouts">
@@ -57,51 +58,7 @@
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="20"/>
-                                <RowDefinition Height="20"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="2*" />
-                                <ColumnDefinition Width="2*" />
-                            </Grid.ColumnDefinitions>
-
-                            <!-- Headers -->
-                            <Label
-                                    Text="Workout"
-                                    Grid.Column="0"/>
-                            <Label
-                                    Text="Exercises"
-                                    Grid.Column="1"/>
-                            <Label
-                                    Text="Date"
-                                    Grid.Column="2"/>
-
-                            <Label
-                                    Text="{Binding WorkoutMuscleGroup}"
-                                    FontAttributes="Bold"
-                                    Grid.Row="1"/>
-                            <!-- FINISH -->
-                            <Label
-                                    Text="Will be list of exercise types!"
-                                    FontAttributes="Bold"
-                                    Grid.Column="1"
-                                    Grid.Row="1"/>
-                            <Label
-                                    Text="{Binding Date}"
-                                    FontAttributes="Bold"
-                                    Grid.Column="2"
-                                    Grid.Row="1"/>
-                        </Grid>
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer
-                                    Command="{Binding Path=BindingContext.WorkoutSelectedCommand, Source={x:Reference page_Workouts}}"
-                                    CommandParameter="{Binding .}"/>
-                        </Frame.GestureRecognizers>
-                    </Frame>
+                    <cells:Card_Workout/>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
