@@ -13,6 +13,4 @@ public class ExerciseType
     public string ExerciseTypeName { get; set; }
     [NotNull]
     public string ExerciseTypeDescription { get; set; }
-    [NotNull]
-    public string ExerciseTypeMuscleGroup { get; set; }
 }
