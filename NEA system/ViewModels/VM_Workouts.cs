@@ -11,6 +11,7 @@ internal class VM_Workouts : VM_Base, IDataDisplay
     {
         set
         {
+            value = value.ToLower();
             //FINISH make this only go off if Search has not been updated in a second.
             RefreshWorkouts(value);
         }
@@ -58,6 +59,24 @@ internal class VM_Workouts : VM_Base, IDataDisplay
     //Returns every workout that directly contains a field containing the filter, and every workout that contains an exercise that contains a field containing the filter.
     private Workout[] FilterWorkouts(string filter)
     {
+        List<Workout> filteredWorkouts = new();
+
+        //Select all possible exercise types.
+        //Session.DB.Table<ExerciseType>().Where(eT => eT.ExerciseTypeName.ToLower().Contains(filter) || eT.ExerciseTypeDescription.ToLower().Contains(filter));
+
+        //FINISH THIS fatty
+
+
+        var exerciseTypeIDs = Session.DB.Query<ExerciseType>($"SELECT ExerciseTypeID FROM ExerciseType WHERE ExerciseTypeName='{filter}' OR WHERE ExerciseTypeDescription='{filter}'");
+
+        //Select all possible workouts.
+        Session.DB.Table<Workout>().Where(w => w.UserID == Session.CurrentUser.UserID && (w.Date.ToString().Contains(filter) || w.WorkoutMuscleGroup.ToLower().Contains(filter) || w.WorkoutComment.ToLower().Contains(filter)));
+
+
+
+
+
+
         if (!string.IsNullOrWhiteSpace(filter))
         {
             List<Workout> filteredWorkouts = new();
