@@ -27,6 +27,7 @@ namespace NEA_system.Models
                 Debug.WriteLine("Creating tables...");
                 DB.CreateTable<User>();
                 DB.CreateTable<ExerciseType>();
+                DB.CreateTable<Subscription>();
                 DB.CreateTable<Workout>();
                 DB.CreateTable<Exercise>();
                 DB.CreateTable<ResistanceSet>();

@@ -66,6 +66,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Cells\Card_Exercise.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Cells\Card_Workout.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
