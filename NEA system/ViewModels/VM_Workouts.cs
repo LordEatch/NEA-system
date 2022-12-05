@@ -6,13 +6,11 @@ internal class VM_Workouts : VM_Base, IDataDisplay
 {
     // Properties
 
-    //FINISH
     public string Search
     {
         set
         {
             value = value.ToLower();
-            //FINISH make this only go off if Search has not been updated in a second.
             RefreshWorkouts(value);
         }
     }
@@ -59,35 +57,12 @@ internal class VM_Workouts : VM_Base, IDataDisplay
     //Returns every workout that directly contains a field containing the filter, and every workout that contains an exercise that contains a field containing the filter.
     private Workout[] FilterWorkouts(string filter)
     {
-        //Select all possible workouts.
-        //List<Workout> filteredWorkouts = Session.DB.Table<Workout>().Where(w => w.UserID == Session.CurrentUser.UserID && (w.Date.ToString().Contains(filter) || w.WorkoutMuscleGroup.ToLower().Contains(filter) || w.WorkoutComment.ToLower().Contains(filter))).ToList();
-
-        //Select all possible exercise types.
-        //Session.DB.Table<ExerciseType>().Where(eT => eT.ExerciseTypeName.ToLower().Contains(filter) || eT.ExerciseTypeDescription.ToLower().Contains(filter));
-
-
-        List<int> test = Session.DB.Query<int>($"SELECT ExerciseTypeID FROM ExerciseType WHERE ExerciseTypeName='{filter}' OR ExerciseTypeDescription='{filter}'");
-
-        try
-        {
-            System.Diagnostics.Debug.WriteLine("test 2: " + test[1]);
-        }
-        catch
-        {
-
-        }
-        
-
-        //FIX ALL OF THIS!
-
-        return new Workout[] { };
-
-
+        return Session.DB.Table<Workout>().Where(w => w.UserID == Session.CurrentUser.UserID).ToArray();
 
         //if (!string.IsNullOrWhiteSpace(filter))
         //{
         //    List<Workout> filteredWorkouts = new();
-            
+
         //    //For each workout associated with this user...
         //    foreach (Workout w in Session.DB.Table<Workout>().Where(w => w.UserID == Session.CurrentUser.UserID))
         //    {

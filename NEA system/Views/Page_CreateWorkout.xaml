@@ -17,6 +17,7 @@
             <RowDefinition Height="35" />
             <RowDefinition Height="35" />
             <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
@@ -36,9 +37,14 @@
             Text="{Binding WorkoutComment}"
             Grid.Row="2"/>
 
+        <Label
+            Text="{Binding ErrorMessage}"
+            Style="{StaticResource ErrorMessage}"
+            Grid.Row="3"/>
+
         <Button
             Text="Create workout"
             Command="{Binding CreateWorkoutCommand}"
-            Grid.Row="3"/>
+            Grid.Row="4"/>
     </Grid>
 </ContentPage>

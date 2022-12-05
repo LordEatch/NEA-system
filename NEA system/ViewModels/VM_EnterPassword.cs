@@ -7,19 +7,6 @@ internal class VM_EnterPassword : VM_Base
 
     public User MyUser { get; set; }
     public string Password { get; set; }
-    #region ErrorMessage
-    private string errorMessage;
-    public string ErrorMessage
-    {
-        get { return errorMessage; }
-        protected set
-        {
-            errorMessage = value;
-            OnPropertyChanged(nameof(ErrorMessage));
-        }
-    }
-    #endregion
-
 
     public Command LoginCommand { get; }
 

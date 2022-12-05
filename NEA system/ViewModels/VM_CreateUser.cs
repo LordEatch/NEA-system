@@ -6,18 +6,6 @@ internal class VM_CreateUser : VM_Base
 
     public string Username { get; set; }
     public string Password { get; set; }
-    #region ErrorMessage
-    private string errorMessage;
-    public string ErrorMessage
-    {
-        get { return errorMessage; }
-        protected set
-        {
-            errorMessage = value;
-            OnPropertyChanged(nameof(ErrorMessage));
-        }
-    }
-    #endregion
 
     public Command InsertUserCommand { get; }
 

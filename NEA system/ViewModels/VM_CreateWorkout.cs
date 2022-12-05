@@ -16,7 +16,7 @@ internal class VM_CreateWorkout : VM_Base
 
     public VM_CreateWorkout()
     {
-        CreateWorkoutCommand = new Command(InsertWorkout);
+        CreateWorkoutCommand = new Command(CreateWorkout);
 
         //Pre-populate entries.
         Date = DateTime.Now;
@@ -27,6 +27,26 @@ internal class VM_CreateWorkout : VM_Base
 
 
     // Methods
+
+    private void CreateWorkout()
+    {
+        if (ValidateInput())
+            InsertWorkout();
+    }
+
+    private bool ValidateInput()
+    {
+        //If either inputs are empty...
+        if (String.IsNullOrEmpty(WorkoutMuscleGroup) || String.IsNullOrEmpty(WorkoutComment))
+        {
+            ErrorMessage = "Please enter information into each box.";
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 
     private void InsertWorkout()
     {
