@@ -1,6 +1,6 @@
 ﻿namespace NEA_system.ViewModels;
 
-internal class VM_CreateWorkout : VM_Base
+internal class VM_CreateWorkout : VM_Input
 {
     //Properties
 
@@ -37,7 +37,7 @@ internal class VM_CreateWorkout : VM_Base
     private bool ValidateInput()
     {
         //If either inputs are empty...
-        if (String.IsNullOrEmpty(WorkoutMuscleGroup) || String.IsNullOrEmpty(WorkoutComment))
+        if (string.IsNullOrEmpty(WorkoutMuscleGroup) || string.IsNullOrEmpty(WorkoutComment))
         {
             ErrorMessage = "Please enter information into each box.";
             return false;

@@ -1,6 +1,6 @@
 ﻿namespace NEA_system.ViewModels;
 
-internal class VM_CreateUser : VM_Base
+internal class VM_CreateUser : VM_Input
 {
     // Fields
 
@@ -25,7 +25,7 @@ internal class VM_CreateUser : VM_Base
     private void InsertUser()
     {
         //Check if this username already exists.
-        if (UsernameExists())
+        if (!ValidateUsername())
             return;
         if (!ValidatePasswordFormat())
             return;
@@ -50,16 +50,22 @@ internal class VM_CreateUser : VM_Base
         return true;
     }
 
-    private bool UsernameExists()
+    private bool ValidateUsername()
     {
-        if (Session.DB.Table<User>().Where(u => u.Username == Username).Count() == 0)
+        //If format is incorrect.
+        if (string.IsNullOrWhiteSpace(Username))
         {
+            ErrorMessage = "Cannot use an empty username.";
             return false;
         }
-        else
+
+        //If the username exists...
+        if (!(Session.DB.Table<User>().Where(u => u.Username == Username).Count() == 0))
         {
             ErrorMessage = "That username already exists.";
-            return true;
+            return false;
         }
+
+        return true;
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace NEA_system.ViewModels;
 
 [QueryProperty(nameof(MyUser), "User")]
-internal class VM_EnterPassword : VM_Base
+internal class VM_EnterPassword : VM_Input
 {
     // Properties
 
