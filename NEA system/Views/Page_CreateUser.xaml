@@ -10,35 +10,21 @@
         <viewmodels:VM_CreateUser/>
     </ContentPage.BindingContext>
 
-    <Grid
+    <VerticalStackLayout
         HorizontalOptions="Center"
         VerticalOptions="Center">
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
         <Entry
             Text="{Binding Username}"
-            Placeholder="Username"
-            MinimumWidthRequest="200"
-            Grid.Row="0"/>
+            Placeholder="Username"/>
         <Entry
             Text="{Binding Password}"
             Placeholder="Password"
-            IsPassword="True"
-            MinimumWidthRequest="200"
-            Grid.Row="1"/>
+            IsPassword="True"/>
         <Label
             Style="{StaticResource ErrorMessage}"
-            Text="{Binding ErrorMessage}"
-            Grid.Row="2"/>
+            Text="{Binding ErrorMessage}"/>
         <Button
             Text="Create user"
-            Command="{Binding InsertUserCommand}"
-            Grid.Row="3"/>
-    </Grid>
+            Command="{Binding InsertUserCommand}"/>
+    </VerticalStackLayout>
 </ContentPage>

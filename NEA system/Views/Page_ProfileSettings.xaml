@@ -9,10 +9,10 @@
         <viewmodels:VM_ProfileSettings/>
     </ContentPage.BindingContext>
     
-    <StackLayout>
+    <VerticalStackLayout>
         <Button
             Text="Delete profile"
             Command="{Binding DeleteUserCommand}"
             TextColor="Red"/>
-    </StackLayout>
+    </VerticalStackLayout>
 </ContentPage>

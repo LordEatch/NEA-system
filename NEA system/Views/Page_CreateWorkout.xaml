@@ -9,42 +9,24 @@
         <viewmodels:VM_CreateWorkout/>
     </ContentPage.BindingContext>
 
-    <Grid
+    <VerticalStackLayout
         HorizontalOptions="Center"
         VerticalOptions="Center">
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="35" />
-            <RowDefinition Height="35" />
-            <RowDefinition Height="35" />
-            <RowDefinition Height="35" />
-            <RowDefinition Height="40" />
-        </Grid.RowDefinitions>
-
         <DatePicker
             MinimumDate="01/01/2022"
             MaximumDate="12/31/2022"
-            Date="{Binding Date}"
-            Grid.Row="0"/>
-
+            Date="{Binding Date}"/>
         <Entry
             Placeholder="Muscle group"
-            Text="{Binding WorkoutMuscleGroup}"
-            Grid.Row="1"/>
-
+            Text="{Binding WorkoutMuscleGroup}"/>
         <Entry
             Placeholder="Comment"
-            Text="{Binding WorkoutComment}"
-            Grid.Row="2"/>
-
+            Text="{Binding WorkoutComment}"/>
         <Label
             Text="{Binding ErrorMessage}"
-            Style="{StaticResource ErrorMessage}"
-            Grid.Row="3"/>
-
+            Style="{StaticResource ErrorMessage}"/>
         <Button
             Text="Create workout"
-            Command="{Binding CreateWorkoutCommand}"
-            Grid.Row="4"/>
-    </Grid>
+            Command="{Binding CreateWorkoutCommand}"/>
+    </VerticalStackLayout>
 </ContentPage>
