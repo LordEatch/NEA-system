@@ -25,6 +25,8 @@
     <!-- FINISH -->
     <ShellContent
         Title="Exercises"
+        ContentTemplate="{DataTemplate views:Page_ExerciseTypes}"
+        Route="Page_ExerciseTypes"
         Shell.FlyoutBehavior="Flyout"/>
 
     <ShellContent

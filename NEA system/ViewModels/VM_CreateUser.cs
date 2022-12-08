@@ -38,6 +38,22 @@ internal class VM_CreateUser : VM_Input
         };
         Session.DB.Insert(user);
 
+
+
+        //Subscribe the user to the default exercise types.
+        foreach (ExerciseType eT in Session.GetDefaultExerciseTypes())
+        {
+            var sub = new Subscription()
+            {
+                UserID = Session.CurrentUser.UserID,
+                ExerciseTypeID = eT.ExerciseTypeID
+            };
+            Session.DB.Insert(sub);
+
+            //test
+            System.Diagnostics.Debug.WriteLine($"User subscribed to {sub}.");
+        }
+
         //test
         System.Diagnostics.Debug.WriteLine($"User created with id: '{user.UserID}', username: '{user.Username}' and password hash: '{user.PasswordHash}'.");
 

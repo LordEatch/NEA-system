@@ -78,6 +78,9 @@
 	  <MauiXaml Update="Views\Page_EnterPassword.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Page_ExerciseTypes.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Page_FocusedWorkout.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
