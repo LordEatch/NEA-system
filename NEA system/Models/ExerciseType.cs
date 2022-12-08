@@ -8,7 +8,6 @@ public class ExerciseType
 
     [PrimaryKey, AutoIncrement]
     public int ExerciseTypeID { get; set; }
-    public int UserID { get; set; }
     [NotNull]
     public string ExerciseTypeName { get; set; }
     [NotNull]

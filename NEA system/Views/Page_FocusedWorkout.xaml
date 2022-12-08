@@ -22,7 +22,7 @@
                             <models:Exercise/>
                         </Frame.BindingContext>
                         
-                        <Label Text="{Binding }"/>
+                        <Label Text="{Binding ExerciseName}"/>
                         
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer
