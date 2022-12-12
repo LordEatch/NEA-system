@@ -12,7 +12,6 @@ public class Exercise
     public int WorkoutID { get; set; }
     [NotNull]
     public int ExerciseTypeID { get; set; }
-    //FINISH Not sure if this works??
     [Ignore]
     public string ExerciseName { get; set; }
 }

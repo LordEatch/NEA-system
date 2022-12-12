@@ -45,13 +45,13 @@ internal class VM_CreateUser : VM_Input
         {
             var sub = new Subscription()
             {
-                UserID = Session.CurrentUser.UserID,
+                UserID = user.UserID,
                 ExerciseTypeID = eT.ExerciseTypeID
             };
             Session.DB.Insert(sub);
 
             //test
-            System.Diagnostics.Debug.WriteLine($"User subscribed to {sub}.");
+            System.Diagnostics.Debug.WriteLine($"User subscribed to {eT.ExerciseTypeName}.");
         }
 
         //test

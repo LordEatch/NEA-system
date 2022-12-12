@@ -16,7 +16,7 @@ namespace NEA_system.Models
             var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), fileName);
 
             //For when a new db is needed.
-            File.Delete(dbPath);
+            //File.Delete(dbPath);
 
             //If the database file does not already exist...
             if (!File.Exists(dbPath))
@@ -33,7 +33,7 @@ namespace NEA_system.Models
                 {
                     DB.Insert(eT);
                     //test
-                    Debug.WriteLine($"{eT} added to exercise type table in local db.");
+                    Debug.WriteLine($"{eT.ExerciseTypeName} added to exercise type table in local db.");
                 }
 
                 DB.CreateTable<Subscription>();
@@ -48,11 +48,19 @@ namespace NEA_system.Models
             }
         }
 
-        //FINISH
+        //FINISH test . Make this pull from a default table of exercisetypes in json or an integrated db??
         public static ExerciseType[] GetDefaultExerciseTypes()
         {
-            //FINISH need to add default exercises to project.
-            return new ExerciseType[] { };
+            var y = new ExerciseType
+            {
+                ExerciseTypeID = 1,
+                ExerciseTypeName = "Bench press",
+                ExerciseTypeDescription = "Just push it innit."
+            };
+
+            ExerciseType[] x = new ExerciseType[] { y };
+
+            return x;
         }
 
         //FINISH
