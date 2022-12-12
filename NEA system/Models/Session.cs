@@ -48,11 +48,10 @@ namespace NEA_system.Models
             }
         }
 
-        //FINISH bad url
+        //FINISH
         public static ExerciseType[] GetDefaultExerciseTypes()
         {
-            //SQLiteConnection tempConn = new SQLiteConnection(@"ExerciseTypes.db");
-            //return tempConn.Table<ExerciseType>().ToArray();
+            //FINISH need to add default exercises to project.
             return new ExerciseType[] { };
         }
 

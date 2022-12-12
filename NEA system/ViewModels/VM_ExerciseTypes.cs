@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using NEA_system.Models;
+using System.Collections.ObjectModel;
 
 namespace NEA_system.ViewModels;
 internal class VM_ExerciseTypes : VM_Base, IDataDisplay
@@ -14,7 +15,7 @@ internal class VM_ExerciseTypes : VM_Base, IDataDisplay
     {
         foreach (ExerciseType eT in Session.DB.Table<ExerciseType>())
         {
-            //FINISH need to code the collectionview n stuff.
+
         }
     }
 }
