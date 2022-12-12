@@ -7,6 +7,10 @@
              Title="{Binding MyWorkout.WorkoutMuscleGroup}">
 
     <VerticalStackLayout>
+        <Button
+            Text="Edit workout"
+            Command="{Binding GoToPage_EditWorkout}"/>
+
         <Label 
             Text="{Binding MyWorkout.Date}"/>
 

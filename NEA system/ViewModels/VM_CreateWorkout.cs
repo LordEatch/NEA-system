@@ -59,6 +59,17 @@ internal class VM_CreateWorkout : VM_Input
         };
         Session.DB.Insert(workout);
 
+        //test ADD TEMPORARY EXERCISES
+        var e = new Exercise()
+        {
+            WorkoutID = workout.WorkoutID,
+            ExerciseTypeID = 1
+        };
+        Session.DB.Insert(e);
+        Session.DB.Insert(e);
+        Session.DB.Insert(e);
+
+
         //Pop the create workout page from the stack and push the focused workout page instead.
         Shell.Current.GoToAsync($"../{nameof(Page_FocusedWorkout)}", new Dictionary<string, object>() { ["Workout"] = workout });
         //Proceed to the edit workout page.
