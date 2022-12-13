@@ -26,9 +26,9 @@ internal class VM_FocusedWorkout : VM_Base, IDataDisplay
         foreach (Exercise e in Session.DB.Table<Exercise>().Where(e => e.WorkoutID == MyWorkout.WorkoutID))
         {
             //Pull the name of the exercise's corresponding exercise type.
-            var exerciseTypes = Session.DB.Table<ExerciseType>().Where(eT => eT.ExerciseTypeID == e.ExerciseTypeID).ToArray();
+            var exerciseType = Session.DB.Table<ExerciseType>().Where(eT => eT.ExerciseTypeID == e.ExerciseTypeID).ToArray()[0];
             //Equip the name.
-            e.ExerciseName = exerciseTypes[0].ExerciseTypeName;
+            e.ExerciseName = exerciseType.ExerciseTypeName;
 
             Exercises.Add(e);
         }

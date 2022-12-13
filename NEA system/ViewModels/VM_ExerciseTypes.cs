@@ -13,9 +13,10 @@ internal class VM_ExerciseTypes : VM_Base, IDataDisplay
 
     public void LoadViewData()
     {
+        ExerciseTypes.Clear();
         foreach (ExerciseType eT in Session.DB.Table<ExerciseType>())
         {
-
+            ExerciseTypes.Add(eT);
         }
     }
 }

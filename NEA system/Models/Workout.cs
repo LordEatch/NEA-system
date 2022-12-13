@@ -11,7 +11,6 @@ public class Workout
     [NotNull]
     public int UserID { get; set; }
     [NotNull]
-    //FINISH not sure if this will break?
     public DateTime Date { get; set; }
     [NotNull]
     public string WorkoutMuscleGroup { get; set; }
