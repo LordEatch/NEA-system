@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:NEA_system.Models"
+             xmlns:viewmodels="clr-namespace:NEA_system.ViewModels"
+             xmlns:views="clr-namespace:NEA_system.Views"
              x:Class="NEA_system.Views.Page_ExerciseTypes"
-             Title="Page_ExerciseTypes">
+             x:DataType="viewmodels:VM_ExerciseTypes"
+             Title="Exercises">
     <VerticalStackLayout>
         <CollectionView
-                ItemsSource="{Binding ExerciseTypes}"
-                SelectionMode="Single"
-                VerticalOptions="Fill">
+            ItemsSource="{Binding ExerciseTypes}"
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedET}"
+            VerticalOptions="Fill">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame>
-                        <Frame.BindingContext>
-                            <models:ExerciseType/>
-                        </Frame.BindingContext>
-
-                        <Label Text="{Binding ExerciseTypeName}"/>
-                    </Frame>
+                    <views:Card_ExerciseType/>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

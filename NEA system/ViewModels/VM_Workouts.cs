@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using NEA_system.Models;
+using System.Collections.ObjectModel;
 
 namespace NEA_system.ViewModels;
 
@@ -8,6 +9,7 @@ internal class VM_Workouts : VM_Base, IDataDisplay
 
     public string Search
     {
+        get { return null; }
         set
         {
             value = value.ToLower();
@@ -15,9 +17,19 @@ internal class VM_Workouts : VM_Base, IDataDisplay
         }
     }
     public ObservableCollection<Workout> Workouts { get; set; }
+    private Workout selectedWorkout;
+    public Workout SelectedWorkout
+    {
+        get { return selectedWorkout; }
+        set
+        {
+            selectedWorkout = value;
+            if (selectedWorkout != null)
+                Shell.Current.GoToAsync($"{nameof(Page_FocusedWorkout)}", new Dictionary<string, object>() { ["Workout"] = selectedWorkout });
+        }
+    }
     public string WorkoutsHeader { get; set; }
 
-    public Command WorkoutSelectedCommand { get; }
     public Command GoToPage_CreateWorkout { get; }
 
 
@@ -26,7 +38,6 @@ internal class VM_Workouts : VM_Base, IDataDisplay
 
     public VM_Workouts()
     {
-        WorkoutSelectedCommand = new Command<Workout>(WorkoutSelected);
         GoToPage_CreateWorkout = new Command(() => Shell.Current.GoToAsync(nameof(Page_CreateWorkout)));
 
         Workouts = new();
@@ -92,10 +103,5 @@ internal class VM_Workouts : VM_Base, IDataDisplay
         {
             return Session.DB.Table<Workout>().Where(w => w.UserID == Session.CurrentUser.UserID).ToArray();
         }
-    }
-
-    private void WorkoutSelected(Workout workout)
-    {
-        Shell.Current.GoToAsync($"{nameof(Page_FocusedWorkout)}", new Dictionary<string, object>() { ["Workout"] = workout });
     }
 }

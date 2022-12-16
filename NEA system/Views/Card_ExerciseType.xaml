@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Frame xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:NEA_system.Models"
+             x:Class="NEA_system.Views.Card_ExerciseType"
+             x:DataType="models:ExerciseType">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="4*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Headers -->
+        <Label
+                                Text="Name"
+                                FontAttributes="Bold"
+                                Grid.Column="0"/>
+        <Label
+                                Text="Description"
+                                FontAttributes="Bold"
+                                Grid.Column="1"/>
+
+        <Label
+                                Text="{Binding ExerciseTypeName}"
+                                Grid.Row="1"/>
+        <Label
+                                Text="{Binding ExerciseTypeDescription}"
+                                Grid.Column="1"
+                                Grid.Row="1"/>
+    </Grid>
+</Frame>

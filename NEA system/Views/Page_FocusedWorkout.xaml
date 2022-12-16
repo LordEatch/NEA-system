@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:NEA_system.ViewModels"
              xmlns:models="clr-namespace:NEA_system.Models"
+             xmlns:views="clr-namespace:NEA_system.Views"
              x:Class="NEA_system.Views.Page_FocusedWorkout"
              Title="{Binding MyWorkout.WorkoutMuscleGroup}">
 
@@ -25,14 +26,8 @@
                         <Frame.BindingContext>
                             <models:Exercise/>
                         </Frame.BindingContext>
-                        
+
                         <Label Text="{Binding ExerciseName}"/>
-                        
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Command="{Binding Path=BindingContext.WorkoutSelectedCommand, Source={x:Reference page_Workouts}}"
-                                CommandParameter="{Binding .}"/>
-                        </Frame.GestureRecognizers>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
