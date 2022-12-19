@@ -1,4 +1,6 @@
-﻿namespace NEA_system;
+﻿using NEA_system.Themes;
+
+namespace NEA_system;
 
 public partial class App : Application
 {
@@ -8,6 +10,14 @@ public partial class App : Application
 
 		MainPage = new AppShell();
 
-		Session.StartSession();
+        //test
+        ICollection<ResourceDictionary> mergedDictionaries = Current.Resources.MergedDictionaries;
+        if (mergedDictionaries != null)
+        {
+            mergedDictionaries.Clear();
+            mergedDictionaries.Add(new Theme_Dark());
+        }
+
+        Session.StartSession();
 	}
 }
