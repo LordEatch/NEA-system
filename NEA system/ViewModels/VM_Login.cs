@@ -14,6 +14,8 @@ internal class VM_Login : VM_Base, IDataDisplay
         get { return selectedUser; }
         set
         {
+            System.Diagnostics.Debug.WriteLine("blah");
+
             selectedUser = value;
 
             if (selectedUser != null)

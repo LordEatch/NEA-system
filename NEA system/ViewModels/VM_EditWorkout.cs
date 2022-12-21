@@ -7,4 +7,10 @@ internal class VM_EditWorkout : VM_FocusedWorkout, IDataDisplay
     {
         Exercises = new();
     }
+
+    public void SaveData()
+    {
+        Session.DB.Update(MyWorkout);
+        System.Diagnostics.Debug.WriteLine($"Workout with id:{MyWorkout.WorkoutID} has been updated.");
+    }
 }

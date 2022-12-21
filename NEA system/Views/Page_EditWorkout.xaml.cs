@@ -15,4 +15,10 @@ public partial class Page_EditWorkout : ContentPage
         base.OnAppearing();
         VM.LoadViewData();
     }
+
+	protected override void OnDisappearing()
+	{
+		base.OnDisappearing();
+		VM.SaveData();
+	}
 }
