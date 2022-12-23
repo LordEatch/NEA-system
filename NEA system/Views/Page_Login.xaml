@@ -5,32 +5,32 @@
              x:Class="NEA_system.Views.Page_Login"
              Title="Login">
     <Grid
-        HorizontalOptions="Center"
-        VerticalOptions="Center">
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand">
         <Grid.RowDefinitions>
-            <RowDefinition Height="400" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <!-- EmptyView property breaks android :/ -->
-        <CollectionView
-            ItemsSource="{Binding Users}"
-            SelectionMode="Single"
-            SelectedItem="{Binding SelectedUser}"
-            Grid.Row="0">
-
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame>
-                        <Label Text="{Binding Username}"/>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
 
         <Button
             Text="Create a user"
             Command="{Binding GoToPage_CreateUser}"
-            Grid.Row="1"/>
+            Grid.Row="0"/>
+
+        <!-- EmptyView property breaks android :/ -->
+        <ListView
+            ItemsSource="{Binding Users}"
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedUser}"
+            Grid.Row="1">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Text="{Binding Username}"/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </ContentPage>
