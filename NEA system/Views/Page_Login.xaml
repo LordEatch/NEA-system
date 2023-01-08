@@ -17,6 +17,8 @@
             Command="{Binding GoToPage_CreateUser}"
             Grid.Row="0"/>
 
+        <!-- Need to change other pages to a list view too!!! -->
+        
         <!-- EmptyView property breaks android :/ -->
         <ListView
             ItemsSource="{Binding Users}"
