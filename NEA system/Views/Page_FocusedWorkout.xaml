@@ -6,7 +6,6 @@
              xmlns:views="clr-namespace:NEA_system.Views"
              x:Class="NEA_system.Views.Page_FocusedWorkout"
              Title="{Binding MyWorkout.WorkoutMuscleGroup}">
-
     <VerticalStackLayout>
         <Button
             Text="Edit workout"
@@ -14,23 +13,19 @@
 
         <Label Text="{Binding MyWorkout.Date}"/>
 
-        <CollectionView
+        <ListView
                 ItemsSource="{Binding Exercises}"
                 SelectionMode="Single"
                 VerticalOptions="Fill">
 
-            <CollectionView.ItemTemplate>
+            <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Frame>
-                        <Frame.BindingContext>
-                            <models:Exercise/>
-                        </Frame.BindingContext>
-
+                    <ViewCell>
                         <Label Text="{Binding ExerciseName}"/>
-                    </Frame>
+                    </ViewCell>
                 </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            </ListView.ItemTemplate>
+        </ListView>
         
     </VerticalStackLayout>
 </ContentPage>
