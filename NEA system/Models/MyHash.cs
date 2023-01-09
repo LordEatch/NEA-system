@@ -13,21 +13,12 @@ internal static class MyHash
         //Should be prime to reduce collisions after being modulo'd.
         int k = 31;
 
-        int hash = 0;
+        long hash = 0;
         for (int i = 0; i < plaintextPassword.Length; i++)
         {
-            //test
-            Debug.WriteLine("character: " + plaintextPassword[i]);
-            Debug.WriteLine("31 ^ i: " + (long)Math.Pow(k, i));
-
             long x = (long)Math.Pow(k, i);
-            Debug.WriteLine("x beforem mod: " + x);
 
-            x %= 268435399;
-
-            Debug.WriteLine("x after mod: " + x);
-
-            hash += plaintextPassword[i] * (int)x;
+            hash += (long)plaintextPassword[i] * x;
         }
 
         //Modulo with the prime directly before 268435455 (highest possible value of a signed integer, 0FFFFFFF)
@@ -35,7 +26,10 @@ internal static class MyHash
         //hashes produced by numbers that are larger than 268435399.
         hash %= 268435399;
 
-        return ByteArrayToHexString(IntToByteArray(hash));
+        //test
+        Debug.WriteLine("Hash value: " + hash);
+
+        return ByteArrayToHexString(IntToByteArray((int)hash));
     }
 
     private static byte[] IntToByteArray(int n)

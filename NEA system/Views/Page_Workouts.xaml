@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:viewmodels="clr-namespace:NEA_system.ViewModels"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:NEA_system.Views"
-             x:Name="page_Workouts"
              x:Class="NEA_system.Views.Page_Workouts"
-             x:DataType="viewmodels:VM_Workouts"
              Title="Workouts">
     <Grid>
         <Grid.RowDefinitions>
@@ -50,18 +47,18 @@
 
         <!-- Workouts -->
         <!-- EmptyView property breaks android :/ -->
-        <CollectionView
-                ItemsSource="{Binding Workouts}"
-                SelectionMode="Single"
+        <ListView
+            ItemsSource="{Binding Workouts}"
+            SelectionMode="Single"
             SelectedItem="{Binding SelectedWorkout}"
-                VerticalOptions="Fill"
-                Grid.Row="2">
+            VerticalOptions="Fill"
+            Grid.Row="2">
 
-            <CollectionView.ItemTemplate>
+            <ListView.ItemTemplate>
                 <DataTemplate>
                     <views:Card_Workout/>
                 </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </ContentPage>

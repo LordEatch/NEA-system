@@ -7,17 +7,17 @@
              x:DataType="viewmodels:VM_ExerciseTypes"
              Title="Exercises">
     <VerticalStackLayout>
-        <CollectionView
+        <ListView
             ItemsSource="{Binding ExerciseTypes}"
             SelectionMode="Single"
             SelectedItem="{Binding SelectedET}"
             VerticalOptions="Fill">
 
-            <CollectionView.ItemTemplate>
+            <ListView.ItemTemplate>
                 <DataTemplate>
                     <views:Card_ExerciseType/>
                 </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            </ListView.ItemTemplate>
+        </ListView>
     </VerticalStackLayout>
 </ContentPage>
