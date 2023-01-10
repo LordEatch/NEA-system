@@ -12,14 +12,13 @@ public class Exercise
     public int WorkoutID { get; set; }
     [NotNull]
     public int ExerciseTypeID { get; set; }
+    //Ignored by SQLite. No field in the exercise table called 'ExerciseName' will be created.
     [Ignore]
-    public string ExerciseName { get; set; }
+    public string ExerciseName
     {
         get
         {
-            var exerciseType = Session.DB.Table<ExerciseType>().Where(eT => eT.ExerciseTypeID == e.ExerciseTypeID).ToArray()[0];
-            FINISH
-            return Session.DB.Get(1, ExerciseType)
+            return Session.DB.Table<ExerciseType>().Where(eT => eT.ExerciseTypeID == ExerciseTypeID).ToArray()[0].ExerciseTypeName;
         }
     }
 }

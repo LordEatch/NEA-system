@@ -1,6 +1,6 @@
 ﻿namespace NEA_system.ViewModels;
 
-internal class VM_Input : VM_Base
+internal abstract class VM_Input : VM_Base
 {
     protected string errorMessage;
     public string ErrorMessage
