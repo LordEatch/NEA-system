@@ -18,11 +18,13 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(Page_EditWorkout), typeof(Page_EditWorkout));
 
         //Exercise
+        Routing.RegisterRoute(nameof(Page_EditExercise), typeof(Page_EditExercise));
+
 
         //ExerciseType
     }
 
-	private void LogoutClicked(object sender, EventArgs e)
+    private void LogoutClicked(object sender, EventArgs e)
 	{
 		Session.Logout();
 	}

@@ -26,7 +26,7 @@ internal class VM_Workouts : VM_Base, IDataDisplay
         {
             selectedWorkout = value;
             if (selectedWorkout != null)
-                Shell.Current.GoToAsync($"{nameof(Page_FocusedWorkout)}", new Dictionary<string, object>() { ["Workout"] = selectedWorkout });
+                Shell.Current.GoToAsync($"{nameof(Page_EditWorkout)}", new Dictionary<string, object>() { ["Workout"] = selectedWorkout });
         }
     }
     public string WorkoutsHeader { get; set; }
