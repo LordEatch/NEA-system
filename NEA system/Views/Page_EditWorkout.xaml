@@ -16,9 +16,10 @@
             Placeholder="Workout muscle group"/>
 
         <ListView
-                ItemsSource="{Binding Exercises}"
-                SelectionMode="Single"
-                VerticalOptions="Fill">
+            ItemsSource="{Binding Exercises}"
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedExercise}"
+            VerticalOptions="Fill">
 
             <ListView.ItemTemplate>
                 <DataTemplate>

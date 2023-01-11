@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:views="clr-namespace:NEA_system.Views"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NEA_system.Views.Page_EditExercise"
              Title="Page_EditExercise">
@@ -9,7 +10,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Label Text="nig"/>
+                        <Label Text="a"/>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

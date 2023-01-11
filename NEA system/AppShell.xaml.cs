@@ -14,7 +14,6 @@ public partial class AppShell : Shell
 
 		//Workout
         Routing.RegisterRoute(nameof(Page_CreateWorkout), typeof(Page_CreateWorkout));
-        Routing.RegisterRoute(nameof(Page_FocusedWorkout), typeof(Page_FocusedWorkout));
         Routing.RegisterRoute(nameof(Page_EditWorkout), typeof(Page_EditWorkout));
 
         //Exercise
