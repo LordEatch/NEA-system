@@ -70,12 +70,17 @@ internal class VM_Workouts : VM_Base, IDataDisplay
         {
             List<Workout> filteredWorkouts = new();
 
+            //FINISH need to add ability to search for date. (Ticks cannot be searched for).
             string query = @$"
                 SELECT DISTINCT Workout.WorkoutID, Workout.UserID, Workout.Date, Workout.WorkoutMuscleGroup, Workout.WorkoutComment
                 FROM Workout
                 INNER JOIN Exercise ON Exercise.WorkoutID = Workout.WorkoutID
                 INNER JOIN ExerciseType ON Exercise.ExerciseTypeID = ExerciseType.ExerciseTypeID
-                WHERE Workout.UserID = '{Session.CurrentUser.UserID}' AND (ExerciseTypeName LIKE '%{filter}%' OR ExerciseTypeDescription LIKE '%{filter}%')";
+                WHERE Workout.UserID = '{Session.CurrentUser.UserID}'
+                AND (ExerciseTypeName LIKE '%{filter}%'
+                OR ExerciseTypeDescription LIKE '%{filter}%'
+                OR Workout.WorkoutMuscleGroup LIKE '%{filter}%'
+                OR WorkoutComment LIKE '%{filter}%')";
             var results = Session.DB.Query<Exercise>(query);
 
             foreach (Workout w in Session.DB.Query<Workout>(query))
