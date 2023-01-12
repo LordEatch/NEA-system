@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Microsoft.Maui.Controls;
+using SQLite;
 using System.Diagnostics;
 
 namespace NEA_system.Models
@@ -14,6 +15,7 @@ namespace NEA_system.Models
         public static void StartSession()
         {
             var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), fileName);
+            Debug.WriteLine("Starting session at " + dbPath);
 
             //For when a new db is needed.
             //File.Delete(dbPath);
