@@ -81,7 +81,6 @@ internal class VM_Workouts : VM_Base, IDataDisplay
                 OR ExerciseTypeDescription LIKE '%{filter}%'
                 OR Workout.WorkoutMuscleGroup LIKE '%{filter}%'
                 OR WorkoutComment LIKE '%{filter}%')";
-            var results = Session.DB.Query<Exercise>(query);
 
             foreach (Workout w in Session.DB.Query<Workout>(query))
             {
