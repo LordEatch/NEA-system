@@ -51,50 +51,30 @@ internal class VM_Workouts : VM_Base, IDataDisplay
         RefreshWorkouts();
     }
 
-    private void RefreshWorkouts(string filter = null)
+    //FINISH
+    //Update the workout list with a SQL query and display a count.
+    private void RefreshWorkouts(string filter = "")
     {
         Workouts.Clear();
-        foreach (Workout w in FilterWorkouts(filter))
-        {
-            Workouts.Add(w);
-        }
 
-
-
-        WorkoutsHeader = $"Showing {Workouts.Count()} workouts";
-        OnPropertyChanged(nameof(WorkoutsHeader));
-    }
-
-    //Returns every workout that directly contains a field containing the filter, and every workout that contains an exercise that contains a field containing the filter.
-    private static Workout[] FilterWorkouts(string filter)
-    {
-        //
-        if (!string.IsNullOrWhiteSpace(filter))
-        {
-            List<Workout> filteredWorkouts = new();
-
-            //FINISH need to add ability to search for date. (Ticks cannot be searched for).
-            string query = @$"
+        //FINISH need to add ability to search for date. (Ticks cannot be searched for).
+        string query = @$"
                 SELECT DISTINCT Workout.WorkoutID, Workout.UserID, Workout.Date, Workout.WorkoutMuscleGroup, Workout.WorkoutComment
                 FROM Workout
                 INNER JOIN Exercise ON Exercise.WorkoutID = Workout.WorkoutID
                 INNER JOIN ExerciseType ON Exercise.ExerciseTypeID = ExerciseType.ExerciseTypeID
                 WHERE Workout.UserID = '{Session.CurrentUser.UserID}'
                 AND (ExerciseTypeName LIKE '%{filter}%'
-                OR ExerciseTypeDescription LIKE '%{filter}%'
                 OR Workout.WorkoutMuscleGroup LIKE '%{filter}%'
                 OR WorkoutComment LIKE '%{filter}%')";
 
-            foreach (Workout w in Session.DB.Query<Workout>(query))
-            {
-                filteredWorkouts.Add(w);
-            }
-
-            return filteredWorkouts.ToArray();
-        }
-        else
+        foreach (Workout w in Session.DB.Query<Workout>(query))
         {
-            return Session.DB.Table<Workout>().Where(w => w.UserID == Session.CurrentUser.UserID).ToArray();
+            Workouts.Add(w);
         }
-    }
+
+        //FINISH change this to sql
+        WorkoutsHeader = $"Showing {Workouts.Count()} workouts";
+        OnPropertyChanged(nameof(WorkoutsHeader));
+    }    
 }
