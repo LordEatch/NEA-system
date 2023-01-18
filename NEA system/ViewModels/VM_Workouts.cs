@@ -9,22 +9,22 @@ internal class VM_Workouts : VM_Base, IDataDisplay
     public string Search
     {
         get { return null; }
+        //Called every time the user updates the search bar (types a character).
         set
         {
-            value = value.ToLower();
-            RefreshWorkouts(value);
+            RefreshWorkouts(value.ToLower());
         }
     }
     public ObservableCollection<Workout> Workouts { get; set; }
-    private Workout selectedWorkout;
     public Workout SelectedWorkout
     {
-        get { return selectedWorkout; }
+        get { return null; }
         set
         {
-            selectedWorkout = value;
-            if (selectedWorkout != null)
-                Shell.Current.GoToAsync($"{nameof(Page_EditWorkout)}", new Dictionary<string, object>() { ["Workout"] = selectedWorkout });
+            //If a workout was selected...
+            if (value != null)
+                //Go to its page.
+                Shell.Current.GoToAsync($"{nameof(Page_EditWorkout)}", new Dictionary<string, object>() { ["Workout"] = value });
         }
     }
     public string WorkoutsHeader { get; set; }
@@ -59,6 +59,8 @@ internal class VM_Workouts : VM_Base, IDataDisplay
             Workouts.Add(w);
         }
 
+
+
         WorkoutsHeader = $"Showing {Workouts.Count()} workouts";
         OnPropertyChanged(nameof(WorkoutsHeader));
     }
@@ -66,6 +68,7 @@ internal class VM_Workouts : VM_Base, IDataDisplay
     //Returns every workout that directly contains a field containing the filter, and every workout that contains an exercise that contains a field containing the filter.
     private static Workout[] FilterWorkouts(string filter)
     {
+        //
         if (!string.IsNullOrWhiteSpace(filter))
         {
             List<Workout> filteredWorkouts = new();
