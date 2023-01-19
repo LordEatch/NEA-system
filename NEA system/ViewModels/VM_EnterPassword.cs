@@ -25,15 +25,14 @@ internal class VM_EnterPassword : VM_Input
 
     private void Login()
     {
-        MyHash.test(new byte[] { });
         //test
-        //if (MyHash.CalculatePasswordHash(Password) == MyUser.PasswordHash)
-        //{
-        //    Session.Login(MyUser);
-        //}
-        //else
-        //{
-        //    ErrorMessage = "Incorrect password.";
-        //}
+        if (MyHash.CalculatePasswordHash(Password) == MyUser.PasswordHash)
+        {
+            Session.Login(MyUser);
+        }
+        else
+        {
+            ErrorMessage = "Incorrect password.";
+        }
     }
 }
