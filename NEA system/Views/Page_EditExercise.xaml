@@ -9,9 +9,7 @@
             ItemsSource="{Binding ResistanceSets}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <Label Text="a"/>
-                    </ViewCell>
+                    <views:Card_ResistanceSet/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

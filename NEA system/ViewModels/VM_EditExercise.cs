@@ -23,4 +23,10 @@ internal class VM_EditExercise : VM_Base, IDataDisplay
         ResistanceSets.Clear();
         ResistanceSets.Add(new ResistanceSet());
     }
+
+    public void SaveData()
+    {
+        Session.DB.Update(MyExercise);
+        System.Diagnostics.Debug.WriteLine($"Exercise with id:{MyExercise.ExerciseID} has been updated.");
+    }
 }
