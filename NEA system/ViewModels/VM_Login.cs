@@ -53,6 +53,7 @@ internal class VM_Login : VM_Base, IDataDisplay
     {
         //Update user list.
         Users.Clear();
+
         foreach (var user in Session.DB.Table<User>())
         {
             Users.Add(user);
