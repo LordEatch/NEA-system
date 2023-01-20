@@ -1,5 +1,4 @@
-﻿using NEA_system.Models;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace NEA_system.ViewModels;
 
@@ -19,12 +18,13 @@ internal class VM_Login : VM_Base, IDataDisplay
             if (selectedUser != null)
             {
                 //If this user does not have a password...
-                if (value.PasswordHash == null)
+                if (value.IsPasswordProtected == false)
                 {
                     Session.Login(value);
                 }
                 else
                 {
+                    //Proceed to password entry.
                     Shell.Current.GoToAsync($"{nameof(Page_EnterPassword)}", new Dictionary<string, object>() { ["User"] = value });
                 }
             }

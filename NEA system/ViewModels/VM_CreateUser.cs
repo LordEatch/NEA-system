@@ -6,6 +6,16 @@ internal class VM_CreateUser : VM_Input
 
     public string Username { get; set; }
     public string Password { get; set; }
+    private bool isPasswordProtected;
+    public bool IsPasswordProtected
+    {
+        get { return isPasswordProtected; }
+        set
+        {
+            isPasswordProtected = value;
+            OnPropertyChanged(Password);
+        }
+    }
 
     public Command InsertUserCommand { get; }
 
@@ -27,16 +37,28 @@ internal class VM_CreateUser : VM_Input
         //Check if this username already exists.
         if (!ValidateUsername())
             return;
-        if (!ValidatePasswordFormat())
-            return;
 
-        var user = new User()
+        //Create a temporary user object.
+        User user = new User()
         {
             Username = Username,
-            PasswordHash = MyHash.CalculatePasswordHash(Password),
+            IsPasswordProtected = false,
+            PasswordHash = 0,
             LightMode = false
         };
+
+        //If the user has chosen to use a password then append the user object.
+        if (IsPasswordProtected)
+        {
+            if (!ValidatePasswordFormat())
+                return;
+
+            user.IsPasswordProtected = true;
+            user.PasswordHash = MyHash.CalculatePasswordHash(Password);
+        }
+
         Session.DB.Insert(user);
+        System.Diagnostics.Debug.WriteLine($"User created with id: '{user.UserID}', username: '{user.Username}'.");
 
 
 
@@ -54,15 +76,18 @@ internal class VM_CreateUser : VM_Input
             System.Diagnostics.Debug.WriteLine($"User subscribed to {eT.ExerciseTypeName}.");
         }
 
-        //test
-        System.Diagnostics.Debug.WriteLine($"User created with id: '{user.UserID}', username: '{user.Username}' and password hash: '{user.PasswordHash}'.");
-
-        Shell.Current.GoToAsync("..");
+        //Login.
+        Session.Login(user);
     }
 
-    //FINISH
     private bool ValidatePasswordFormat()
     {
+        if (string.IsNullOrWhiteSpace(Password))
+        {
+            ErrorMessage = "Cannot use an empty password.";
+            return false;
+        }
+
         return true;
     }
 

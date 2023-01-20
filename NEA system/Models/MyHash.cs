@@ -3,19 +3,14 @@
 namespace NEA_system.Models;
 internal static class MyHash
 {
-    public static long CalculatePasswordHash(string plaintextPassword)
+    public static int CalculatePasswordHash(string plaintextPassword)
     {
-        //Return a null password hash if the plaintext password is empty or null.
-        if (string.IsNullOrEmpty(plaintextPassword))
-            return -1;
-
-        //Should be prime to reduce collisions after being modulo'd.
         int k = 31;
+        int hash = 0;
 
-        long hash = 0;
         for (int i = 0; i < plaintextPassword.Length; i++)
         {
-            long x = (long)Math.Pow(k, i);
+            int x = (int)Math.Pow(k, i);
 
             hash += plaintextPassword[i] * x;
         }

@@ -16,8 +16,11 @@
         <Entry
             Text="{Binding Username}"
             Placeholder="Username"/>
+        <CheckBox
+            IsChecked="{Binding IsPasswordProtected}"/>
         <Entry
             Text="{Binding Password}"
+            IsEnabled="{Binding IsPasswordProtected}"
             Placeholder="Password"
             IsPassword="True"/>
         <Label

@@ -55,6 +55,8 @@ internal class VM_Workouts : VM_Base, IDataDisplay
     //Update the workout list with a SQL query and display a count.
     private void RefreshWorkouts(string filter = "")
     {
+        int workoutCount = 0;
+
         Workouts.Clear();
 
         //FINISH need to add ability to search for date. (Ticks cannot be searched for).
@@ -71,10 +73,11 @@ internal class VM_Workouts : VM_Base, IDataDisplay
         foreach (Workout w in Session.DB.Query<Workout>(query))
         {
             Workouts.Add(w);
+            workoutCount++;
         }
 
         //FINISH change this to sql
-        WorkoutsHeader = $"Showing {Workouts.Count()} workouts";
+        WorkoutsHeader = $"Showing {workoutCount} workouts";
         OnPropertyChanged(nameof(WorkoutsHeader));
     }    
 }

@@ -10,7 +10,10 @@ public class User
     public int UserID { get; set; }
     [NotNull]
     public string Username { get; set; }
-    public long PasswordHash { get; set; }
+    [NotNull]
+    public bool IsPasswordProtected { get; set; }
+    [NotNull]
+    public int PasswordHash { get; set; }
     [NotNull]
     public bool LightMode { get; set; }
 }
