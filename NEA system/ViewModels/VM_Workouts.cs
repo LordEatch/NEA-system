@@ -59,7 +59,6 @@ internal class VM_Workouts : VM_Base, IDataDisplay
 
         Workouts.Clear();
 
-        //FINISH need to add ability to search for date. (Ticks cannot be searched for).
         string query = @$"
                 SELECT DISTINCT Workout.WorkoutID, Workout.UserID, Workout.Date, Workout.WorkoutMuscleGroup, Workout.WorkoutComment
                 FROM Workout

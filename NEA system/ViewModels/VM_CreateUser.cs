@@ -13,6 +13,7 @@ internal class VM_CreateUser : VM_Input
         set
         {
             isPasswordProtected = value;
+            Password = null;
             OnPropertyChanged(Password);
         }
     }

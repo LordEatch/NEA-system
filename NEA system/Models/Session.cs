@@ -18,7 +18,7 @@ namespace NEA_system.Models
             Debug.WriteLine("Starting session at " + dbPath);
 
             //For when a new db is needed.
-            //File.Delete(dbPath);
+            File.Delete(dbPath);
 
             //If the database file does not already exist...
             if (!File.Exists(dbPath))
