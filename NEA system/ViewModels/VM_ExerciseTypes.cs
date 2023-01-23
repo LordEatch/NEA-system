@@ -4,26 +4,26 @@ namespace NEA_system.ViewModels;
 internal class VM_ExerciseTypes : VM_Base, IDataDisplay
 {
     public ObservableCollection<ExerciseType> ExerciseTypes { get; set; }
-    private ExerciseType selectedET;
     public ExerciseType SelectedET
     {
-        get { return selectedET; }
+        get { return null; }
         set
         {
-            selectedET = value;
-
-            //test
-            if (selectedET != null)
-            {
-                System.Diagnostics.Debug.WriteLine("new selectedET name: " + selectedET.ExerciseTypeName);
-            }
+            //If a workout was selected...
+            if (value != null)
+                //Go to its page.
+                Shell.Current.GoToAsync($"{nameof(Page_EditExerciseType)}", new Dictionary<string, object>() { ["ExerciseType"] = value });
         }
     }
+    
+    public Command GoToPage_EditExerciseType { get; }
 
 
 
     public VM_ExerciseTypes()
     {
+        GoToPage_EditExerciseType = new Command(() => Shell.Current.GoToAsync($"{nameof(Page_EditExerciseType)}"));
+
         ExerciseTypes = new();
     }
 

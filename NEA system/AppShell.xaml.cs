@@ -21,6 +21,8 @@ public partial class AppShell : Shell
 
 
         //ExerciseType
+        Routing.RegisterRoute(nameof(Page_EditExerciseType), typeof(Page_EditExerciseType));
+
     }
 
     private void LogoutClicked(object sender, EventArgs e)

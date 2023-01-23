@@ -1,7 +1,7 @@
 ﻿namespace NEA_system.ViewModels;
 
 //When you want to implement username changing etc, inherit from IDataShower to display the old username etc...
-internal class VM_ProfileSettings
+internal class VM_ProfileSettings : VM_Base
 {
     public Command DeleteUserCommand { get; set; }
 

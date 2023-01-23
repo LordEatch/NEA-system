@@ -1,6 +1,6 @@
 ﻿namespace NEA_system.ViewModels;
 
-internal class VM_CreateWorkout : VM_Input
+internal class VM_CreateWorkout : VM_Base
 {
     //Properties
 
@@ -20,8 +20,6 @@ internal class VM_CreateWorkout : VM_Input
 
         //Pre-populate entries.
         Date = DateTime.Now;
-        WorkoutMuscleGroup = "";
-        WorkoutComment = "";
     }
 
 

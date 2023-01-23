@@ -1,6 +1,6 @@
 ﻿namespace NEA_system.ViewModels;
 
-internal class VM_CreateUser : VM_Input
+internal class VM_CreateUser : VM_Base
 {
     // Fields
 

@@ -7,15 +7,12 @@ internal class VM_Login : VM_Base, IDataDisplay
     // Properties
 
     public ObservableCollection<User> Users { get; set; }
-    private User selectedUser;
     public User SelectedUser
     {
-        get { return selectedUser; }
+        get { return null; }
         set
         {
-            selectedUser = value;
-
-            if (selectedUser != null)
+            if (value != null)
             {
                 //If this user does not have a password...
                 if (value.IsPasswordProtected == false)
@@ -42,7 +39,7 @@ internal class VM_Login : VM_Base, IDataDisplay
     {
         GoToPage_CreateUser = new Command(() => Shell.Current.GoToAsync($"{nameof(Page_CreateUser)}"));
 
-        Users = new ObservableCollection<User>();
+        Users = new();
     }
 
 
