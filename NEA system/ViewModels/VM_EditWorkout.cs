@@ -3,7 +3,7 @@
 namespace NEA_system.ViewModels;
 
 [QueryProperty (nameof(MyWorkout), "Workout")]
-internal class VM_EditWorkout : VM_Base, IRecordEditor
+internal class VM_EditWorkout : VM_Base, IDatabaseOutput
 {
     public Workout MyWorkout { get; set; }
     public ObservableCollection<Exercise> Exercises { get; set; }

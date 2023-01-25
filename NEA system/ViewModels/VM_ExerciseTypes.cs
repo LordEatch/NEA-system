@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 
 namespace NEA_system.ViewModels;
-internal class VM_ExerciseTypes : VM_Base, IDataDisplay
+internal class VM_ExerciseTypes : VM_Base, IDatabaseOutput
 {
     public ObservableCollection<ExerciseType> ExerciseTypes { get; set; }
     public ExerciseType SelectedET

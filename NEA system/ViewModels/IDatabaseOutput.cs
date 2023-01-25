@@ -1,6 +1,6 @@
 ﻿namespace NEA_system.ViewModels;
 
-internal interface IDataDisplay
+internal interface IDatabaseOutput
 {
     public void LoadViewData();
 }
