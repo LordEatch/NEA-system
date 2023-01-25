@@ -1,6 +1,6 @@
 ﻿namespace NEA_system.ViewModels;
 
-internal interface IRecordHandler
+internal interface IRecordEditor : IDataDisplay
 {
     public void SaveData();
 }

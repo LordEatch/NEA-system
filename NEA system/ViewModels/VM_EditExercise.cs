@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 namespace NEA_system.ViewModels;
 
 [QueryProperty(nameof(MyExercise), "Exercise")]
-internal class VM_EditExercise : VM_Base, IDataDisplay
+internal class VM_EditExercise : VM_Base, IRecordEditor
 {
     public Exercise MyExercise { get; set; }
     public ObservableCollection<ResistanceSet> ResistanceSets { get; set; }

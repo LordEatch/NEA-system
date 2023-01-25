@@ -34,16 +34,12 @@ internal class VM_CreateWorkout : VM_Base
 
     private bool ValidateInput()
     {
-        //If either inputs are empty...
-        if (string.IsNullOrEmpty(WorkoutMuscleGroup) || string.IsNullOrEmpty(WorkoutComment))
-        {
-            ErrorMessage = "Please enter information into each box.";
-            return false;
-        }
-        else
-        {
+        //If both inputs are full...
+        if (!(string.IsNullOrEmpty(WorkoutMuscleGroup) || string.IsNullOrEmpty(WorkoutComment)))
             return true;
-        }
+
+        ErrorMessage = "Please enter information into each box.";
+        return false;
     }
 
     private void InsertWorkout()
