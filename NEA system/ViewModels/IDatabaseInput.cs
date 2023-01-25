@@ -2,5 +2,5 @@
 
 internal interface IDatabaseInput
 {
-    public void ValidateInputFormat();
+    public bool ValidateInputFormat();
 }

@@ -16,13 +16,13 @@ internal class VM_ExerciseTypes : VM_Base, IDatabaseOutput
         }
     }
     
-    public Command GoToPage_EditExerciseType { get; }
+    public Command GoToPage_CreateExerciseType { get; }
 
 
 
     public VM_ExerciseTypes()
     {
-        GoToPage_EditExerciseType = new Command(() => Shell.Current.GoToAsync($"{nameof(Page_EditExerciseType)}"));
+        GoToPage_CreateExerciseType = new Command(() => Shell.Current.GoToAsync($"{nameof(Page_CreateExerciseType)}"));
 
         ExerciseTypes = new();
     }

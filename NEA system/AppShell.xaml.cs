@@ -6,7 +6,7 @@ public partial class AppShell : Shell
 	{
 		InitializeComponent();
 
-		// Routes
+		//  Routes
 
 		//User
 		Routing.RegisterRoute(nameof(Page_CreateUser), typeof(Page_CreateUser));
@@ -19,9 +19,9 @@ public partial class AppShell : Shell
         //Exercise
         Routing.RegisterRoute(nameof(Page_EditExercise), typeof(Page_EditExercise));
 
-
         //ExerciseType
         Routing.RegisterRoute(nameof(Page_EditExerciseType), typeof(Page_EditExerciseType));
+        Routing.RegisterRoute(nameof(Page_CreateExerciseType), typeof(Page_CreateExerciseType));
 
     }
 

@@ -9,7 +9,7 @@
     <VerticalStackLayout>
         <Button
             Text="Add a new exercise"
-            Command="{Binding GoToPage_EditExerciseType}"/>
+            Command="{Binding GoToPage_CreateExerciseType}"/>
 
         <ListView
             ItemsSource="{Binding ExerciseTypes}"

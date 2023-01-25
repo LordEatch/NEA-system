@@ -2,7 +2,7 @@
 
 namespace NEA_system.ViewModels;
 
-internal class VM_CreateExerciseType
+internal class VM_CreateExerciseType : VM_Base, IDatabaseInput
 {
     public string ExerciseTypeName { get; set; }
     public string ExerciseTypeDescription { get; set; }
@@ -18,13 +18,29 @@ internal class VM_CreateExerciseType
 
 
 
-    //Methods
+    //  Methods
 
-    //FINISH!!!
+    public bool ValidateInputFormat()
+    {
+        //If an entry is empty...
+        if (string.IsNullOrEmpty(ExerciseTypeName) || string.IsNullOrEmpty(ExerciseTypeDescription))
+        {
+            ErrorMessage = emptyEntryError;
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     private void InsertExerciseType()
     {
-        //IF INPUT IS CORRECT
+        //  Create exercise type
 
+        //Cancel if the input is bogus.
+        if (!ValidateInputFormat())
+            return;
 
         var eT = new ExerciseType()
         {
@@ -40,7 +56,8 @@ internal class VM_CreateExerciseType
 
 
 
-        //Subscribe user.
+        //  Subscribe user
+
         var sub = new Subscription()
         {
             UserID = Session.CurrentUser.UserID,
@@ -48,7 +65,6 @@ internal class VM_CreateExerciseType
         };
         Session.DB.Insert(sub);
 
-        //test
         System.Diagnostics.Debug.WriteLine($"User subscribed to {eT.ExerciseTypeName}.");
     }
 }

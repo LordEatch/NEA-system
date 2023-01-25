@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:NEA_system.ViewModels"
              x:Class="NEA_system.Views.Page_CreateExerciseType"
+             x:DataType="viewmodels:VM_CreateExerciseType"
              Title="Page_CreateExerciseType">
 
     <ContentPage.BindingContext>
@@ -15,16 +16,16 @@
         HorizontalOptions="Center"
         VerticalOptions="Center">
         <Entry
-            Placeholder="Muscle group"
+            Placeholder="Name"
             Text="{Binding ExerciseTypeName}"/>
         <Entry
-            Placeholder="Comment"
+            Placeholder="Description"
             Text="{Binding ExerciseTypeDescription}"/>
         <Label
             Text="{Binding ErrorMessage}"
             Style="{StaticResource ErrorMessage}"/>
         <Button
             Text="Create workout"
-            Command="{Binding CreateWorkoutCommand}"/>
+            Command="{Binding CreateExerciseTypeCommand}"/>
     </VerticalStackLayout>
 </ContentPage>
