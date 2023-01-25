@@ -10,7 +10,13 @@ internal static class MyHash
 
         for (int i = 0; i < plaintextPassword.Length; i++)
         {
-            int x = (int)Math.Pow(k, i);
+            /* 
+             * Use i + 1 to create at least a somewhat complex hash for even 1 character long password.
+             * k ^ 0 = 1
+             * ASCII value * 1 = ASCII value
+             * So start at k ^ 1.
+             */
+            int x = (int)Math.Pow(k, i + 1);
 
             hash += plaintextPassword[i] * x;
         }

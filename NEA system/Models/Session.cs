@@ -53,6 +53,7 @@ namespace NEA_system.Models
         //FINISH test . Make this pull from a default table of exercisetypes in json or an integrated db??
         public static ExerciseType[] GetDefaultExerciseTypes()
         {
+
             var y = new ExerciseType
             {
                 ExerciseTypeID = 1,
@@ -65,25 +66,17 @@ namespace NEA_system.Models
             return x;
         }
 
-        //FINISH
         public static void Login(User user)
         {
             CurrentUser = user;
-
-            //FINISH make this work!
-            //Shell.Current.FlyoutHeader = CurrentUser.Username;
 
             Shell.Current.GoToAsync($"//{nameof(Page_Workouts)}");
             Debug.WriteLine("Logged in with UserID: " + CurrentUser.UserID);
         }
 
-        //FINISH
         public static void Logout()
         {
             CurrentUser = null;
-
-            //FINISH make this work!
-            //Shell.Current.FlyoutHeader = null;
 
             Shell.Current.GoToAsync($"//{nameof(Page_Login)}");
             Debug.WriteLine("Logged out.");

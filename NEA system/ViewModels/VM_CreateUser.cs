@@ -2,7 +2,7 @@
 
 internal class VM_CreateUser : VM_Base
 {
-    // Fields
+    //Properties
 
     public string Username { get; set; }
     public string Password { get; set; }
@@ -13,7 +13,9 @@ internal class VM_CreateUser : VM_Base
         set
         {
             isPasswordProtected = value;
+            //Empty the password entry for disabling (cannot disable a filled entry).
             Password = null;
+            //Update the entry so that it recognises that the bool is true/false and therefore enables/disables.
             OnPropertyChanged(Password);
         }
     }
@@ -79,35 +81,37 @@ internal class VM_CreateUser : VM_Base
 
         //Login.
         Session.Login(user);
-    }
 
-    private bool ValidatePasswordFormat()
-    {
-        if (string.IsNullOrWhiteSpace(Password))
+
+
+        bool ValidateUsername()
         {
-            ErrorMessage = "Cannot use an empty password.";
-            return false;
+            //If format is incorrect.
+            if (string.IsNullOrWhiteSpace(Username))
+            {
+                ErrorMessage = "Cannot use an empty username.";
+                return false;
+            }
+
+            //If the username exists...
+            if (!(Session.DB.Table<User>().Where(u => u.Username == Username).Count() == 0))
+            {
+                ErrorMessage = "That username already exists.";
+                return false;
+            }
+
+            return true;
         }
 
-        return true;
-    }
-
-    private bool ValidateUsername()
-    {
-        //If format is incorrect.
-        if (string.IsNullOrWhiteSpace(Username))
+        bool ValidatePasswordFormat()
         {
-            ErrorMessage = "Cannot use an empty username.";
-            return false;
-        }
+            if (string.IsNullOrWhiteSpace(Password))
+            {
+                ErrorMessage = "Cannot use an empty password.";
+                return false;
+            }
 
-        //If the username exists...
-        if (!(Session.DB.Table<User>().Where(u => u.Username == Username).Count() == 0))
-        {
-            ErrorMessage = "That username already exists.";
-            return false;
+            return true;
         }
-
-        return true;
     }
 }
