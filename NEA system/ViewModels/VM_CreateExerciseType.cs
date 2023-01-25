@@ -21,7 +21,7 @@ internal class VM_CreateExerciseType : VM_Base, IDatabaseInput
     public bool ValidateInputFormat()
     {
         //If an entry is empty...
-        if (string.IsNullOrEmpty(ExerciseTypeName) || string.IsNullOrEmpty(ExerciseTypeDescription))
+        if (string.IsNullOrWhiteSpace(ExerciseTypeName) || string.IsNullOrWhiteSpace(ExerciseTypeDescription))
         {
             ErrorMessage = emptyEntryErrorMessage;
             return false;

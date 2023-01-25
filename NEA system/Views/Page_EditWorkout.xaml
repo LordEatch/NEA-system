@@ -13,7 +13,7 @@
             Placeholder="Workout muscle group"/>
         <Entry
             Text="{Binding MyWorkout.WorkoutComment}"
-            Placeholder="Workout muscle group"/>
+            Placeholder="Workout comment"/>
 
         <ListView
             ItemsSource="{Binding Exercises}"

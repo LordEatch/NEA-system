@@ -57,7 +57,7 @@ internal class VM_EditWorkout : VM_Base, IRecordEditor
     public bool ValidateInputFormat()
     {
         //If any properties of the workout are null or empty (DateTime data type can never be null so a check is unecessary)...
-        if (string.IsNullOrEmpty(MyWorkout.WorkoutMuscleGroup))
+        if (string.IsNullOrWhiteSpace(MyWorkout.WorkoutMuscleGroup))
         {
             ErrorMessage = "Please enter a workout muscle group.";
             return false;

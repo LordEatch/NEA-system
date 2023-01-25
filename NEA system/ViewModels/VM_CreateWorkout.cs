@@ -20,7 +20,8 @@ internal class VM_CreateWorkout : VM_Base, IDatabaseInput
 
         //Pre-populate entries.
         Date = DateTime.Now;
-
+        WorkoutMuscleGroup = "";
+        WorkoutComment = "";
     }
 
 
@@ -30,7 +31,7 @@ internal class VM_CreateWorkout : VM_Base, IDatabaseInput
     public bool ValidateInputFormat()
     {
         //If the main input is empty...
-        if (string.IsNullOrEmpty(WorkoutMuscleGroup))
+        if (string.IsNullOrWhiteSpace(WorkoutMuscleGroup))
         {
             ErrorMessage = "Please enter a workout muscle group.";
             return false;

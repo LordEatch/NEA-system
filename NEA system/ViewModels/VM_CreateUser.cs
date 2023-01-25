@@ -77,7 +77,8 @@ internal class VM_CreateUser : VM_Base, IDatabaseInput
 
         bool ValidatePasswordFormat()
         {
-            if (string.IsNullOrWhiteSpace(Password))
+            //Allow white space for the password.
+            if (string.IsNullOrEmpty(Password))
             {
                 ErrorMessage = emptyEntryErrorMessage;
                 return false;

@@ -22,7 +22,7 @@ internal class VM_EditExerciseType : VM_Base, IRecordEditor
 
     public bool ValidateInputFormat()
     {
-        if (string.IsNullOrEmpty(MyExerciseType.ExerciseTypeName) || string.IsNullOrEmpty(MyExerciseType.ExerciseTypeDescription))
+        if (string.IsNullOrWhiteSpace(MyExerciseType.ExerciseTypeName) || string.IsNullOrWhiteSpace(MyExerciseType.ExerciseTypeDescription))
         {
             ErrorMessage = emptyEntryErrorMessage;
             return false;
