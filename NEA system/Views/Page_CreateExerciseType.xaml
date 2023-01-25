@@ -4,7 +4,7 @@
              xmlns:viewmodels="clr-namespace:NEA_system.ViewModels"
              x:Class="NEA_system.Views.Page_CreateExerciseType"
              x:DataType="viewmodels:VM_CreateExerciseType"
-             Title="Page_CreateExerciseType">
+             Title="Add new exercise">
 
     <ContentPage.BindingContext>
         <viewmodels:VM_CreateExerciseType/>
@@ -25,7 +25,7 @@
             Text="{Binding ErrorMessage}"
             Style="{StaticResource ErrorMessage}"/>
         <Button
-            Text="Create workout"
+            Text="Add exercise"
             Command="{Binding CreateExerciseTypeCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

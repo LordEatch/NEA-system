@@ -3,7 +3,7 @@
 namespace NEA_system.ViewModels;
 
 [QueryProperty (nameof(MyWorkout), "Workout")]
-internal class VM_EditWorkout : VM_Base, IDatabaseOutput
+internal class VM_EditWorkout : VM_Base, IRecordEditor
 {
     public Workout MyWorkout { get; set; }
     public ObservableCollection<Exercise> Exercises { get; set; }
@@ -47,5 +47,11 @@ internal class VM_EditWorkout : VM_Base, IDatabaseOutput
     {
         Session.DB.Update(MyWorkout);
         System.Diagnostics.Debug.WriteLine($"Workout with id:{MyWorkout.WorkoutID} has been updated.");
+    }
+
+    //FINISH
+    public bool ValidateInputFormat()
+    {
+        return false;
     }
 }

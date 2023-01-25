@@ -5,7 +5,7 @@ namespace NEA_system.ViewModels;
 
 internal abstract class VM_Base : INotifyPropertyChanged
 {
-    protected readonly string emptyEntryError = "Please fill out all entries.";
+    protected readonly string emptyEntryErrorMessage = "Please fill out all entries.";
 
 
 

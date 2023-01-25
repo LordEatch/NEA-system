@@ -1,6 +1,6 @@
 ﻿namespace NEA_system.ViewModels;
 
-internal class VM_CreateUser : VM_Base
+internal class VM_CreateUser : VM_Base, IDatabaseInput
 {
     //Properties
 
@@ -35,10 +35,61 @@ internal class VM_CreateUser : VM_Base
 
     // Methods
 
+    public bool ValidateInputFormat()
+    {
+        if (isPasswordProtected)
+        {
+            //Check both username and password.
+            if (ValidateUsername() && ValidatePasswordFormat())
+                return true;
+        }
+        else
+        {
+            //Check only username.
+            if (ValidateUsername())
+                return true;
+        }
+
+        return false;
+
+
+
+        //  Kept separate in case I need to reuse somewhere else later.
+
+        bool ValidateUsername()
+        {
+            //If format is incorrect.
+            if (string.IsNullOrWhiteSpace(Username))
+            {
+                ErrorMessage = emptyEntryErrorMessage;
+                return false;
+            }
+
+            //If the username exists...
+            if (!(Session.DB.Table<User>().Where(u => u.Username == Username).Count() == 0))
+            {
+                ErrorMessage = "That username already exists.";
+                return false;
+            }
+
+            return true;
+        }
+
+        bool ValidatePasswordFormat()
+        {
+            if (string.IsNullOrWhiteSpace(Password))
+            {
+                ErrorMessage = emptyEntryErrorMessage;
+                return false;
+            }
+
+            return true;
+        }
+    }
+
     private void InsertUser()
     {
-        //Check if this username already exists.
-        if (!ValidateUsername())
+        if (!ValidateInputFormat())
             return;
 
         //Create a temporary user object.
@@ -53,9 +104,6 @@ internal class VM_CreateUser : VM_Base
         //If the user has chosen to use a password then append the user object.
         if (IsPasswordProtected)
         {
-            if (!ValidatePasswordFormat())
-                return;
-
             user.IsPasswordProtected = true;
             user.PasswordHash = MyHash.CalculatePasswordHash(Password);
         }
@@ -79,39 +127,9 @@ internal class VM_CreateUser : VM_Base
             System.Diagnostics.Debug.WriteLine($"User subscribed to {eT.ExerciseTypeName}.");
         }
 
+
+
         //Login.
         Session.Login(user);
-
-
-
-        bool ValidateUsername()
-        {
-            //If format is incorrect.
-            if (string.IsNullOrWhiteSpace(Username))
-            {
-                ErrorMessage = "Cannot use an empty username.";
-                return false;
-            }
-
-            //If the username exists...
-            if (!(Session.DB.Table<User>().Where(u => u.Username == Username).Count() == 0))
-            {
-                ErrorMessage = "That username already exists.";
-                return false;
-            }
-
-            return true;
-        }
-
-        bool ValidatePasswordFormat()
-        {
-            if (string.IsNullOrWhiteSpace(Password))
-            {
-                ErrorMessage = "Cannot use an empty password.";
-                return false;
-            }
-
-            return true;
-        }
     }
 }

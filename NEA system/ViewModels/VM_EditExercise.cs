@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 namespace NEA_system.ViewModels;
 
 [QueryProperty(nameof(MyExercise), "Exercise")]
-internal class VM_EditExercise : VM_Base, IDatabaseOutput
+internal class VM_EditExercise : VM_Base, IRecordEditor
 {
     public Exercise MyExercise { get; set; }
     public ObservableCollection<ResistanceSet> ResistanceSets { get; set; }
@@ -28,5 +28,11 @@ internal class VM_EditExercise : VM_Base, IDatabaseOutput
     {
         Session.DB.Update(MyExercise);
         System.Diagnostics.Debug.WriteLine($"Exercise with id:{MyExercise.ExerciseID} has been updated.");
+    }
+
+    //FINISH
+    public bool ValidateInputFormat()
+    {
+        return false;
     }
 }

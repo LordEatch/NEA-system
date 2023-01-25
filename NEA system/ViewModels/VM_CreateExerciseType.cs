@@ -1,6 +1,4 @@
-﻿using NEA_system.Models;
-
-namespace NEA_system.ViewModels;
+﻿namespace NEA_system.ViewModels;
 
 internal class VM_CreateExerciseType : VM_Base, IDatabaseInput
 {
@@ -25,7 +23,7 @@ internal class VM_CreateExerciseType : VM_Base, IDatabaseInput
         //If an entry is empty...
         if (string.IsNullOrEmpty(ExerciseTypeName) || string.IsNullOrEmpty(ExerciseTypeDescription))
         {
-            ErrorMessage = emptyEntryError;
+            ErrorMessage = emptyEntryErrorMessage;
             return false;
         }
         else
