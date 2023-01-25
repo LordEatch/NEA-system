@@ -51,11 +51,10 @@ internal class VM_Workouts : VM_Base, IDatabaseOutput
         RefreshWorkouts();
     }
 
-    //FINISH
-    //Update the workout list with a SQL query and display a count.
+    
     private void RefreshWorkouts(string filter = "")
     {
-        int workoutCount = 0;
+        //  Query the database for workouts
 
         Workouts.Clear();
 
@@ -69,13 +68,18 @@ internal class VM_Workouts : VM_Base, IDatabaseOutput
                 OR Workout.WorkoutMuscleGroup LIKE '%{filter}%'
                 OR WorkoutComment LIKE '%{filter}%')";
 
+        int workoutCount = 0;
+        //Populate the observable collection.
         foreach (Workout w in Session.DB.Query<Workout>(query))
         {
             Workouts.Add(w);
             workoutCount++;
         }
+        
 
-        //FINISH change this to sql
+
+        //  Update the header
+
         WorkoutsHeader = $"Showing {workoutCount} workouts";
         OnPropertyChanged(nameof(WorkoutsHeader));
     }    

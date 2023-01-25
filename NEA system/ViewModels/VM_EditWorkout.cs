@@ -33,13 +33,18 @@ internal class VM_EditWorkout : VM_Base, IRecordEditor
 
     public void LoadViewData()
     {
+        //  Update exercises
+
         Exercises.Clear();
         foreach (Exercise e in Session.DB.Table<Exercise>().Where(e => e.WorkoutID == MyWorkout.WorkoutID))
         {
             Exercises.Add(e);
         }
 
-        //Update the date on the view.
+
+
+        //  Update the date
+
         OnPropertyChanged(nameof(MyWorkout));
     }
 
@@ -49,9 +54,17 @@ internal class VM_EditWorkout : VM_Base, IRecordEditor
         System.Diagnostics.Debug.WriteLine($"Workout with id:{MyWorkout.WorkoutID} has been updated.");
     }
 
-    //FINISH
     public bool ValidateInputFormat()
     {
-        return false;
+        //If any properties of the workout are null or empty (DateTime data type can never be null so a check is unecessary)...
+        if (string.IsNullOrEmpty(MyWorkout.WorkoutMuscleGroup))
+        {
+            ErrorMessage = "Please enter a workout muscle group.";
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }

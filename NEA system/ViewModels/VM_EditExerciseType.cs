@@ -1,16 +1,11 @@
-﻿namespace NEA_system.ViewModels;
+﻿using NEA_system.Models;
+
+namespace NEA_system.ViewModels;
 
 [QueryProperty(nameof(MyExerciseType), "ExerciseType")]
 internal class VM_EditExerciseType : VM_Base, IRecordEditor
 {
     public ExerciseType MyExerciseType { get; set; }
-
-
-
-    public VM_EditExerciseType()
-    {
-
-    }
 
 
 
@@ -21,13 +16,20 @@ internal class VM_EditExerciseType : VM_Base, IRecordEditor
 
     public void SaveData()
     {
-        //insert the exercise type
-        //subscribe the user to the exercise type
+        Session.DB.Update(MyExerciseType);
+        System.Diagnostics.Debug.WriteLine($"Exercise type with id: {MyExerciseType.ExerciseTypeID} has been updated.");
     }
 
-    //FINISH
     public bool ValidateInputFormat()
     {
-        return false;
+        if (string.IsNullOrEmpty(MyExerciseType.ExerciseTypeName) || string.IsNullOrEmpty(MyExerciseType.ExerciseTypeDescription))
+        {
+            ErrorMessage = emptyEntryErrorMessage;
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }
