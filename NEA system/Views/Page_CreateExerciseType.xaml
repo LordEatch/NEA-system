@@ -2,24 +2,24 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodels="clr-namespace:NEA_system.ViewModels"
-             x:Class="NEA_system.Views.Page_CreateWorkout"
-             Title="Create workout">
+             x:Class="NEA_system.Views.Page_CreateExerciseType"
+             Title="Page_CreateExerciseType">
 
     <ContentPage.BindingContext>
-        <viewmodels:VM_CreateWorkout/>
+        <viewmodels:VM_CreateExerciseType/>
     </ContentPage.BindingContext>
+
+
 
     <VerticalStackLayout
         HorizontalOptions="Center"
         VerticalOptions="Center">
-        <DatePicker
-            Date="{Binding Date}"/>
         <Entry
             Placeholder="Muscle group"
-            Text="{Binding WorkoutMuscleGroup}"/>
+            Text="{Binding ExerciseTypeName}"/>
         <Entry
             Placeholder="Comment"
-            Text="{Binding WorkoutComment}"/>
+            Text="{Binding ExerciseTypeDescription}"/>
         <Label
             Text="{Binding ErrorMessage}"
             Style="{StaticResource ErrorMessage}"/>

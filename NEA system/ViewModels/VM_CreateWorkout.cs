@@ -16,7 +16,7 @@ internal class VM_CreateWorkout : VM_Base
 
     public VM_CreateWorkout()
     {
-        CreateWorkoutCommand = new Command(CreateWorkout);
+        CreateWorkoutCommand = new Command(InsertWorkout);
 
         //Pre-populate entries.
         Date = DateTime.Now;
@@ -25,25 +25,11 @@ internal class VM_CreateWorkout : VM_Base
 
 
     // Methods
-
-    private void CreateWorkout()
-    {
-        if (ValidateInput())
-            InsertWorkout();
-    }
-
-    private bool ValidateInput()
-    {
-        //If both inputs are full...
-        if (!(string.IsNullOrEmpty(WorkoutMuscleGroup) || string.IsNullOrEmpty(WorkoutComment)))
-            return true;
-
-        ErrorMessage = "Please enter information into each box.";
-        return false;
-    }
-
     private void InsertWorkout()
     {
+        if (ValidateInput())
+            return;
+
         var workout = new Workout()
         {
             UserID = Session.CurrentUser.UserID,
@@ -65,5 +51,21 @@ internal class VM_CreateWorkout : VM_Base
 
         //Pop the create workout page from the stack and push the edit workout page instead.
         Shell.Current.GoToAsync($"../{nameof(Page_EditWorkout)}", new Dictionary<string, object>() { ["Workout"] = workout });
+
+
+
+        bool ValidateInput()
+        {
+            //If either input is empty...
+            if (string.IsNullOrEmpty(WorkoutMuscleGroup) || string.IsNullOrEmpty(WorkoutComment))
+            {
+                return false;
+            }
+            else
+            {
+                ErrorMessage = "Please enter information into each box.";
+                return false;
+            }
+        }
     }
 }
