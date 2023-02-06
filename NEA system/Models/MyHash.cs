@@ -30,6 +30,43 @@ internal static class MyHash
     }
 }
 
+
+
+
+
+//Test finish this!!!
+public static int TestCalculatePasswordHash(string plaintextPassword)
+    {
+        int k = 3;
+        int hash = 0;
+
+        for (int i = 0; i < plaintextPassword.Length; i++)
+        {
+            /* 
+             * Use i + 1 to create at least a somewhat complex hash for even 1 character long password.
+             * k ^ 0 = 1
+             * ASCII value * 1 = ASCII value
+             * So start at k ^ 1 to produce a starting hash that is somewhat complex.
+             */
+			
+			//Hash = kx + l (constant * ascii value + string length)
+			int characterHash = (plaintextPassword[i] * k) + plaintextPassword.Length;
+			
+            hash += characterHash;
+			
+			//test
+        	Console.WriteLine("test hash value: " + hash);
+        }
+		
+		//NOW DO MID SQUARE METHOD ON THIS RECURSIVELY!!!
+		
+
+        //test
+        Console.WriteLine("Hash value: " + hash);
+
+        return hash;
+    }
+
 //Use the below code if I ever want to store hashes as fixed-length hex strings instead of integers.
 
 //static byte[] IntToByteArray(int n)
