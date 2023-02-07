@@ -33,39 +33,45 @@ internal static class MyHash
 
 
 
-
-//Test finish this!!!
-public static int TestCalculatePasswordHash(string plaintextPassword)
-    {
-        int k = 3;
-        int hash = 0;
-
-        for (int i = 0; i < plaintextPassword.Length; i++)
-        {
-            /* 
-             * Use i + 1 to create at least a somewhat complex hash for even 1 character long password.
-             * k ^ 0 = 1
-             * ASCII value * 1 = ASCII value
-             * So start at k ^ 1 to produce a starting hash that is somewhat complex.
-             */
-			
-			//Hash = kx + l (constant * ascii value + string length)
-			int characterHash = (plaintextPassword[i] * k) + plaintextPassword.Length;
-			
-            hash += characterHash;
-			
-			//test
-        	Console.WriteLine("test hash value: " + hash);
-        }
+//Test GETTING CLOSE!! need to make sure that the padding is more random and not full of 0s to the left of the input in each int.					
+	public static int[] Pad(int input)
+	{
+		Console.WriteLine($"Input: {input}");
+		Console.WriteLine();
 		
-		//NOW DO MID SQUARE METHOD ON THIS RECURSIVELY!!!
+		
+		int k = 3;
+		int[] inputString = new int[8];
 		
 
-        //test
-        Console.WriteLine("Hash value: " + hash);
+		
+		for (int index = 0; index < inputString.Length; index++)
+		{
+			//Use index + 1 for the power since the first multiplier would always be 0 otherwise.
+			inputString[index] = (input + index) * (int)Math.Pow(k, index + 1);
+			
+			Console.WriteLine($"Input[{index}]: {inputString[index].ToString("X8")}");
+		}
+		
+		return inputString;
+	}
+	
+	public static int Hash(int[] input)
+	{
+		int internalState = 0;
+		
+		for (int index = 0; index < input.Length; index++)
+		{
+			internalState ^= input[index];
+		}
+		
+		Console.WriteLine();
+		Console.WriteLine($"Output: {internalState}");
+		
+		return internalState;
+	}
 
-        return hash;
-    }
+
 
 //Use the below code if I ever want to store hashes as fixed-length hex strings instead of integers.
 
