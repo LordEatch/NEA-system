@@ -98,7 +98,7 @@ internal class VM_CreateUser : VM_Base, IDatabaseInput
         {
             Username = Username,
             IsPasswordProtected = false,
-            PasswordHash = 0,
+            PasswordHash = null,
             LightMode = false
         };
 
@@ -106,7 +106,7 @@ internal class VM_CreateUser : VM_Base, IDatabaseInput
         if (IsPasswordProtected)
         {
             user.IsPasswordProtected = true;
-            user.PasswordHash = MyHash.CalculatePasswordHash(Password);
+            user.PasswordHash = MyHash.HashPassword(Password);
         }
 
         Session.DB.Insert(user);

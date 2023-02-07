@@ -13,7 +13,7 @@ public class User
     [NotNull]
     public bool IsPasswordProtected { get; set; }
     [NotNull]
-    public int PasswordHash { get; set; }
+    public string PasswordHash { get; set; }
     [NotNull]
     public bool LightMode { get; set; }
 }

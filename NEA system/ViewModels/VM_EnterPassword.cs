@@ -25,14 +25,17 @@ internal class VM_EnterPassword : VM_Base
 
     private void Login()
     {
-        //test
-        if (MyHash.CalculatePasswordHash(Password) == MyUser.PasswordHash)
+        //If the input is valid...
+        if (Password != null)
         {
-            Session.Login(MyUser);
+            //If the hash of this password matches that in the database...
+            if (MyHash.HashPassword(Password) == MyUser.PasswordHash)
+            {
+                Session.Login(MyUser);
+                return;
+            }
         }
-        else
-        {
-            ErrorMessage = "Incorrect password.";
-        }
+
+        ErrorMessage = "Incorrect password.";
     }
 }

@@ -1,12 +1,19 @@
 ﻿using System.Diagnostics;
+using System.Numerics;
 
 namespace NEA_system.Models;
 internal static class MyHash
 {
-    public static int CalculatePasswordHash(string plaintextPassword)
+    public static string HashPassword(string plaintextPassword)
     {
-        int k = 31;
-        int hash = 0;
+        return HashInteger(CalculatePasswordConstant(plaintextPassword)).ToString("X8");
+    }
+
+    public static uint CalculatePasswordConstant(string plaintextPassword)
+    {
+        //test CHANGE TO INT?
+        byte k = 3;
+        uint hash = 0;
 
         for (int i = 0; i < plaintextPassword.Length; i++)
         {
@@ -16,62 +23,58 @@ internal static class MyHash
              * ASCII value * 1 = ASCII value
              * So start at k ^ 1.
              */
-            int x = (int)Math.Pow(k, i + 1);
+            uint x = (uint)Math.Pow(k, i + 1);
 
             hash += plaintextPassword[i] * x;
         }
 
-        //Modulo function is unecessary to keep 'hash' within the range of a 32-bit integer because it cycles back to 0 after -1 has been surpassed.
-
-        //test
-        Debug.WriteLine("Hash value: " + hash);
-
         return hash;
     }
+
+    static uint HashInteger(uint integerInput)
+    {
+        Debug.WriteLine($"Input: {integerInput.ToString("X8")}");
+        Debug.WriteLine("");
+
+        //Constant with relatively spread 1's and 0's.
+        uint internalState = 2796564047;
+
+        //Repeat 4 times.
+        for (int i = 0; i < 4; i++)
+        {
+            //XOR comparison.
+            internalState ^= integerInput;
+
+            /*
+             * Circularly shifts the internal binary value by (number of 1's in the input * (2(iteration) + 1)).
+             * The first term makes the shift unique to the input.
+             * The second term makes the shift unique to the iteration. It also always returns an odd number.
+             * This is useful because sometimes the offset was calculated as a multiple of 32 and hence did notthing to the internal value.
+             */
+            internalState = BitOperations.RotateLeft(internalState, (int)CountSetBits(internalState) * (2 * i + 1));
+
+            Debug.WriteLine($"internal state [{i}]: {internalState.ToString("X8")}");
+        }
+
+        Debug.WriteLine("");
+        Debug.WriteLine($"Output: {internalState.ToString("X8")}");
+
+        return integerInput;
+
+
+
+        uint CountSetBits(uint n)
+        {
+            uint count = 0;
+            while (n > 0)
+            {
+                count += n & 1;
+                n >>= 1;
+            }
+            return count;
+        }
+    }
 }
-
-
-
-
-//Test GETTING CLOSE!! need to make sure that the padding is more random and not full of 0s to the left of the input in each int.					
-	public static int[] Pad(int input)
-	{
-		Console.WriteLine($"Input: {input}");
-		Console.WriteLine();
-		
-		
-		int k = 3;
-		int[] inputString = new int[8];
-		
-
-		
-		for (int index = 0; index < inputString.Length; index++)
-		{
-			//Use index + 1 for the power since the first multiplier would always be 0 otherwise.
-			inputString[index] = (input + index) * (int)Math.Pow(k, index + 1);
-			
-			Console.WriteLine($"Input[{index}]: {inputString[index].ToString("X8")}");
-		}
-		
-		return inputString;
-	}
-	
-	public static int Hash(int[] input)
-	{
-		int internalState = 0;
-		
-		for (int index = 0; index < input.Length; index++)
-		{
-			internalState ^= input[index];
-		}
-		
-		Console.WriteLine();
-		Console.WriteLine($"Output: {internalState}");
-		
-		return internalState;
-	}
-
-
 
 //Use the below code if I ever want to store hashes as fixed-length hex strings instead of integers.
 
