@@ -51,7 +51,7 @@ internal static class MyHash
              * The second term makes the shift unique to the iteration. It also always returns an odd number.
              * This is useful because sometimes the offset was calculated as a multiple of 32 and hence did notthing to the internal value.
              */
-            internalState = BitOperations.RotateLeft(internalState, (int)CountSetBits(internalState) * (2 * i + 1));
+            internalState = BitOperations.RotateLeft(internalState, (int)CountSetBits(integerInput) * (2 * i + 1));
 
             Debug.WriteLine($"internal state [{i}]: {internalState.ToString("X8")}");
         }
