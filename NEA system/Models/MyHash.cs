@@ -9,11 +9,11 @@ internal static class MyHash
         return HashInteger(CalculatePasswordConstant(plaintextPassword)).ToString("X8");
     }
 
-    public static uint CalculatePasswordConstant(string plaintextPassword)
+    public static ulong CalculatePasswordConstant(string plaintextPassword)
     {
         //test CHANGE TO INT?
         byte k = 3;
-        uint hash = 0;
+        ulong hash = 0;
 
         for (int i = 0; i < plaintextPassword.Length; i++)
         {
@@ -23,7 +23,7 @@ internal static class MyHash
              * ASCII value * 1 = ASCII value
              * So start at k ^ 1.
              */
-            uint x = (uint)Math.Pow(k, i + 1);
+            ulong x = (ulong)Math.Pow(k, i + 1);
 
             hash += plaintextPassword[i] * x;
         }
@@ -31,13 +31,13 @@ internal static class MyHash
         return hash;
     }
 
-    static uint HashInteger(uint integerInput)
+    static ulong HashInteger(ulong integerInput)
     {
         Debug.WriteLine($"Input: {integerInput.ToString("X8")}");
         Debug.WriteLine("");
 
         //Constant with relatively spread 1's and 0's.
-        uint internalState = 2796564047;
+        ulong internalState = 0b_10101111_01110011_11100110_10101010_10000001_11101101_10101101_01011001;
 
         //Repeat 4 times.
         for (int i = 0; i < 4; i++)
@@ -49,7 +49,7 @@ internal static class MyHash
              * Circularly shifts the internal binary value by (number of 1's in the input * (2(iteration) + 1)).
              * The first term makes the shift unique to the input.
              * The second term makes the shift unique to the iteration. It also always returns an odd number.
-             * This is useful because sometimes the offset was calculated as a multiple of 32 and hence did notthing to the internal value.
+             * This is useful because sometimes the offset was calculated as a multiple of 64 and hence did notthing to the internal value.
              */
             internalState = BitOperations.RotateLeft(internalState, (int)CountSetBits(integerInput) * (2 * i + 1));
 
@@ -59,16 +59,17 @@ internal static class MyHash
         Debug.WriteLine("");
         Debug.WriteLine($"Output: {internalState.ToString("X8")}");
 
-        return integerInput;
+        return internalState;
 
 
 
-        uint CountSetBits(uint n)
+        uint CountSetBits(ulong n)
         {
-            uint count = 0;
+            //Long is 64-bit. Will never need a value larger than 64. Largest value a byte can hold is just over this, 255.
+            byte count = 0;
             while (n > 0)
             {
-                count += n & 1;
+                count += (byte)(n & 1);
                 n >>= 1;
             }
             return count;

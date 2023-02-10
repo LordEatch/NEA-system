@@ -11,7 +11,7 @@ public class Workout
     [NotNull]
     public int UserID { get; set; }
     [NotNull]
-    public DateTime Date { get; set; }
+    public string Date { get; set; }
     [NotNull]
     public string WorkoutMuscleGroup { get; set; }
     [NotNull]

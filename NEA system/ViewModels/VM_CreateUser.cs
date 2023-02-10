@@ -55,6 +55,7 @@ internal class VM_CreateUser : VM_Base, IDatabaseInput
 
 
         //  Kept separate in case I need to reuse somewhere else later.
+        //  Example of modular programming. Methods defined within another method.
 
         bool ValidateUsername()
         {
@@ -81,6 +82,12 @@ internal class VM_CreateUser : VM_Base, IDatabaseInput
             if (string.IsNullOrEmpty(Password))
             {
                 ErrorMessage = emptyEntryErrorMessage;
+                return false;
+            }
+
+            if (Password.Length > 30)
+            {
+                ErrorMessage = "Please use a password shorter than 30 characters.";
                 return false;
             }
 
