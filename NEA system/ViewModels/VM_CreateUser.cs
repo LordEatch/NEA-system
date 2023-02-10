@@ -98,7 +98,7 @@ internal class VM_CreateUser : VM_Base, IDatabaseInput
         {
             Username = Username,
             IsPasswordProtected = false,
-            PasswordHash = null,
+            PasswordHash = "N/A",
             LightMode = false
         };
 
