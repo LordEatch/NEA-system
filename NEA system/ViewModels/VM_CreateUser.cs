@@ -117,7 +117,7 @@ internal class VM_CreateUser : VM_Base, IDatabaseInput
         }
 
         Session.DB.Insert(user);
-        System.Diagnostics.Debug.WriteLine($"User created with id: '{user.UserID}', username: '{user.Username}'.");
+        System.Diagnostics.Debug.WriteLine($"User created with id: '{user.UserID}', username: '{user.Username}' and passwod hash: '{user.PasswordHash}'.");
 
 
 

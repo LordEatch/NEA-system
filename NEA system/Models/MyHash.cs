@@ -11,7 +11,6 @@ internal static class MyHash
 
     public static ulong CalculatePasswordConstant(string plaintextPassword)
     {
-        //test CHANGE TO INT?
         byte k = 3;
         ulong hash = 0;
 
