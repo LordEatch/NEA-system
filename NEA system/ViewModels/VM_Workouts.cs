@@ -65,6 +65,7 @@ internal class VM_Workouts : VM_Base, IDatabaseOutput
                 INNER JOIN ExerciseType ON Exercise.ExerciseTypeID = ExerciseType.ExerciseTypeID
                 WHERE Workout.UserID = '{Session.CurrentUser.UserID}'
                 AND (ExerciseTypeName LIKE '%{filter}%'
+                OR Workout.Date LIKE '%{filter}%'
                 OR Workout.WorkoutMuscleGroup LIKE '%{filter}%'
                 OR WorkoutComment LIKE '%{filter}%')";
 
