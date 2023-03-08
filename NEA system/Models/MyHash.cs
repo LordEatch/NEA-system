@@ -9,7 +9,7 @@ internal static class MyHash
         return HashInteger(CalculatePasswordConstant(plaintextPassword)).ToString("X8");
     }
 
-    public static ulong CalculatePasswordConstant(string plaintextPassword)
+    private static ulong CalculatePasswordConstant(string plaintextPassword)
     {
         byte k = 3;
         ulong hash = 0;
@@ -30,7 +30,7 @@ internal static class MyHash
         return hash;
     }
 
-    static ulong HashInteger(ulong integerInput)
+    private static ulong HashInteger(ulong integerInput)
     {
         Debug.WriteLine($"Input: {integerInput.ToString("X8")}");
         Debug.WriteLine("");
