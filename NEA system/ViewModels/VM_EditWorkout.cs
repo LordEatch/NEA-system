@@ -19,12 +19,13 @@ internal class VM_EditWorkout : VM_Base, IRecordEditor
         }
     }
 
-    public Command GoToPage_EditWorkout { get; }
+    public Command CreateExerciseCommand { get; set; }
+
 
 
     public VM_EditWorkout()
     {
-        GoToPage_EditWorkout = new Command(() => Shell.Current.GoToAsync($"{nameof(Page_EditWorkout)}", new Dictionary<string, object>() { ["Workout"] = MyWorkout }));
+        CreateExerciseCommand = new Command(CreateExercise);
 
         Exercises = new();
     }
@@ -67,4 +68,15 @@ internal class VM_EditWorkout : VM_Base, IRecordEditor
             return true;
         }
     }
+
+    public void CreateExercise()
+    {
+        var exercise = new Exercise
+        {
+            WorkoutID = MyWorkout.WorkoutID
+        };
+
+        Shell.Current.GoToAsync($"{nameof(Page_EditExercise)}", new Dictionary<string, object>() { ["Exercise"] = exercise });
+    }
+
 }

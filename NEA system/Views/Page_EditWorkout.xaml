@@ -15,6 +15,10 @@
             Text="{Binding MyWorkout.WorkoutComment}"
             Placeholder="Workout comment"/>
 
+        <Button
+            Text="Add an exercise"
+            Command="{Binding CreateExerciseCommand}"/>
+        
         <ListView
             ItemsSource="{Binding Exercises}"
             SelectionMode="Single"

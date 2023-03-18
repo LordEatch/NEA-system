@@ -26,10 +26,14 @@ internal class VM_CreateExerciseType : VM_Base, IDatabaseInput
             ErrorMessage = emptyEntryErrorMessage;
             return false;
         }
-        else
+        //If the exercise type is already taken...
+        else if (!(Session.DB.Table<ExerciseType>().Where(eT => eT.ExerciseTypeName == ExerciseTypeName).Count() == 0))
         {
-            return true;
+            ErrorMessage = "An exercise type with that name already exists.";
+            return false;
         }
+
+        return true;
     }
 
     private void InsertExerciseType()

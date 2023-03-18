@@ -65,9 +65,8 @@ internal class VM_CreateUser : VM_Base, IDatabaseInput
                 ErrorMessage = emptyEntryErrorMessage;
                 return false;
             }
-
             //If the username exists...
-            if (!(Session.DB.Table<User>().Where(u => u.Username == Username).Count() == 0))
+            else if (!(Session.DB.Table<User>().Where(u => u.Username == Username).Count() == 0))
             {
                 ErrorMessage = "That username already exists.";
                 return false;
@@ -84,8 +83,7 @@ internal class VM_CreateUser : VM_Base, IDatabaseInput
                 ErrorMessage = emptyEntryErrorMessage;
                 return false;
             }
-
-            if (Password.Length > 30)
+            else if (Password.Length > 30)
             {
                 ErrorMessage = "Please use a password shorter than 30 characters.";
                 return false;

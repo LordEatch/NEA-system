@@ -27,7 +27,7 @@ public partial class Page_EditWorkout : ContentPage
 		else
 		{
 			//Native MAUI method that displays a popup to alert a user that their changes have been undone due to an empty workout muscle group.
-            DisplayAlert("Alert", "You cannot leave workout muscle group as empty. Your changes to the workout (but not exercises) have been undone.", "OK");
+            DisplayAlert("Alert", "You cannot leave workout muscle group as empty. Your changes to the workout details have been undone.", "OK");
         }
 	}
 }

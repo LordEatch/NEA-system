@@ -1,14 +1,22 @@
-﻿using NEA_system.Models;
-
-namespace NEA_system.ViewModels;
+﻿namespace NEA_system.ViewModels;
 
 [QueryProperty(nameof(MyExerciseType), "ExerciseType")]
 internal class VM_EditExerciseType : VM_Base, IRecordEditor
 {
     public ExerciseType MyExerciseType { get; set; }
 
+    public Command DeleteExerciseTypeCommand { get; set; }
 
 
+    
+    public VM_EditExerciseType()
+    {
+        DeleteExerciseTypeCommand = new Command(DeleteExerciseType);
+    }
+
+
+
+    //Updates entries and title (both depend on 'MyExerciseType').
     public void LoadViewData()
     {
         OnPropertyChanged(nameof(MyExerciseType));
@@ -31,5 +39,13 @@ internal class VM_EditExerciseType : VM_Base, IRecordEditor
         {
             return true;
         }
+    }
+
+    public void DeleteExerciseType()
+    {
+        //Delete record.
+        Session.DB.Delete<ExerciseType>(MyExerciseType.ExerciseTypeID);
+        //Return to previous page.
+        Shell.Current.GoToAsync("..");
     }
 }
