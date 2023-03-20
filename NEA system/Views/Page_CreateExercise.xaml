@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:NEA_system.ViewModels"
+             x:Class="NEA_system.Views.Page_CreateExercise"
+             Title="Page_CreateExercise">
+    
+    <ContentPage.BindingContext>
+        <viewmodels:VM_CreateExercise/>
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
+        <Button
+            Text="Add exercise"
+            Command="{Binding CreateExerciseCommand}"/>
+        <Picker
+            ItemsSource="{Binding ExerciseTypes}"
+            SelectedItem="{Binding SelectedExerciseType}"
+            ItemDisplayBinding="{Binding ExerciseTypeName}">
+            
+        </Picker>
+    </VerticalStackLayout>
+</ContentPage>

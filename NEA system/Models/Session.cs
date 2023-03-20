@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-using SQLite;
+﻿using SQLite;
 using System.Diagnostics;
 
 namespace NEA_system.Models
@@ -50,6 +49,22 @@ namespace NEA_system.Models
             }
         }
 
+        public static void Login(User user)
+        {
+            CurrentUser = user;
+
+            Shell.Current.GoToAsync($"//{nameof(Page_Workouts)}");
+            Debug.WriteLine("Logged in with UserID: " + CurrentUser.UserID);
+        }
+
+        public static void Logout()
+        {
+            CurrentUser = null;
+
+            Shell.Current.GoToAsync($"//{nameof(Page_Login)}");
+            Debug.WriteLine("Logged out.");
+        }
+
         //FINISH test . Make this pull from a default table of exercisetypes in json or an integrated db??
         public static ExerciseType[] GetDefaultExerciseTypes()
         {
@@ -66,20 +81,21 @@ namespace NEA_system.Models
             return x;
         }
 
-        public static void Login(User user)
+        public static ExerciseType[] GetSubscribedExerciseTypes()
         {
-            CurrentUser = user;
+            //Query returns exercise types linked to a user via a record in the subscription table.
+            string query = @$"
+                SELECT DISTINCT ExerciseType.ExerciseTypeID, ExerciseType.ExerciseTypeName, ExerciseType.ExerciseTypeDescription
+                FROM ExerciseType
+                INNER JOIN Subscription ON Subscription.ExerciseTypeID = ExerciseType.ExerciseTypeID
+                WHERE Subscription.UserID = '{Session.CurrentUser.UserID}'
+                ORDER BY ExerciseType.ExerciseTypeName";
 
-            Shell.Current.GoToAsync($"//{nameof(Page_Workouts)}");
-            Debug.WriteLine("Logged in with UserID: " + CurrentUser.UserID);
-        }
+            var result = DB.Query<ExerciseType>(query).ToArray();
 
-        public static void Logout()
-        {
-            CurrentUser = null;
+            Debug.WriteLine($"Session: {result.Length} workouts returned.");
 
-            Shell.Current.GoToAsync($"//{nameof(Page_Login)}");
-            Debug.WriteLine("Logged out.");
+            return result;
         }
     }
 }

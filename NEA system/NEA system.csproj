@@ -75,6 +75,9 @@
 	  <MauiXaml Update="Views\Card_Workout.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Page_CreateExercise.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Page_CreateExerciseType.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

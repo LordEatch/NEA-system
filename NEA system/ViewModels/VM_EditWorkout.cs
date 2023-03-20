@@ -71,12 +71,6 @@ internal class VM_EditWorkout : VM_Base, IRecordEditor
 
     public void CreateExercise()
     {
-        var exercise = new Exercise
-        {
-            WorkoutID = MyWorkout.WorkoutID
-        };
-
-        Shell.Current.GoToAsync($"{nameof(Page_EditExercise)}", new Dictionary<string, object>() { ["Exercise"] = exercise });
+        Shell.Current.GoToAsync($"{nameof(Page_CreateExercise)}", new Dictionary<string, object>() { ["WorkoutID"] = MyWorkout.WorkoutID });
     }
-
 }
