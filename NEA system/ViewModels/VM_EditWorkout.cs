@@ -19,13 +19,15 @@ internal class VM_EditWorkout : VM_Base, IRecordEditor
         }
     }
 
-    public Command CreateExerciseCommand { get; set; }
+    public Command GoToPage_CreateExercise { get; set; }
+    public Command DeleteWorkoutCommand { get; set; }
 
 
 
     public VM_EditWorkout()
     {
-        CreateExerciseCommand = new Command(CreateExercise);
+        GoToPage_CreateExercise = new Command(() => Shell.Current.GoToAsync($"{nameof(Page_CreateExercise)}", new Dictionary<string, object>() { ["WorkoutID"] = MyWorkout.WorkoutID }));
+        DeleteWorkoutCommand = new Command(DeleteWorkout);
 
         Exercises = new();
     }
@@ -69,8 +71,10 @@ internal class VM_EditWorkout : VM_Base, IRecordEditor
         }
     }
 
-    public void CreateExercise()
+    //NOTE This does not delete all of the exercises and sets within this workout.
+    private void DeleteWorkout()
     {
-        Shell.Current.GoToAsync($"{nameof(Page_CreateExercise)}", new Dictionary<string, object>() { ["WorkoutID"] = MyWorkout.WorkoutID });
+        Session.DB.Delete<Workout>(MyWorkout.WorkoutID);
+        Shell.Current.GoToAsync("..");
     }
 }

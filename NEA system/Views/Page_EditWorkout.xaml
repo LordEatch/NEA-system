@@ -17,7 +17,7 @@
 
         <Button
             Text="Add an exercise"
-            Command="{Binding CreateExerciseCommand}"/>
+            Command="{Binding GoToPage_CreateExercise}"/>
         
         <ListView
             ItemsSource="{Binding Exercises}"
@@ -33,6 +33,11 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <Button
+            Text="Delete workout"
+            TextColor="Red"
+            Command="{Binding DeleteWorkoutCommand}"/>
 
     </VerticalStackLayout>
 </ContentPage>
