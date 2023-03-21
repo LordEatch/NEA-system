@@ -65,7 +65,8 @@ internal class VM_Workouts : VM_Base, IDatabaseOutput
                 AND (ExerciseTypeName LIKE '%{filter}%'
                 OR Workout.Date LIKE '%{filter}%'
                 OR Workout.WorkoutMuscleGroup LIKE '%{filter}%'
-                OR WorkoutComment LIKE '%{filter}%')";
+                OR WorkoutComment LIKE '%{filter}%')
+                ORDER BY Date DESC";
 
         int workoutCount = 0;
         //Populate the observable collection.

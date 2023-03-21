@@ -83,12 +83,12 @@ namespace NEA_system.Models
 
         public static ExerciseType[] GetSubscribedExerciseTypes()
         {
-            //Query returns exercise types linked to a user via a record in the subscription table.
+            //Query returns exercise types linked to a user via a record in the subscription table in alphabetical order.
             string query = @$"
                 SELECT DISTINCT ExerciseType.ExerciseTypeID, ExerciseType.ExerciseTypeName, ExerciseType.ExerciseTypeDescription
                 FROM ExerciseType
                 INNER JOIN Subscription ON Subscription.ExerciseTypeID = ExerciseType.ExerciseTypeID
-                WHERE Subscription.UserID = '{Session.CurrentUser.UserID}'
+                WHERE Subscription.UserID = '{CurrentUser.UserID}'
                 ORDER BY ExerciseType.ExerciseTypeName";
 
             var result = DB.Query<ExerciseType>(query).ToArray();

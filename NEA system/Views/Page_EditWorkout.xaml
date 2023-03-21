@@ -7,7 +7,7 @@
 
     <VerticalStackLayout>
         <DatePicker
-            Date="{Binding MyWorkout.Date}"/>
+            Date="{Binding WorkoutDate}"/>
         <Entry
             Text="{Binding MyWorkout.WorkoutMuscleGroup}"
             Placeholder="Workout muscle group"/>

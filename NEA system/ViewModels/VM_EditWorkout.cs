@@ -6,6 +6,14 @@ namespace NEA_system.ViewModels;
 internal class VM_EditWorkout : VM_Base, IRecordEditor
 {
     public Workout MyWorkout { get; set; }
+    //Exclusive WorkoutDate property used to convert DateTime in the date picker to a short date string.
+    public DateTime WorkoutDate
+    {
+        set
+        {
+            MyWorkout.Date = value.ToShortDateString();
+        }
+    }
     public ObservableCollection<Exercise> Exercises { get; set; }
     private Exercise selectedExercise;
     public Exercise SelectedExercise
