@@ -12,4 +12,14 @@ public class Exercise
     public int WorkoutID { get; set; }
     [NotNull]
     public int ExerciseTypeID { get; set; }
+
+    //Ignored by SQLite. No field in the exercise table called 'ExerciseName' will be created. This is only used by 'Page_EditWorkout' to display relevant exercise names.
+    [Ignore]
+    public string ExerciseName
+    {
+        get
+        {
+            return Session.DB.Table<ExerciseType>().Where(eT => eT.ExerciseTypeID == ExerciseTypeID).ToArray()[0].ExerciseTypeName;
+        }
+    }
 }

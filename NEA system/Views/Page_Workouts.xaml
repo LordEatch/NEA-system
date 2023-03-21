@@ -30,7 +30,7 @@
             <Entry
                     Text="{Binding Search}"
                     Grid.Row="1"
-                    Placeholder="Filter by workout or exercise property"/>
+                    Placeholder="Search by workout or exercise"/>
 
             <Button
                     Text="+"

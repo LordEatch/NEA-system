@@ -51,7 +51,7 @@ internal class VM_CreateWorkout : VM_Base, IDatabaseInput
         var workout = new Workout()
         {
             UserID = Session.CurrentUser.UserID,
-            Date = Date.ToLongDateString(),
+            Date = Date.ToShortDateString(),
             WorkoutMuscleGroup = WorkoutMuscleGroup,
             WorkoutComment = WorkoutComment
         };
