@@ -43,8 +43,10 @@ internal class VM_EditExerciseType : VM_Base, IRecordEditor
 
     public void DeleteExerciseType()
     {
-        //Delete record.
-        Session.DB.Delete<ExerciseType>(MyExerciseType.ExerciseTypeID);
+        //Find the subscription between the user and this exercie type.
+        var subscription = Session.DB.Table<Subscription>().Where(s => (s.ExerciseTypeID == MyExerciseType.ExerciseTypeID) && (s.UserID == Session.CurrentUser.UserID)).ToArray()[0];
+        //Delete the subcription. NOTE that the exercise type will still exist in the database.
+        Session.DB.Delete<Subscription>(subscription.SubscriptionID);
         //Return to previous page.
         Shell.Current.GoToAsync("..");
     }

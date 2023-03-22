@@ -6,13 +6,25 @@ internal class VM_Workouts : VM_Base, IDatabaseOutput
 {
     // Properties
 
+    //Private field used for getting in 'LoadViewData'.
+    private string search;
     public string Search
     {
-        get { return null; }
+        get { return search; }
         //Called every time the user updates the search bar (types a character).
         set
         {
-            RefreshWorkouts(value.ToLower());
+            search = value;
+            if (!String.IsNullOrWhiteSpace(search))
+            {
+                //Refresh workouts and pass Search as the parameter.
+                RefreshWorkouts(search.ToLower());
+            }
+            else
+            {
+                //Refresh workouts with default search (all user workouts).
+                RefreshWorkouts(null);
+            }
         }
     }
     public ObservableCollection<Workout> Workouts { get; set; }
@@ -48,21 +60,23 @@ internal class VM_Workouts : VM_Base, IDatabaseOutput
 
     public void LoadViewData()
     {
-        RefreshWorkouts();
+        RefreshWorkouts(Search);
     }
 
     
-    private void RefreshWorkouts(string filter = "")
+    private void RefreshWorkouts(string filter)
     {
         //  Query the database for workouts
 
         Workouts.Clear();
 
         string query = @$"
-                SELECT DISTINCT Workout.WorkoutID, UserID, Date, WorkoutMuscleGroup, WorkoutComment
-                FROM Workout, Exercise, ExerciseType
-                WHERE Workout.UserID = '{Session.CurrentUser.UserID}'
-                AND (ExerciseTypeName LIKE '%{filter}%'
+                SELECT Workout.WorkoutID, UserID, Date, WorkoutMuscleGroup, WorkoutComment
+                FROM Exercise, ExerciseType, Workout
+				WHERE Exercise.ExerciseTypeID = ExerciseType.ExerciseTypeID
+				AND Exercise.WorkoutID = Workout.WorkoutID
+				AND Workout.UserID = '{Session.CurrentUser.UserID}'
+				AND (ExerciseTypeName LIKE '%{filter}%'
                 OR Workout.Date LIKE '%{filter}%'
                 OR Workout.WorkoutMuscleGroup LIKE '%{filter}%'
                 OR WorkoutComment LIKE '%{filter}%')
