@@ -1,4 +1,4 @@
-﻿using NEA_system.Models;
+﻿using System.Diagnostics;
 using System.Collections.ObjectModel;
 
 namespace NEA_system.ViewModels;
@@ -14,14 +14,15 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
     {
         get
         {
-            //test
-            System.Diagnostics.Debug.WriteLine(CalculateOneRepMax());
             return $"Your predicted 1RM: {CalculateOneRepMax()}";
         }
     }
 
 
     public Command AddSetCommand { get; set; }
+    public Command DeleteSetCommand { get; set; }
+    public Command FinishExerciseCommand { get; set; }
+    public Command DeleteExerciseCommand { get; set; }
 
 
 
@@ -30,6 +31,10 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
     public VM_EditExercise()
     {
         AddSetCommand = new Command(AddSet);
+        DeleteSetCommand = new Command<ResistanceSet>(DeleteSet);
+        FinishExerciseCommand = new Command(FinishExercise);
+        DeleteExerciseCommand = new Command(DeleteExercise);
+
         ResistanceSets = new();
     } 
 
@@ -41,9 +46,11 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
     {
         ResistanceSets.Clear();
 
+        //Get relevant sets.
         foreach (ResistanceSet set in Session.DB.Table<ResistanceSet>().Where(rS => rS.ExerciseID == MyExercise.ExerciseID))
         {
             ResistanceSets.Add(set);
+            Debug.WriteLine($"Set with id:{set.SetID}, exerciseID:{set.ExerciseID} found.");
         }
     }
 
@@ -56,39 +63,71 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
     //FINISH
     public bool ValidateInputFormat()
     {
-        return false;
+        return true;
     }
+
+
 
     private void AddSet()
     {
-        ResistanceSets.Add(new ResistanceSet());
-        System.Diagnostics.Debug.WriteLine($"Resistance set added.");
-        OnPropertyChanged(OneRepMaxLabel);
+        var set = new ResistanceSet
+        {
+            ExerciseID = MyExercise.ExerciseID,
+            Mass = 0,
+            StrictReps = 0,
+            CheatedReps = 0,
+            SetComment = ""
+        };
+
+        ResistanceSets.Add(set);
+    }
+
+    private void DeleteSet(ResistanceSet set)
+    {
+        Session.DB.Delete<ResistanceSet>(set.SetID);
+        ResistanceSets.Remove(set);
+    }
+
+    private void FinishExercise()
+    {
+        if (!ValidateInputFormat())
+            return;
+
+        //Write every set to the database.
+        foreach (ResistanceSet set in ResistanceSets)
+        {
+            //If the set already exists in the database...
+            if (Session.DB.Table<ResistanceSet>().Where(rS => rS.SetID == set.SetID).ToArray().Length == 1)
+            {
+                Session.DB.Update(set);
+                Debug.WriteLine($"Set with id:{set.SetID} updated.");
+            }
+            else
+            {
+                Session.DB.Insert(set);
+                Debug.WriteLine($"Set with id:{set.SetID}, exerciseID:{set.ExerciseID} inserted.");
+            }
+        }
+
+        //Return to previous page.
+        Shell.Current.GoToAsync("..");
+    }
+
+    //NOTE this does not delete all relevant sets.
+    private void DeleteExercise()
+    {
+        Session.DB.Delete<Exercise>(MyExercise.ExerciseID);
+        Shell.Current.GoToAsync("..");
     }
 
     //FINISH
     private int CalculateOneRepMax()
     {
-        //If there are no sets performed yet...
-        if (ResistanceSets.Count() == 0)
-        {
-            //FINISH
-            //...Calculate a 1RM value based on the last set performed of this exercise.
-            return -1;
-        }
-        else
-        {
-            //...Calculate an average 1RM value based on the sets performed.
-            double oneRepMaxValue = 0;
+        //FINISH
+        //Get last rS!
 
-            foreach (ResistanceSet rS in ResistanceSets)
-            {
-                //Epley equation.
-                oneRepMaxValue += rS.Mass * (1 + (rS.StrictReps / 30));
-            }
+        ResistanceSet rS = new();
 
-            //Calculate mean.
-            return (int)Math.Round(oneRepMaxValue / ResistanceSets.Count());
-        }
+        return (int)Math.Round(rS.Mass * (1 + (rS.StrictReps / 30)));
     }
 }

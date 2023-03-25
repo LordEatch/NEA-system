@@ -4,7 +4,9 @@
              xmlns:viewmodels="clr-namespace:NEA_system.ViewModels"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NEA_system.Views.Page_EditExercise"
-             Title="Page_EditExercise">
+             x:Name="Page_EditExericse"
+             Title="{Binding MyExercise.ExerciseName}">
+
     <VerticalStackLayout>
         <Label
             Text="{Binding OneRepMaxLabel}"/>
@@ -19,16 +21,27 @@
                 <DataTemplate>
                     <ViewCell>
                         <HorizontalStackLayout>
-                            <Entry Placeholder="{Binding Mass}"/>
-                            <Entry Placeholder="{Binding StrictReps}"/>
-                            <Entry Placeholder="{Binding CheatedReps}"/>
-                            <Entry Placeholder="{Binding SetComment}"/>
+                            <Entry Text="{Binding Mass}" Keyboard="Numeric" Placeholder="Mass"/>
+                            <Entry Text="{Binding StrictReps}" Keyboard="Numeric" Placeholder="Strict reps"/>
+                            <Entry Text="{Binding CheatedReps}" Keyboard="Numeric" Placeholder="Cheated reps"/>
+                            <Entry Text="{Binding SetComment}" Placeholder="Comment"/>
                             <Button
-                            Text="Delete"/>
+                                Text="Delete"
+                                Command="{Binding Path=DeleteSetCommand, Source={RelativeSource AncestorType={x:Type viewmodels:VM_EditExercise}}}"
+                                CommandParameter="{Binding}"/>
                         </HorizontalStackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <Button
+            Text="Finish exercise"
+            Command="{Binding FinishExerciseCommand}"/>
+
+        <Button
+            Text="Delete exercise"
+            TextColor="Red"
+            Command="{Binding DeleteExerciseCommand}"/>
     </VerticalStackLayout>
 </ContentPage>
