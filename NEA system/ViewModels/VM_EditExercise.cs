@@ -10,6 +10,18 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
 
     public Exercise MyExercise { get; set; }
     public ObservableCollection<ResistanceSet> ResistanceSets { get; set; }
+    public string OneRepMaxLabel
+    {
+        get
+        {
+            //test
+            System.Diagnostics.Debug.WriteLine(CalculateOneRepMax());
+            return $"Your predicted 1RM: {CalculateOneRepMax()}";
+        }
+    }
+
+
+    public Command AddSetCommand { get; set; }
 
 
 
@@ -17,6 +29,7 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
 
     public VM_EditExercise()
     {
+        AddSetCommand = new Command(AddSet);
         ResistanceSets = new();
     } 
 
@@ -24,12 +37,14 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
 
     //  Methods
 
-    //FINISH
     public void LoadViewData()
     {
-        //test
         ResistanceSets.Clear();
-        ResistanceSets.Add(new ResistanceSet());
+
+        foreach (ResistanceSet set in Session.DB.Table<ResistanceSet>().Where(rS => rS.ExerciseID == MyExercise.ExerciseID))
+        {
+            ResistanceSets.Add(set);
+        }
     }
 
     public void SaveData()
@@ -42,5 +57,38 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
     public bool ValidateInputFormat()
     {
         return false;
+    }
+
+    private void AddSet()
+    {
+        ResistanceSets.Add(new ResistanceSet());
+        System.Diagnostics.Debug.WriteLine($"Resistance set added.");
+        OnPropertyChanged(OneRepMaxLabel);
+    }
+
+    //FINISH
+    private int CalculateOneRepMax()
+    {
+        //If there are no sets performed yet...
+        if (ResistanceSets.Count() == 0)
+        {
+            //FINISH
+            //...Calculate a 1RM value based on the last set performed of this exercise.
+            return -1;
+        }
+        else
+        {
+            //...Calculate an average 1RM value based on the sets performed.
+            double oneRepMaxValue = 0;
+
+            foreach (ResistanceSet rS in ResistanceSets)
+            {
+                //Epley equation.
+                oneRepMaxValue += rS.Mass * (1 + (rS.StrictReps / 30));
+            }
+
+            //Calculate mean.
+            return (int)Math.Round(oneRepMaxValue / ResistanceSets.Count());
+        }
     }
 }
