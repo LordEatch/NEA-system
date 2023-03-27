@@ -86,8 +86,7 @@ namespace NEA_system.Models
             //Query returns exercise types linked to a user via a record in the subscription table in alphabetical order.
             string query = @$"
                 SELECT DISTINCT ExerciseType.ExerciseTypeID, ExerciseType.ExerciseTypeName, ExerciseType.ExerciseTypeDescription
-                FROM ExerciseType
-                INNER JOIN Subscription ON Subscription.ExerciseTypeID = ExerciseType.ExerciseTypeID
+                FROM ExerciseType, Subscription
                 WHERE Subscription.UserID = '{CurrentUser.UserID}'
                 ORDER BY ExerciseType.ExerciseTypeName";
 

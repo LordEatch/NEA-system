@@ -71,11 +71,9 @@ internal class VM_Workouts : VM_Base, IDatabaseOutput
         Workouts.Clear();
 
         string query = @$"
-                SELECT Workout.WorkoutID, UserID, Date, WorkoutMuscleGroup, WorkoutComment
+                SELECT DISTINCT Workout.WorkoutID, UserID, Date, WorkoutMuscleGroup, WorkoutComment
                 FROM Exercise, ExerciseType, Workout
-				WHERE Exercise.ExerciseTypeID = ExerciseType.ExerciseTypeID
-				AND Exercise.WorkoutID = Workout.WorkoutID
-				AND Workout.UserID = '{Session.CurrentUser.UserID}'
+				WHERE Workout.UserID = '{Session.CurrentUser.UserID}'
 				AND (ExerciseTypeName LIKE '%{filter}%'
                 OR Workout.Date LIKE '%{filter}%'
                 OR Workout.WorkoutMuscleGroup LIKE '%{filter}%'
