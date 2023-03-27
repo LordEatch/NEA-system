@@ -51,7 +51,7 @@ internal class VM_Login : VM_Base, IDatabaseOutput
         //Update user list.
         Users.Clear();
 
-        foreach (var user in Session.DB.Table<User>())
+        foreach (var user in Session.GetUsers())
         {
             Users.Add(user);
         }

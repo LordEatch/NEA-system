@@ -24,8 +24,7 @@ internal class VM_EditExerciseType : VM_Base, IRecordEditor
 
     public void SaveData()
     {
-        Session.DB.Update(MyExerciseType);
-        System.Diagnostics.Debug.WriteLine($"Exercise type with id: {MyExerciseType.ExerciseTypeID} has been updated.");
+        Session.UpdateExerciseType(MyExerciseType);
     }
 
     public bool ValidateInputFormat()
@@ -43,10 +42,8 @@ internal class VM_EditExerciseType : VM_Base, IRecordEditor
 
     public void DeleteExerciseType()
     {
-        //Find the subscription between the user and this exercie type.
-        var subscription = Session.DB.Table<Subscription>().Where(s => (s.ExerciseTypeID == MyExerciseType.ExerciseTypeID) && (s.UserID == Session.CurrentUser.UserID)).ToArray()[0];
-        //Delete the subcription. NOTE that the exercise type will still exist in the database.
-        Session.DB.Delete<Subscription>(subscription.SubscriptionID);
+        //Get the relevant subscription and delete it.
+        Session.DeleteSubscription(Session.GetSubscriptionByExerciseType(MyExerciseType));
         //Return to previous page.
         Shell.Current.GoToAsync("..");
     }

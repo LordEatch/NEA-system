@@ -66,7 +66,7 @@ internal class VM_CreateUser : VM_Base, IDatabaseInput
                 return false;
             }
             //If the username exists...
-            else if (!(Session.DB.Table<User>().Where(u => u.Username == Username).Count() == 0))
+            else if (Session.GetUsersByUsername(Username).Length > 0)
             {
                 ErrorMessage = "That username already exists.";
                 return false;
@@ -114,7 +114,7 @@ internal class VM_CreateUser : VM_Base, IDatabaseInput
             user.PasswordHash = MyHash.HashPassword(Password);
         }
 
-        Session.DB.Insert(user);
+        Session.InsertUser(user);
         System.Diagnostics.Debug.WriteLine($"User created with id: '{user.UserID}', username: '{user.Username}' and passwod hash: '{user.PasswordHash}'.");
 
 
@@ -127,7 +127,7 @@ internal class VM_CreateUser : VM_Base, IDatabaseInput
                 UserID = user.UserID,
                 ExerciseTypeID = eT.ExerciseTypeID
             };
-            Session.DB.Insert(sub);
+            Session.InsertSubscription(sub);
 
             //test
             System.Diagnostics.Debug.WriteLine($"User subscribed to {eT.ExerciseTypeName}.");

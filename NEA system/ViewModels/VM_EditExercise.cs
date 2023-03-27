@@ -47,7 +47,7 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
         ResistanceSets.Clear();
 
         //Get relevant sets.
-        foreach (ResistanceSet set in Session.DB.Table<ResistanceSet>().Where(rS => rS.ExerciseID == MyExercise.ExerciseID))
+        foreach (ResistanceSet set in Session.GetResistanceSetsByExercise(MyExercise))
         {
             ResistanceSets.Add(set);
             Debug.WriteLine($"Set with id:{set.SetID}, exerciseID:{set.ExerciseID} found.");
@@ -56,8 +56,7 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
 
     public void SaveData()
     {
-        Session.DB.Update(MyExercise);
-        System.Diagnostics.Debug.WriteLine($"Exercise with id: {MyExercise.ExerciseID} has been updated.");
+        Session.UpdateExercise(MyExercise);
     }
 
     //FINISH
@@ -84,7 +83,7 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
 
     private void DeleteSet(ResistanceSet set)
     {
-        Session.DB.Delete<ResistanceSet>(set.SetID);
+        Session.DeleteResistanceSet(set);
         ResistanceSets.Remove(set);
     }
 
@@ -97,15 +96,13 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
         foreach (ResistanceSet set in ResistanceSets)
         {
             //If the set already exists in the database...
-            if (Session.DB.Table<ResistanceSet>().Where(rS => rS.SetID == set.SetID).ToArray().Length == 1)
+            if (Session.GetResistanceSet(set.SetID) != null)
             {
-                Session.DB.Update(set);
-                Debug.WriteLine($"Set with id:{set.SetID} updated.");
+                Session.UpdateResistanceSet(set);
             }
             else
             {
-                Session.DB.Insert(set);
-                Debug.WriteLine($"Set with id:{set.SetID}, exerciseID:{set.ExerciseID} inserted.");
+                Session.InsertResistanceSet(set);
             }
         }
 
@@ -113,10 +110,10 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
         Shell.Current.GoToAsync("..");
     }
 
-    //NOTE this does not delete all relevant sets.
     private void DeleteExercise()
     {
-        Session.DB.Delete<Exercise>(MyExercise.ExerciseID);
+        Session.DeleteExercise(MyExercise);
+        //Return to previous page.
         Shell.Current.GoToAsync("..");
     }
 

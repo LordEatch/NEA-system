@@ -19,7 +19,7 @@ public class Exercise
     {
         get
         {
-            return Session.DB.Table<ExerciseType>().Where(eT => eT.ExerciseTypeID == ExerciseTypeID).ToArray()[0].ExerciseTypeName;
+            return Session.GetExerciseType(ExerciseTypeID).ExerciseTypeName;
         }
     }
 }

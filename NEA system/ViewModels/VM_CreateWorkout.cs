@@ -55,7 +55,7 @@ internal class VM_CreateWorkout : VM_Base, IDatabaseInput
             WorkoutMuscleGroup = WorkoutMuscleGroup,
             WorkoutComment = WorkoutComment
         };
-        Session.DB.Insert(workout);
+        Session.InsertWorkout(workout);
 
         //Pop the create workout page from the stack and push the edit workout page instead.
         Shell.Current.GoToAsync($"../{nameof(Page_EditWorkout)}", new Dictionary<string, object>() { ["Workout"] = workout });

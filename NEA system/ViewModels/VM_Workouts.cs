@@ -6,7 +6,6 @@ internal class VM_Workouts : VM_Base, IDatabaseOutput
 {
     // Properties
 
-    //Private field used for getting in 'LoadViewData'.
     private string search;
     public string Search
     {
@@ -22,7 +21,7 @@ internal class VM_Workouts : VM_Base, IDatabaseOutput
             }
             else
             {
-                //Refresh workouts with default search (all user workouts).
+                //Refresh workouts with default search (all user workouts). If lots of white space is searched, no workouts will show up.
                 RefreshWorkouts(null);
             }
         }
@@ -63,35 +62,19 @@ internal class VM_Workouts : VM_Base, IDatabaseOutput
         RefreshWorkouts(Search);
     }
 
-    
     private void RefreshWorkouts(string filter)
     {
-        //  Query the database for workouts
-
-        Workouts.Clear();
-
-        string query = @$"
-                SELECT DISTINCT Workout.WorkoutID, UserID, Date, WorkoutMuscleGroup, WorkoutComment
-                FROM Exercise, ExerciseType, Workout
-				WHERE Workout.UserID = '{Session.CurrentUser.UserID}'
-				AND (ExerciseTypeName LIKE '%{filter}%'
-                OR Workout.Date LIKE '%{filter}%'
-                OR Workout.WorkoutMuscleGroup LIKE '%{filter}%'
-                OR WorkoutComment LIKE '%{filter}%')
-                ORDER BY Date DESC";
-
         int workoutCount = 0;
+
         //Populate the observable collection.
-        foreach (Workout w in Session.DB.Query<Workout>(query))
+        Workouts.Clear();
+        foreach (Workout w in Session.GetWorkouts(filter))
         {
             Workouts.Add(w);
             workoutCount++;
         }
         
-
-
-        //  Update the header
-
+        //Update the header.
         WorkoutsHeader = $"Showing {workoutCount} workouts";
         OnPropertyChanged(nameof(WorkoutsHeader));
     }    

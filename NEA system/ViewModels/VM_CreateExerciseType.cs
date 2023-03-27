@@ -27,7 +27,7 @@ internal class VM_CreateExerciseType : VM_Base, IDatabaseInput
             return false;
         }
         //If the exercise type is already taken...
-        else if (!(Session.DB.Table<ExerciseType>().Where(eT => eT.ExerciseTypeName == ExerciseTypeName).Count() == 0))
+        else if (Session.ExerciseTypeNameExists(ExerciseTypeName))
         {
             ErrorMessage = "An exercise type with that name already exists.";
             return false;
@@ -49,7 +49,7 @@ internal class VM_CreateExerciseType : VM_Base, IDatabaseInput
             ExerciseTypeName = ExerciseTypeName,
             ExerciseTypeDescription = ExerciseTypeDescription
         };
-        Session.DB.Insert(eT);
+        Session.InsertExerciseType(eT);
 
         //Pop the create exercise type page from the stack.
         Shell.Current.GoToAsync("..");
@@ -65,7 +65,7 @@ internal class VM_CreateExerciseType : VM_Base, IDatabaseInput
             UserID = Session.CurrentUser.UserID,
             ExerciseTypeID = eT.ExerciseTypeID
         };
-        Session.DB.Insert(sub);
+        Session.InsertSubscription(sub);
 
         System.Diagnostics.Debug.WriteLine($"User subscribed to {eT.ExerciseTypeName}.");
     }

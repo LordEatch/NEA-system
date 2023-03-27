@@ -17,7 +17,7 @@ internal class VM_ProfileSettings : VM_Base
     //NOTE This does not delete all of the workouts, exercise types, exercises or sets created by this user.
     private void DeleteUser()
     {
-        Session.DB.Delete<User>(Session.CurrentUser.UserID);
+        Session.DeleteUser(Session.CurrentUser);
         Session.Logout();
     }
 }

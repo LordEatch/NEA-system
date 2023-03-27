@@ -40,14 +40,10 @@ internal class VM_CreateExercise : VM_Base, IDatabaseInput
             WorkoutID = WorkoutID,
             ExerciseTypeID = SelectedExerciseType.ExerciseTypeID
         };
-        Session.DB.Insert(exercise);
-
-
+        Session.InsertExercise(exercise);
 
         //test
         System.Diagnostics.Debug.WriteLine($"Exercise with id:{exercise.ExerciseID} and exercise type id:{exercise.ExerciseTypeID} inserted into workout id:{exercise.WorkoutID}.");
-
-
 
         //Pop the create exercise page from the stack and push the edit exercise page instead.
         Shell.Current.GoToAsync($"../{nameof(Page_EditExercise)}", new Dictionary<string, object>() { ["Exercise"] = exercise });

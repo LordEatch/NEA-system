@@ -45,25 +45,20 @@ internal class VM_EditWorkout : VM_Base, IRecordEditor
 
     public void LoadViewData()
     {
-        //  Update exercises
-
+        //Update exercise list.
         Exercises.Clear();
-        foreach (Exercise e in Session.DB.Table<Exercise>().Where(e => e.WorkoutID == MyWorkout.WorkoutID))
+        foreach (Exercise e in Session.GetExercisesByWorkout(MyWorkout))
         {
             Exercises.Add(e);
         }
 
-
-
-        //  Update the date
-
+        //Update the date.
         OnPropertyChanged(nameof(MyWorkout));
     }
 
     public void SaveData()
     {
-        Session.DB.Update(MyWorkout);
-        System.Diagnostics.Debug.WriteLine($"Workout with id:{MyWorkout.WorkoutID} has been updated.");
+        Session.UpdateWorkout(MyWorkout);
     }
 
     public bool ValidateInputFormat()
@@ -80,10 +75,10 @@ internal class VM_EditWorkout : VM_Base, IRecordEditor
         }
     }
 
-    //NOTE This does not delete all of the exercises and sets within this workout.
     private void DeleteWorkout()
     {
-        Session.DB.Delete<Workout>(MyWorkout.WorkoutID);
+        Session.DeleteWorkout(MyWorkout);
+        //Return to previous page.
         Shell.Current.GoToAsync("..");
     }
 }

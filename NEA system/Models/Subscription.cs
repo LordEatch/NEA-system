@@ -2,7 +2,7 @@
 
 namespace NEA_system.Models;
 
-internal class Subscription
+public class Subscription
 {
     [PrimaryKey, AutoIncrement]
     public int SubscriptionID { get; set; }
