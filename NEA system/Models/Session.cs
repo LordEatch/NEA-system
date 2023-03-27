@@ -222,6 +222,7 @@ namespace NEA_system.Models
 
 
 
+        //FIX
         #region Workout CRUD methods
         // Create
 
@@ -235,6 +236,7 @@ namespace NEA_system.Models
 
         // Read
 
+        //FIX. incorrectly returning all workouts when searching for exercise types, as long as at least 1 of the workouts contains that type.
         //Get all of a user's workouts.
         public static Workout[] GetWorkouts(string filter)
         {
