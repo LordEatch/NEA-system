@@ -4,6 +4,8 @@ using System.Numerics;
 namespace NEA_system.Models;
 internal static class MyHash
 {
+    private static readonly ulong internalStateConstant = 0b_10101111_01110011_11100110_10101010_10000001_11101101_10101101_01011001;
+
     public static string HashPassword(string plaintextPassword)
     {
         return HashInteger(CalculatePasswordConstant(plaintextPassword)).ToString("X8");
@@ -36,7 +38,7 @@ internal static class MyHash
         Debug.WriteLine("");
 
         //Constant with relatively spread 1's and 0's.
-        ulong internalState = 0b_10101111_01110011_11100110_10101010_10000001_11101101_10101101_01011001;
+        ulong internalState = internalStateConstant;
 
         //Repeat 4 times.
         for (int i = 0; i < 4; i++)
