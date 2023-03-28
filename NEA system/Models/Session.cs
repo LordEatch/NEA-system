@@ -143,15 +143,18 @@ namespace NEA_system.Models
             return exerciseTypeArray;
         }
 
-        //FIX RETURNING ALL EXERCISE TYPES NOT JUST SUBSCRIBED ONES
         //Get all exercise types that the current user is subscribed to.
         public static ExerciseType[] GetSubscribedExerciseTypes()
         {
             //Query returns exercise types linked to a user via a record in the subscription table in alphabetical order.
             string query = @$"
-                SELECT DISTINCT ExerciseType.ExerciseTypeID, ExerciseType.ExerciseTypeName, ExerciseType.ExerciseTypeDescription
-                FROM ExerciseType, Subscription
-                WHERE Subscription.UserID = '{CurrentUser.UserID}'
+                SELECT ExerciseType.ExerciseTypeID, ExerciseTypeName, ExerciseTypeDescription
+                FROM (User
+                INNER JOIN Subscription
+                ON User.UserID = Subscription.UserID)
+                INNER JOIN ExerciseType
+                ON Subscription.ExerciseTypeID = ExerciseType.ExerciseTypeID
+                WHERE User.UserID = {CurrentUser.UserID}
                 ORDER BY ExerciseType.ExerciseTypeName";
 
             var result = DB.Query<ExerciseType>(query).ToArray();
@@ -236,13 +239,16 @@ namespace NEA_system.Models
 
         // Read
 
-        //FIX. incorrectly returning all workouts when searching for exercise types, as long as at least 1 of the workouts contains that type.
-        //Get all of a user's workouts.
+        //Get all of a user's workouts. FULL OUTER JOIN will find matching and unmatching entries. Useful for showing empty workouts that will have no exercises yet.
         public static Workout[] GetWorkouts(string filter)
         {
             string query = @$"
-                SELECT DISTINCT Workout.WorkoutID, UserID, Date, WorkoutMuscleGroup, WorkoutComment
-                FROM Exercise, ExerciseType, Workout
+                SELECT Workout.WorkoutId, UserID, Date, WorkoutMuscleGroup, WorkoutComment
+                FROM (ExerciseType
+                INNER JOIN Exercise
+                ON ExerciseType.ExerciseTypeID = Exercise.ExerciseTypeID)
+                FULL OUTER JOIN Workout
+                ON Exercise.WorkoutID = Workout.WorkoutID
 				WHERE Workout.UserID = '{CurrentUser.UserID}'
 				AND (ExerciseTypeName LIKE '%{filter}%'
                 OR Workout.Date LIKE '%{filter}%'
@@ -341,6 +347,12 @@ namespace NEA_system.Models
         public static ResistanceSet GetResistanceSet(int resistanceSetID)
         {
             return DB.Table<ResistanceSet>().Where(rS => rS.SetID == resistanceSetID).FirstOrDefault();
+        }
+
+        //NOTE. Will still return sets from a deleted exercise/workout.
+        public static ResistanceSet GetLatestResistanceSet()
+        {
+            return null;
         }
 
         //Get all of the exercises within a given exercise.
