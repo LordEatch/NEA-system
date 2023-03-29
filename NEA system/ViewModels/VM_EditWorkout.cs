@@ -47,7 +47,7 @@ internal class VM_EditWorkout : VM_Base, IRecordEditor
     {
         //Update exercise list.
         Exercises.Clear();
-        foreach (Exercise e in Session.GetExercisesByWorkout(MyWorkout))
+        foreach (Exercise e in Session.GetExercisesByWorkout(MyWorkout.WorkoutID))
         {
             Exercises.Add(e);
         }
@@ -77,7 +77,7 @@ internal class VM_EditWorkout : VM_Base, IRecordEditor
 
     private void DeleteWorkout()
     {
-        Session.DeleteWorkout(MyWorkout);
+        Session.DeleteWorkout(MyWorkout.WorkoutID);
         //Return to previous page.
         Shell.Current.GoToAsync("..");
     }

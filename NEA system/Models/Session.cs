@@ -98,17 +98,16 @@ namespace NEA_system.Models
 
         // Delete
 
-        public static int DeleteUser(User user)
+        public static int DeleteUser(int userID)
         {
-            DB.Delete<User>(user.UserID);
-            Debug.WriteLine($"SESSION: User with id:{user.UserID} deleted.");
-            return user.UserID;
+            DB.Delete<User>(userID);
+            Debug.WriteLine($"SESSION: User with id:{userID} deleted.");
+            return userID;
         }
         #endregion
 
 
 
-        //FIX
         #region ExerciseType CRUD methods
 
         // Create
@@ -205,20 +204,20 @@ namespace NEA_system.Models
         // Read
 
         //Match the current user's ID and a given exercise type ID to get the relevant subscription.
-        public static Subscription GetSubscriptionByExerciseType(ExerciseType exerciseType)
+        public static Subscription GetSubscriptionByExerciseType(int exerciseTypeID)
         {
-            return DB.Table<Subscription>().Where(s => (s.ExerciseTypeID == exerciseType.ExerciseTypeID) && (s.UserID == CurrentUser.UserID)).FirstOrDefault();
+            return DB.Table<Subscription>().Where(s => (s.ExerciseTypeID == exerciseTypeID) && (s.UserID == CurrentUser.UserID)).FirstOrDefault();
         }
 
 
 
         // Delete
 
-        public static int DeleteSubscription(Subscription subscription)
+        public static int DeleteSubscription(int subscriptionID)
         {
-            DB.Delete<Subscription>(subscription.SubscriptionID);
-            Debug.WriteLine($"SESSION: Subscription with id:{subscription.SubscriptionID} deleted.");
-            return subscription.SubscriptionID;
+            DB.Delete<Subscription>(subscriptionID);
+            Debug.WriteLine($"SESSION: Subscription with id:{subscriptionID} deleted.");
+            return subscriptionID;
         }
 
         #endregion
@@ -273,11 +272,11 @@ namespace NEA_system.Models
 
         // Delete
 
-        public static int DeleteWorkout(Workout workout)
+        public static int DeleteWorkout(int workoutID)
         {
-            DB.Delete<Workout>(workout.WorkoutID);
-            Debug.WriteLine($"SESSION: Workout with id:{workout.WorkoutID} deleted.");
-            return workout.WorkoutID;
+            DB.Delete<Workout>(workoutID);
+            Debug.WriteLine($"SESSION: Workout with id:{workoutID} deleted.");
+            return workoutID;
         }
         #endregion
 
@@ -298,9 +297,9 @@ namespace NEA_system.Models
         // Read
 
         //Return an array of all exercises from a given workout.
-        public static Exercise[] GetExercisesByWorkout(Workout workout)
+        public static Exercise[] GetExercisesByWorkout(int workoutID)
         {
-            return DB.Table<Exercise>().Where(e => e.WorkoutID == workout.WorkoutID).ToArray();
+            return DB.Table<Exercise>().Where(e => e.WorkoutID == workoutID).ToArray();
         }
 
 
@@ -311,17 +310,17 @@ namespace NEA_system.Models
         {
             DB.Update(exercise);
             Debug.WriteLine($"SESSION: Exercise with id:{exercise.ExerciseID} has been updated.");
-            return exercise.ExerciseID; 
+            return exercise.ExerciseID;
         }
 
 
 
         // Delete
 
-        public static int DeleteExercise(Exercise exercise)
+        public static int DeleteExercise(int exerciseID)
         {
-            DB.Delete<Exercise>(exercise.ExerciseID);
-            return exercise.ExerciseID;
+            DB.Delete<Exercise>(exerciseID);
+            return exerciseID;
         }
 
         #endregion
@@ -348,10 +347,23 @@ namespace NEA_system.Models
             return DB.Table<ResistanceSet>().Where(rS => rS.SetID == resistanceSetID).FirstOrDefault();
         }
 
-        //NOTE. Will still return sets from a deleted exercise/workout.
-        public static ResistanceSet GetLatestResistanceSet()
+        //Get the last created set of a given exercise type id. Returns null if there are none.
+        public static ResistanceSet[] GetResistanceSetsByExerciseType(int exerciseTypeID)
         {
-            return null;
+            string query = @$"
+                SELECT SetID, ResistanceSet.ExerciseID, Mass, StrictReps, CheatedReps, SetComment
+                FROM ((ResistanceSet
+                INNER JOIN Exercise
+                ON ResistanceSet.ExerciseID = Exercise.ExerciseID)
+                INNER JOIN ExerciseType
+                ON ExerciseType.ExerciseTypeID = Exercise.ExerciseTypeID)
+                INNER JOIN Workout
+                ON Workout.WorkoutID = Exercise.WorkoutID
+                WHERE Workout.UserID = {CurrentUser.UserID}
+                AND Exercise.ExerciseTypeID = {exerciseTypeID}";
+
+            //Get the last item since the query is ordered by SetID by default. The largest SetID will be the most recently created.
+            return DB.Query<ResistanceSet>(query).ToArray();
         }
 
         //Get all of the exercises within a given exercise.
@@ -375,10 +387,10 @@ namespace NEA_system.Models
 
         // Delete
 
-        public static int DeleteResistanceSet(ResistanceSet resistanceSet)
+        public static int DeleteResistanceSet(int resistanceSetID)
         {
-            DB.Delete<ResistanceSet>(resistanceSet.SetID);
-            return resistanceSet.SetID;
+            DB.Delete<ResistanceSet>(resistanceSetID);
+            return resistanceSetID;
         }
 
         #endregion

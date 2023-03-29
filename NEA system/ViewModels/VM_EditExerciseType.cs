@@ -43,7 +43,7 @@ internal class VM_EditExerciseType : VM_Base, IRecordEditor
     public void DeleteExerciseType()
     {
         //Get the relevant subscription and delete it.
-        Session.DeleteSubscription(Session.GetSubscriptionByExerciseType(MyExerciseType));
+        Session.DeleteSubscription(Session.GetSubscriptionByExerciseType(MyExerciseType.ExerciseTypeID).SubscriptionID);
         //Return to previous page.
         Shell.Current.GoToAsync("..");
     }

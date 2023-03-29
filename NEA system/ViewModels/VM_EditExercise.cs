@@ -52,6 +52,8 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
             ResistanceSets.Add(set);
             Debug.WriteLine($"Set with id:{set.SetID}, exerciseID:{set.ExerciseID} found.");
         }
+
+        OnPropertyChanged(OneRepMaxLabel);
     }
 
     public void SaveData()
@@ -83,7 +85,7 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
 
     private void DeleteSet(ResistanceSet set)
     {
-        Session.DeleteResistanceSet(set);
+        Session.DeleteResistanceSet(set.SetID);
         ResistanceSets.Remove(set);
     }
 
@@ -98,10 +100,12 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
             //If the set already exists in the database...
             if (Session.GetResistanceSet(set.SetID) != null)
             {
+                //Update the existing set.
                 Session.UpdateResistanceSet(set);
             }
             else
             {
+                //Insert a new resistance set.
                 Session.InsertResistanceSet(set);
             }
         }
@@ -112,19 +116,24 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
 
     private void DeleteExercise()
     {
-        Session.DeleteExercise(MyExercise);
+        Session.DeleteExercise(MyExercise.ExerciseID);
         //Return to previous page.
         Shell.Current.GoToAsync("..");
     }
 
-    //FINISH
+    //FIX FINISH BITCH
     private int CalculateOneRepMax()
     {
-        //FINISH
-        //Get last rS!
+        ResistanceSet[] resistanceSets = Session.GetResistanceSetsByExerciseType(MyExercise.ExerciseTypeID);
 
-        ResistanceSet rS = new();
-
-        return (int)Math.Round(rS.Mass * (1 + (rS.StrictReps / 30)));
+        //If a set exists...
+        if (resistanceSets != null)
+        {
+            return (int)Math.Round(resistanceSets.Last().Mass * (1 + (resistanceSets.Last().StrictReps / 30)));
+        }
+        else
+        {
+            return -1;
+        }
     }
 }
