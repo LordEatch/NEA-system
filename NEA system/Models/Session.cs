@@ -225,7 +225,6 @@ namespace NEA_system.Models
 
 
 
-        //FIX
         #region Workout CRUD methods
         // Create
 

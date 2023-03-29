@@ -19,6 +19,16 @@ public partial class Page_EditExercise : ContentPage
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
-        VM.SaveData();
+
+        if (VM.ValidateInputFormat())
+        {
+            VM.SaveData();
+        }
+        else
+        {
+            //Native MAUI method that displays a popup to alert a user that their changes have been undone due to an empty entry.
+            DisplayAlert("Alert", "Invalid input. Your changes to the exercise have been undone.", "OK");
+        }
+
     }
 }
