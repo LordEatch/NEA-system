@@ -16,19 +16,21 @@
             Command="{Binding AddSetCommand}" />
 
         <ListView
-            ItemsSource="{Binding ResistanceSets}">
+            ItemsSource="{Binding ResistanceSets}"
+            MinimumWidthRequest="400">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <HorizontalStackLayout>
-                            <Entry Text="{Binding Mass}" Keyboard="Numeric" Placeholder="Mass"/>
-                            <Entry Text="{Binding StrictReps}" Keyboard="Numeric" Placeholder="Strict reps"/>
-                            <Entry Text="{Binding CheatedReps}" Keyboard="Numeric" Placeholder="Cheated reps"/>
-                            <Entry Text="{Binding SetComment}" Placeholder="Comment"/>
+                            <Entry Text="{Binding Mass}" Placeholder="Mass" MinimumWidthRequest="75"/>
+                            <Entry Text="{Binding StrictReps}" Placeholder="Strict reps" MinimumWidthRequest="75"/>
+                            <Entry Text="{Binding CheatedReps}" Placeholder="Cheated reps" MinimumWidthRequest="75"/>
+                            <Entry Text="{Binding SetComment}" Placeholder="Comment" MinimumWidthRequest="75"/>
                             <Button
                                 Text="Delete"
                                 Command="{Binding Path=DeleteSetCommand, Source={RelativeSource AncestorType={x:Type viewmodels:VM_EditExercise}}}"
-                                CommandParameter="{Binding}"/>
+                                CommandParameter="{Binding}"
+                                MinimumWidthRequest="100"/>
                         </HorizontalStackLayout>
                     </ViewCell>
                 </DataTemplate>

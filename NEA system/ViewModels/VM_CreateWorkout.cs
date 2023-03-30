@@ -20,7 +20,7 @@ internal class VM_CreateWorkout : VM_Base, IDatabaseInput
 
         //Pre-populate entries.
         Date = DateTime.Now;
-        WorkoutMuscleGroup = "";
+        //Initialise so that workout can be inserted without null values.
         WorkoutComment = "";
     }
 

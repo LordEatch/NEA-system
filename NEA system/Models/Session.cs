@@ -26,6 +26,7 @@ namespace NEA_system.Models
                 DB = new SQLiteConnection(dbPath);
 
                 Debug.WriteLine("SESSION: Creating tables...");
+                //SQLite-net creates a schema for the database based off of the classes used as tables.
                 DB.CreateTable<User>();
                 DB.CreateTable<ExerciseType>();
 
@@ -33,7 +34,6 @@ namespace NEA_system.Models
                 foreach (ExerciseType eT in GetDefaultExerciseTypes())
                 {
                     DB.Insert(eT);
-                    //test
                     Debug.WriteLine($"SESSION: {eT.ExerciseTypeName} added to exercise type table in local db.");
                 }
 
@@ -158,7 +158,7 @@ namespace NEA_system.Models
 
             var result = DB.Query<ExerciseType>(query).ToArray();
 
-            Debug.WriteLine($"SESSION: {result.Length} workouts returned.");
+            Debug.WriteLine($"SESSION: {result.Length} exercise types returned.");
 
             return result;
         }
@@ -241,7 +241,7 @@ namespace NEA_system.Models
         public static Workout[] GetWorkouts(string filter)
         {
             string query = @$"
-                SELECT Workout.WorkoutId, UserID, Date, WorkoutMuscleGroup, WorkoutComment
+                SELECT DISTINCT Workout.WorkoutId, UserID, Date, WorkoutMuscleGroup, WorkoutComment
                 FROM (ExerciseType
                 INNER JOIN Exercise
                 ON ExerciseType.ExerciseTypeID = Exercise.ExerciseTypeID)
@@ -252,7 +252,7 @@ namespace NEA_system.Models
                 OR Workout.Date LIKE '%{filter}%'
                 OR Workout.WorkoutMuscleGroup LIKE '%{filter}%'
                 OR WorkoutComment LIKE '%{filter}%')
-                ORDER BY Date DESC";
+                ORDER BY Date DESC, Workout.WorkoutID DESC";
 
             return DB.Query<Workout>(query).ToArray();
         }
@@ -347,7 +347,7 @@ namespace NEA_system.Models
             return DB.Table<ResistanceSet>().Where(rS => rS.SetID == resistanceSetID).FirstOrDefault();
         }
 
-        //Get the last created set of a given exercise type id. Returns null if there are none.
+        //Get the an array of sets of a given exercise type from newest to oldest.
         public static ResistanceSet[] GetResistanceSetsByExerciseType(int exerciseTypeID)
         {
             string query = @$"
@@ -360,16 +360,16 @@ namespace NEA_system.Models
                 INNER JOIN Workout
                 ON Workout.WorkoutID = Exercise.WorkoutID
                 WHERE Workout.UserID = {CurrentUser.UserID}
-                AND Exercise.ExerciseTypeID = {exerciseTypeID}";
+                AND Exercise.ExerciseTypeID = {exerciseTypeID}
+                ORDER BY Workout.Date DESC, ResistanceSet.SetID DESC";
 
-            //Get the last item since the query is ordered by SetID by default. The largest SetID will be the most recently created.
             return DB.Query<ResistanceSet>(query).ToArray();
         }
 
         //Get all of the exercises within a given exercise.
-        public static ResistanceSet[] GetResistanceSetsByExercise(Exercise exercise)
+        public static ResistanceSet[] GetResistanceSetsByExercise(int exerciseID)
         {
-            return DB.Table<ResistanceSet>().Where(rS => rS.ExerciseID == exercise.ExerciseID).ToArray();
+            return DB.Table<ResistanceSet>().Where(rS => rS.ExerciseID == exerciseID).ToArray();
         }
 
 

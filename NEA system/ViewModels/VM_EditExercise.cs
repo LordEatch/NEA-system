@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace NEA_system.ViewModels;
 
@@ -10,13 +9,7 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
 
     public Exercise MyExercise { get; set; }
     public ObservableCollection<ResistanceSet> ResistanceSets { get; set; }
-    public string OneRepMaxLabel
-    {
-        get
-        {
-            return $"Your predicted 1RM: {CalculateOneRepMax()}";
-        }
-    }
+    public string OneRepMaxLabel { get; set; }
 
 
     public Command AddSetCommand { get; set; }
@@ -44,16 +37,18 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
 
     public void LoadViewData()
     {
-        ResistanceSets.Clear();
-
-        //Get relevant sets.
-        foreach (ResistanceSet set in Session.GetResistanceSetsByExercise(MyExercise))
+        //If the list view is empty (and the page has just loaded or there are no sets in the db)... (this is so that sets arent deleted when tabbing out)
+        if (ResistanceSets.Count() == 0)
         {
-            ResistanceSets.Add(set);
-            Debug.WriteLine($"Set with id:{set.SetID}, exerciseID:{set.ExerciseID} found.");
+            //Get relevant sets.
+            foreach (ResistanceSet set in Session.GetResistanceSetsByExercise(MyExercise.ExerciseID))
+            {
+                ResistanceSets.Add(set);
+            }
         }
 
-        OnPropertyChanged(OneRepMaxLabel);
+        OneRepMaxLabel = $"1RM: {CalculateOneRepMax()}";
+        OnPropertyChanged(nameof(OneRepMaxLabel));
     }
 
     public void SaveData()
@@ -64,6 +59,11 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
     //FINISH
     public bool ValidateInputFormat()
     {
+        //FINISH
+        //Need to check every set.
+
+        //Comment is already initialised and does not need to be checked for null.
+
         return true;
     }
 
@@ -79,6 +79,13 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
             CheatedReps = 0,
             SetComment = ""
         };
+
+        //Get the most recent set (null set if there are no other sets).
+        var lastSet = Session.GetResistanceSetsByExerciseType(MyExercise.ExerciseTypeID).FirstOrDefault();
+        //If a last set exists...
+        if (lastSet != null)
+            //Get last mass used.
+            set.Mass = lastSet.Mass;
 
         ResistanceSets.Add(set);
     }
@@ -121,15 +128,19 @@ internal class VM_EditExercise : VM_Base, IRecordEditor
         Shell.Current.GoToAsync("..");
     }
 
-    //FIX FINISH BITCH
+    //Use the Epley equation to estimate a one rep max based on the last performed set.
     private int CalculateOneRepMax()
     {
-        ResistanceSet[] resistanceSets = Session.GetResistanceSetsByExerciseType(MyExercise.ExerciseTypeID);
+        var set = Session.GetResistanceSetsByExerciseType(MyExercise.ExerciseTypeID).FirstOrDefault();
 
-        //If a set exists...
-        if (resistanceSets != null)
+        if (set != null)
         {
-            return (int)Math.Round(resistanceSets.Last().Mass * (1 + (resistanceSets.Last().StrictReps / 30)));
+            //Initialise as doubles to allow division of integers into fractions.
+            double mass = set.Mass;
+            double reps = set.StrictReps;
+
+            //Epley equation.
+            return (int)Math.Round(mass * (1 + (reps / 30)));
         }
         else
         {

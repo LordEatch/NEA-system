@@ -24,7 +24,10 @@ internal class VM_CreateExercise : VM_Base, IDatabaseInput
     public bool ValidateInputFormat()
     {
         if (SelectedExerciseType == null)
+        {
+            ErrorMessage = "Please select an exercise.";
             return false;
+        }
 
         return true;
     }

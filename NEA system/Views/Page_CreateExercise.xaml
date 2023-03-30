@@ -18,8 +18,9 @@
         <Picker
             ItemsSource="{Binding ExerciseTypes}"
             SelectedItem="{Binding SelectedExerciseType}"
-            ItemDisplayBinding="{Binding ExerciseTypeName}">
-            
-        </Picker>
+            ItemDisplayBinding="{Binding ExerciseTypeName}"/>
+        <Label
+            Text="{Binding ErrorMessage}"
+            Style="{StaticResource ErrorMessage}"/>
     </VerticalStackLayout>
 </ContentPage>

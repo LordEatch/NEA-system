@@ -2,7 +2,8 @@
 using System.Numerics;
 
 namespace NEA_system.Models;
-internal static class MyHash
+
+public static class MyHash
 {
     private static readonly ulong internalStateConstant = 0b_10101111_01110011_11100110_10101010_10000001_11101101_10101101_01011001;
 
@@ -13,6 +14,10 @@ internal static class MyHash
 
     private static ulong CalculatePasswordConstant(string plaintextPassword)
     {
+        //Do not attempt if the input is null or limit is exceeded.
+        if (plaintextPassword.Length > 30 || plaintextPassword == null)
+            return 0;
+
         byte k = 3;
         ulong hash = 0;
 
@@ -43,8 +48,11 @@ internal static class MyHash
         //Repeat 4 times.
         for (int i = 0; i < 4; i++)
         {
+            Debug.WriteLine("Iteration: " + i);
+
             //XOR comparison.
             internalState ^= integerInput;
+            Debug.WriteLine("InternalState after xor: " + NumberToBinaryString(internalState));
 
             /*
              * Circularly shifts the internal binary value by (number of 1's in the input * (2(iteration) + 1)).
@@ -52,15 +60,40 @@ internal static class MyHash
              * The second term makes the shift unique to the iteration. It also always returns an odd number.
              * This is useful because sometimes the offset was calculated as a multiple of 64 and hence did notthing to the internal value.
              */
+            Debug.WriteLine("n: " + (int)CountSetBits(integerInput) * (2 * i + 1));
             internalState = BitOperations.RotateLeft(internalState, (int)CountSetBits(integerInput) * (2 * i + 1));
+            Debug.WriteLine("InternalState after << n: " + NumberToBinaryString(internalState));
 
             Debug.WriteLine($"internal state [{i}]: {internalState.ToString("X8")}");
+            Debug.WriteLine("");
         }
 
         Debug.WriteLine("");
         Debug.WriteLine($"Output: {internalState.ToString("X8")}");
 
         return internalState;
+
+
+
+        //test
+        static string NumberToBinaryString(ulong bits)
+        {
+            string ret = string.Empty;
+            if (bits == 0)
+                ret = "0";
+            else
+                while (bits != 0)
+                {
+                    ret += (char)((bits & 1) + '0'); // NOTE: does not use conditional
+                    bits >>= 1;
+                }
+            char[] chars = ret.ToCharArray();
+            Array.Reverse(chars);
+            return string.Join("", chars);
+        }
+
+
+
 
 
 
