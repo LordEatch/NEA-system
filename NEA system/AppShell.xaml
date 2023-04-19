@@ -6,10 +6,6 @@
     xmlns:views="clr-namespace:NEA_system.Views"
     Shell.FlyoutBehavior="Disabled">
 
-    <Shell.FlyoutHeader>
-        <Image Source="oskar.png"/>
-    </Shell.FlyoutHeader>
-
     <ShellContent
         Title="Login"
         ContentTemplate="{DataTemplate views:Page_Login}"
