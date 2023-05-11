@@ -3,7 +3,7 @@
              xmlns:viewmodels="clr-namespace:NEA_system.ViewModels"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NEA_system.Views.Page_CreateUser"
-             Title="Create profile"
+             Title="Create new profile"
              Shell.FlyoutBehavior="Disabled">
 
     <ContentPage.BindingContext>

@@ -8,21 +8,16 @@
         HorizontalOptions="FillAndExpand"
         VerticalOptions="FillAndExpand">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="4*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <Button
-            Text="Create a user"
-            Command="{Binding GoToPage_CreateUser}"
-            Grid.Row="0"/>
 
         <!-- EmptyView property breaks android :/ -->
         <ListView
             ItemsSource="{Binding Users}"
             SelectionMode="Single"
             SelectedItem="{Binding SelectedUser}"
-            Grid.Row="1">
+            Grid.Row="0">
 
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -30,5 +25,10 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <Button
+            Text="Create a user"
+            Command="{Binding GoToPage_CreateUser}"
+            Grid.Row="1"/>
     </Grid>
 </ContentPage>

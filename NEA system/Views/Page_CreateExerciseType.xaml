@@ -4,7 +4,7 @@
              xmlns:viewmodels="clr-namespace:NEA_system.ViewModels"
              x:Class="NEA_system.Views.Page_CreateExerciseType"
              x:DataType="viewmodels:VM_CreateExerciseType"
-             Title="Add new exercise">
+             Title="Add new exercise type">
 
     <ContentPage.BindingContext>
         <viewmodels:VM_CreateExerciseType/>

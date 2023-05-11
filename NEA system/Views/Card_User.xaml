@@ -4,5 +4,10 @@
           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
           x:Class="NEA_system.Views.Card_User"
           x:DataType="models:User">
-    <Label Text="{Binding Username}"/>
+    <Frame
+        Margin="10">
+        <Label
+            Text="{Binding Username}"
+            FontSize="Header"/>
+    </Frame>
 </ViewCell>
