@@ -12,17 +12,18 @@ internal class VM_Login : VM_Base, IDatabaseOutput
         get { return null; }
         set
         {
-            if (value != null)
+            User SelectedUser = value;
+            if (SelectedUser != null)
             {
                 //If this user does not have a password...
-                if (value.IsPasswordProtected == false)
+                if (SelectedUser.IsPasswordProtected == false)
                 {
-                    Session.Login(value);
+                    Session.Login(SelectedUser);
                 }
                 else
                 {
                     //Proceed to password entry.
-                    Shell.Current.GoToAsync($"{nameof(Page_EnterPassword)}", new Dictionary<string, object>() { ["User"] = value });
+                    Shell.Current.GoToAsync($"{nameof(Page_EnterPassword)}", new Dictionary<string, object>() { ["User"] = SelectedUser });
                 }
             }
         }
