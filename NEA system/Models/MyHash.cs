@@ -90,14 +90,18 @@ public static class MyHash
         static string NumberToBinaryString(ulong bits)
         {
             string ret = string.Empty;
-            if (bits == 0)
+            if (bits == 0) 
+            {
                 ret = "0";
+            }
             else
+            {
                 while (bits != 0)
                 {
                     ret += (char)((bits & 1) + '0'); // NOTE: does not use conditional
                     bits >>= 1;
                 }
+            }
             char[] chars = ret.ToCharArray();
             Array.Reverse(chars);
             return string.Join("", chars);
